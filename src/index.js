@@ -1,16 +1,26 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+// import 'normalize.css/normalize.css';
+// import './site.css';
 
-import styles from './test.less';
+import App from './Archives';
+import './thirdparty/modernizr-custom';
 
-export default class Hello extends Component {
-  render() {
-    return (
-      <div className={ styles.testContainer }>
-        {JSON.stringify(styles)}
-      </div>
-    );
-  }
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('app'),
+  );
+};
+
+render(App);
+
+// Webpack Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept(() => {
+    render(App);
+  });
 }
-
-render(<Hello />, document.getElementById('app'));

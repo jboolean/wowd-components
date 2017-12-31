@@ -13,10 +13,11 @@ const paths = {
 
 // Webpack configuration
 module.exports = {
-  entry: path.join(paths.SRC, 'index.js'),
+  entry: ['react-hot-loader/patch', path.join(paths.SRC, 'index.js')],
   output: {
     path: paths.DIST,
-    filename: 'app.bundle.js'
+    filename: 'app.bundle.js',
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -31,7 +32,12 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           'babel-loader',
-          'eslint-loader'
+          {
+            loader: 'eslint-loader',
+            options: {
+              fix: true
+            }
+          }
         ],
       },
       {
