@@ -1,0 +1,48 @@
+{
+  "name": "takoma-radio-audio",
+  "version": "0.0.1",
+  "description": "Audio components for takomaradio.org",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack  --config webpack.prod.js",
+    "watch": "webpack-dev-server --config webpack.dev.js",
+    "lint": "eslint ./*.js src",
+    "lint-fix": "eslint ./*.js src --fix"
+  },
+  "keywords": [
+    "wowd-lp",
+    "fm",
+    "community radio",
+    "audio"
+  ],
+  "author": "Julian Boilen",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "normalize.css": "^7.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.2.3",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.1.2",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.14.0",
+    "eslint-config-squarespace": "^1.0.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-react": "^7.5.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "postcss-loader": "^2.0.9",
+    "uglifyjs-webpack-plugin": "^1.1.5",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1"
+  }
+}
