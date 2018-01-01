@@ -3,13 +3,13 @@
 import * as React from 'react';
 
 import stylesheet from './ShowList.less';
+import ShowAiring from './ShowAiring';
 
 import type { Show as ShowType } from './util/Types';
 
 type Props = {
   shows: ShowType[]
 };
-
 
 const ShowItem = (show : ShowType) => (
   <li key={show.id} className={stylesheet.show}>
@@ -20,9 +20,9 @@ const ShowItem = (show : ShowType) => (
       )}
     </div>
     <div className={stylesheet.showDescription}>{show.description}</div>
-    <ol>
+    <ol className={stylesheet.airingList}>
       {show.airings.map(airing =>
-        <li key={airing.audioUrl}><a href={airing.audioUrl}>{airing.onAirAt.format()}</a></li>
+        <li key={airing.audioUrl}><ShowAiring airing={airing} /></li>
       )}
     </ol>
   </li>

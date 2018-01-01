@@ -1,20 +1,24 @@
 @import "../variables.less";
 
 :local {
-  @column-width: @global-grid * 12;
-  .showList {
+  @column-width: @global-grid * 9;
+  ol.showList {
     margin: 0;
     padding: 0;
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(@column-width, 1fr));
     grid-gap: @global-grid;
+
+    li {
+      list-style: none;
+    }
   }
 
    @border-color: fadeout(black, 80%);
   .show {
     display: block;
-    border-radius: 5px;
+    border-radius: 3px;
     border: 1px solid @border-color;
     box-shadow: 0px 2px 4px 0 @border-color;
 
@@ -58,6 +62,18 @@
 
   .showDescription {
     font-size: 14px;
+  }
+
+  .airingList {
+    padding: 0;
+    margin-top: @global-grid / 2;
+    li {
+      list-style: none;
+
+      * > {
+        margin-right: @global-grid / 2;
+      }
+    }
   }
 
 

@@ -1,0 +1,80 @@
+@import "../variables.less";
+
+:local {
+  .playerButton {
+    font-size: 0;
+    
+    background-color: transparent;
+
+    border: 1px solid;
+    border-radius: 300px;
+
+    cursor: pointer;
+
+    text-align: center;
+
+
+    &::before {
+      // play icon
+      content: '\25BA';
+      // color: @playerColor;
+      text-align: center;
+    }
+
+    &.loading {
+      // border-color: darken(@playerColor, 20%);
+      cursor: wait;
+    }
+
+    &.playing::before {
+      // stop icon
+      content: '\2588';
+
+      padding-right: 3px;
+    }
+
+    &.light {
+      @lightColor: white;
+      border-color: @lightColor;
+      color: @lightColor;
+
+      &.loading {
+        border-color: darken(@lightColor, 20%);
+      }
+    }
+
+    &.large {
+      width: 22px * 2;
+      min-width: 22px * 2;
+      height: 22px * 2;
+
+      &::before {
+        font-size: 20px;
+        line-height: 43px;
+        padding-left: 4px;
+      }
+
+      &.playing::before {
+        font-size: 15px;
+        line-height: 41px;
+      }
+    }
+
+    &.small {
+      width: 22px;
+      min-width: 22px;
+      height: 22px;
+
+      &::before {
+        font-size: 10px;
+        line-height: 21.5px;
+      }
+
+      &.playing::before {
+        // font-size: 7px;
+        // line-height: 21.5px;
+      }
+    }
+
+  } 
+}
