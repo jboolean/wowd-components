@@ -54,10 +54,21 @@ module.exports = {
             'postcss-loader',
             'less-loader'],
         }),
+      },
+      {
+        test: /\.modernizrrc.js$/,
+        loader: 'modernizr-loader'
+      },
+      {
+        test: /\.modernizrrc(\.json)?$/,
+        loader: 'modernizr-loader!json-loader'
       }
     ],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      modernizr$: path.resolve(__dirname, './.modernizrrc')
+    }
   }
 };

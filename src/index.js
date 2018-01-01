@@ -5,7 +5,8 @@ import { AppContainer } from 'react-hot-loader';
 // import './site.css';
 
 import App from './Archives';
-import './thirdparty/modernizr-custom';
+// import './thirdparty/modernizr-custom';
+import 'modernizr';
 
 const render = Component => {
   ReactDOM.render(
