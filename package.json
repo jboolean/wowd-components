@@ -1,5 +1,5 @@
 {
-  "name": "takoma-radio-audio",
+  "name": "wowd-components",
   "version": "0.0.1",
   "description": "Audio components for takomaradio.org",
   "main": "dist/index.js",
