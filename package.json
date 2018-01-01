@@ -24,6 +24,7 @@
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
     "eventemitter3": "^3.0.0",
+    "expose-loader": "^0.7.4",
     "moment": "^2.20.1",
     "normalize.css": "^7.0.0",
     "react": "^16.2.0",

@@ -1,27 +1,3 @@
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-// import 'normalize.css/normalize.css';
-// import './site.css';
-
-import App from './Archives';
-// import './thirdparty/modernizr-custom';
-import 'modernizr';
-
-const render = Component => {
-  ReactDOM.render(
-    <AppContainer>
-      <Component />
-    </AppContainer>,
-    document.getElementById('app'),
-  );
-};
-
-render(App);
-
-// Webpack Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept(() => {
-    render(App);
-  });
-}
+// Exposes render functions on the global context so that they can be used in Squarespace code blocks
+import 'expose-loader?WOWDComponents!./exposed';
+import 'modernizr'; // runs modernizr
