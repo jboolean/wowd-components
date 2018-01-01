@@ -1,11 +1,17 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+
 
 // Webpack configuration
 module.exports = merge(common, {
   devtool: 'inline-source-map',
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(path.resolve(__dirname, 'src'), 'index.html'),
+    }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ]
