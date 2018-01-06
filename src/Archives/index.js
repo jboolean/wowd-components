@@ -4,24 +4,10 @@ import * as React from 'react';
 import { getAllShows } from './ShowArchivesApi';
 import collateByShow from './util/collateByShow';
 import type { Show } from './util/Types';
-import fuzzy from 'fuzzy';
-
-import ShowList from './ShowList';
-
-const filterByShowName = (filter, shows) => {
-  if (filter && filter.length && Array.isArray(shows)) {
-    return fuzzy.filter(filter, shows, {
-      extract: (show) => show.name
-    }).map((result) => result.original);
-  }
-
-  return shows;
-};
+import Archives from './Archives';
 
 type State = {
-  shows: ?Show[],
-  filteredShows : ?Show[],
-  filter: ?string
+  shows: ?Show[]
 };
 
 export default class ArchivesApp extends React.Component<void, State> {
@@ -29,10 +15,7 @@ export default class ArchivesApp extends React.Component<void, State> {
     super(props);
     this.state = {
       shows: null,
-      filteredShows: null,
-      filter: null
     };
-    (this:any).onFilterChange = this.onFilterChange.bind(this);
   }
 
   componentDidMount() {
@@ -43,32 +26,13 @@ export default class ArchivesApp extends React.Component<void, State> {
       })
       .catch(err => console.error(err));
   }
-
-  onFilterChange(e : { target : { value : string } }) {
-    const filter = e.target.value;
-    if (!filter) {
-      this.setState({
-        filter: null,
-        filteredShows: null
-      });
-    }
-    this.setState({
-      filter,
-      filteredShows: filterByShowName(filter, this.state.shows)
-    });
-  }
-
   render() {
     if (!this.state.shows) {
       return null;
     }
 
     return (
-      <div>
-        <label htmlFor="filter">Find by title</label>
-        <input name="filter" type="search" onChange={this.onFilterChange} value={this.state.filter || ''}/>
-        <ShowList shows={this.state.filteredShows || this.state.shows} />
-      </div>
+      <Archives shows={this.state.shows} />
     );
   }
 }
