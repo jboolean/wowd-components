@@ -2,6 +2,7 @@
 // https://nodejs.org/api/path.html
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
 
 // Constant with our paths
@@ -19,7 +20,8 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new ExtractTextPlugin('style.bundle.css')
+    new ExtractTextPlugin('style.bundle.css'),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
   module: {
     rules: [

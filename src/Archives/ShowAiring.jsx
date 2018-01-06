@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default class ShowAiring extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props : Props) {
     super(props);
     const track = TrackManager.createTrack(props.airing.audioUrl);
     this.state = { track };
@@ -26,7 +26,7 @@ export default class ShowAiring extends React.Component<Props, State> {
     return (
       <div>
         <ConnectedPlayButton track={this.state.track} theme="dark" size="small" className={stylesheet.playButton}/>
-        <span href={airing.audioUrl}>{airing.onAirAt.format('dddd, MMMM Do')}</span>
+        <span>{airing.onAirAt.format('dddd, MMMM Do')}</span>
       </div>
     );
   }

@@ -11,8 +11,7 @@ npm run watch:hot
 Starts a development server at `localhost:8080` which renders the index.html page.
 This page can be used to approximate the takomaradio.org Squarespace site.
 
-##
-Build
+## Build
 
 ```
 npm run build
