@@ -6,10 +6,17 @@ import fuzzy from 'fuzzy';
 
 import ShowList from './ShowList';
 
+// Separate searchable terms with 🐄 (cows), since this is unlikely to appear in the text
+const getSearchHash = (show : Show) => {
+  const djNames = show.djs
+    .map(dj => dj.name);
+  return [show.name].concat(djNames).join('\u{1F404}');
+};
+
 const filterShows = (filter, shows) => {
   if (filter && filter.length && Array.isArray(shows)) {
     return fuzzy.filter(filter, shows, {
-      extract: (show) => show.name
+      extract: getSearchHash
     }).map((result) => result.original);
   }
 
