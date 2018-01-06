@@ -8,6 +8,9 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 // Webpack configuration
 module.exports = merge(common, {
+  output: {
+    publicPath: '/s/'
+  },
   plugins: [
     new UglifyJSPlugin({
       sourceMap: true
