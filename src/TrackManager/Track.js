@@ -39,6 +39,7 @@ export default class Track extends EventEmitter {
     this.position = 0;
     this.duration = 0;
     this.isActive = false;
+    this.state = 'stopped';
     this.callbacks = Object.assign({}, defaultCallbacks);
   }
 
@@ -91,6 +92,7 @@ export default class Track extends EventEmitter {
    * Notifiy this track that it is now playing
    */
   handlePlay() {
+    this.state = 'playing';
     this.emit('play', this);
   }
 
@@ -98,6 +100,7 @@ export default class Track extends EventEmitter {
    * Notify this track that it is now paused
    */
   handlePaused() {
+    this.state = 'paused';
     this.emit('pause', this);
   }
 
@@ -105,6 +108,7 @@ export default class Track extends EventEmitter {
    * Notify this track that it has ended
    */
   handleEnded() {
+    this.state = 'stopped';
     this.emit('ended', this);
   }
 

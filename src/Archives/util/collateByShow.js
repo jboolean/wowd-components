@@ -2,6 +2,7 @@
 
 import moment from 'moment';
 import type { Show, ShowAiring, Dj } from './Types';
+import TrackManager from '../../TrackManager';
 
 const dateTimeFormat = 'YYYY-MM-DD HH:mm';
 
@@ -17,10 +18,12 @@ export default function(apiShows : []) : Show[] {
       const onAirAt = moment(archive.Date + ' ' + apiShow.StartTime, dateTimeFormat);
       const offAirAt = moment(archive.Date + ' ' + apiShow.EndTime, dateTimeFormat);
       const audioUrl = archive.AudioURL;
+      const track = TrackManager.createTrack(audioUrl);
       return {
         onAirAt,
         offAirAt,
-        audioUrl
+        audioUrl,
+        track
       };
     });
     const show = {

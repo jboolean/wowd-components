@@ -16,7 +16,7 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
     const { track, theme, size } = props;
 
     this.state = {
-      state: 'stopped',
+      state: track.state,
       onClick: () => track.play(),
       theme,
       size
@@ -26,19 +26,19 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
       .on('play', () => {
         this.setState({
           onClick: () => track.pause(),
-          state: 'playing'
+          state: track.state
         });
       })
       .on('ended', () => {
         this.setState({
           onClick: () => track.play(),
-          state: 'stopped'
+          state: track.state
         });
       })
       .on('pause', () => {
         this.setState({
           onClick: () => track.play(),
-          state: 'paused'
+          state: track.state
         });
       });
   }
