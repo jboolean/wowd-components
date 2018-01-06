@@ -6,6 +6,8 @@ import fuzzy from 'fuzzy';
 
 import ShowList from './ShowList';
 
+import stylesheet from './Archives.less';
+
 // Separate searchable terms with 🐄 (cows), since this is unlikely to appear in the text
 const getSearchHash = (show : Show) => {
   const djNames = show.djs
@@ -68,8 +70,16 @@ export default class Archives extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <label htmlFor="filter">Find by title</label>
-        <input name="filter" type="search" onChange={this.onFilterChange} value={this.state.filter || ''}/>
+        <div className={stylesheet.controls}>
+          <input
+            className={stylesheet.filter}
+            name="filter"
+            type="search"
+            onChange={this.onFilterChange}
+            value={this.state.filter || ''}
+            placeholder="Find shows"
+          />
+        </div>
         <ShowList shows={this.state.filteredShows} />
       </div>
     );

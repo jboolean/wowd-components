@@ -1,0 +1,28 @@
+@import "../variables.less";
+
+:local {
+  .controls {
+    composes: grid from "./grid.less";
+
+    margin-bottom: @global-grid;
+  }
+
+
+  input.filter {
+    height: @global-grid;
+    background-color: inherit;
+    border: 1px solid @font-color;
+    outline: 0;
+    padding-left: @global-grid + 15px;
+
+    background: url("../img/icon-searchqueries-20-dark.png") no-repeat 15px 50%;
+    opacity: 0.35;
+
+    font-size: @font-size-small;
+
+    &:focus {
+      // border-color: @font-color;
+      opacity: 1;
+    }
+  }
+}

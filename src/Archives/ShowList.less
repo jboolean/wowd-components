@@ -2,20 +2,20 @@
 
 :local {
   @column-width: @global-grid * 9;
-  ol.showList {
+  .showList {
     margin: 0;
     padding: 0;
 
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(@column-width, 1fr));
-    grid-gap: @global-grid;
+    composes: grid from "./grid.less";
+
 
     li {
       list-style: none;
     }
   }
 
-   @border-color: fadeout(black, 80%);
+   // @border-color: fadeout(black, 80%);
+   @border-color: @font-color-faded;
   .show {
     display: block;
     border-radius: 3px;
@@ -61,7 +61,7 @@
   }
 
   .showDescription {
-    font-size: 14px;
+    font-size: @font-size-small;
   }
 
   .airingList {
