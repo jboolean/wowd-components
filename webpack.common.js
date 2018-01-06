@@ -46,12 +46,19 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 localIdentName: '[name]-[local]-[hash:base64:5]',
-                minify: true
+                minify: true,
+                importLoaders: 2
               }
             },
             'postcss-loader',
             'less-loader'],
         }),
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
       },
       {
         test: /\.modernizrrc.js$/,
