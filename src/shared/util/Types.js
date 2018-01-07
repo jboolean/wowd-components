@@ -1,7 +1,7 @@
 //@flow
 
 import moment from 'moment';
-import typeof Track from '../../TrackManager/Track';
+import typeof Track from 'TrackManager/Track';
 
 export type Dj = {
   id: number,

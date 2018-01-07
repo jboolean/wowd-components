@@ -5,6 +5,8 @@ import * as React from 'react';
 import stylesheet from './ShowList.less';
 import ShowAiring from './ShowAiring';
 
+import { Link } from 'react-router-dom';
+
 import type { Show as ShowType } from 'util/Types';
 
 type Props = {
@@ -13,7 +15,9 @@ type Props = {
 
 const ShowItem = (show : ShowType) => (
   <li key={show.id} className={stylesheet.show}>
-    <div className={stylesheet.showName}>{show.name}</div>
+    <div className={stylesheet.showName}>
+      <Link to={'/shows/' + show.id}>{show.name}</Link>
+    </div>
     <div className={stylesheet.djs}>
       {show.djs.map(dj =>
         <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>

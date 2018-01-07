@@ -64,3 +64,4 @@ GitHub.sublime-settings
 
 node_modules
 dist/
+flow-typed
