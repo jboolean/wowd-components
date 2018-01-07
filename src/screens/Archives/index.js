@@ -1,10 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import { getAllShows } from 'util/ShowArchivesApi';
-import collateByShow from 'util/collateByShow';
+
 import type { Show } from 'util/Types';
 import Archives from './Archives';
+import getArchiveSummaries from './util/getArchiveSummaries';
 
 type State = {
   shows: ?Show[]
@@ -19,8 +19,7 @@ export default class ArchivesApp extends React.Component<void, State> {
   }
 
   componentDidMount() {
-    getAllShows()
-      .then(resp => collateByShow(resp.data))
+    getArchiveSummaries()
       .then(shows => {
         this.setState({ shows });
       })
