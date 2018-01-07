@@ -1,0 +1,39 @@
+@import "~shared/variables.less";
+
+@column-width: @global-grid * 9;
+:local {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(@column-width, 1fr));
+    grid-gap: @global-grid;
+  }
+
+  // flexbox alternative. 
+  // Does not stretch to fill space as nicely.
+  :global(.no-cssgrid) {
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .grid > * {
+      flex: 0 0 20%;
+      margin: 0 @global-grid / 2 @global-grid @global-grid / 2;
+      width: @column-width;
+    }
+
+    @media (max-width: 904px) {
+      .grid > * {
+        flex-basis: 40%;
+      }
+    }
+
+    @media (max-width: 590px) {
+      .grid > * {
+        flex-basis: 90%;
+      }
+    }
+
+  }
+}

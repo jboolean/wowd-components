@@ -1,4 +1,4 @@
-@import "../variables.less";
+@import "~shared/variables.less";
 
 :local {
   @column-width: @global-grid * 9;
@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
 
-    composes: grid from "./grid.less";
+    composes: grid from "../../shared/grid.less";
 
 
     li {

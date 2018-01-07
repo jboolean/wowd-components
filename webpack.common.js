@@ -77,6 +77,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    // directories named 'shared' will be resolved by lower modules, without ../../../.
+    modules: ['node_modules', 'shared', path.resolve(__dirname, './src')],
     alias: {
       modernizr$: path.resolve(__dirname, './.modernizrrc')
     }

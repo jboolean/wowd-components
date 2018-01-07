@@ -2,7 +2,7 @@
 
 import moment from 'moment';
 import type { Show, ShowAiring, Dj } from './Types';
-import TrackManager from '../../TrackManager';
+import TrackManager from 'TrackManager';
 
 const dateTimeFormat = 'YYYY-MM-DD HH:mm';
 

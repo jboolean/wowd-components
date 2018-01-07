@@ -10,5 +10,12 @@
   ],
   "globals": {
     "WOWDComponents": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.prod.js"
+      }
+    }
   }
 }

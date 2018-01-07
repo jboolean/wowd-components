@@ -1,9 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { getAllShows } from './ShowArchivesApi';
-import collateByShow from './util/collateByShow';
-import type { Show } from './util/Types';
+import { getAllShows } from 'util/ShowArchivesApi';
+import collateByShow from 'util/collateByShow';
+import type { Show } from 'util/Types';
 import Archives from './Archives';
 
 type State = {

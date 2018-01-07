@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import typeof Track from '../TrackManager/Track';
+import typeof Track from 'TrackManager/Track';
 import PlayButton from './PlayButton';
 import type { Props as PlayButtonProps, Theme, Size } from './PlayButton';
 

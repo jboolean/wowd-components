@@ -5,7 +5,7 @@ import * as React from 'react';
 import stylesheet from './ShowList.less';
 import ShowAiring from './ShowAiring';
 
-import type { Show as ShowType } from './util/Types';
+import type { Show as ShowType } from 'util/Types';
 
 type Props = {
   shows: ShowType[]

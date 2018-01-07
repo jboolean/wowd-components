@@ -1,8 +1,8 @@
-@import "../variables.less";
+@import "~shared/variables.less";
 
 :local {
   .controls {
-    composes: grid from "./grid.less";
+    composes: grid from "./shared/grid.less";
 
     margin-bottom: @global-grid;
   }
@@ -16,7 +16,8 @@
     outline: 0;
     padding-left: @global-grid / 2;
 
-    background: url("../img/icon-searchqueries-20-dark.png") no-repeat right @global-grid / 2 center;
+    background: url("img/icon-searchqueries-20-dark.png") no-repeat right @global-grid / 2 center;
+    padding-right: @global-grid / 2;
     opacity: 0.35;
 
     font-size: @font-size-small;

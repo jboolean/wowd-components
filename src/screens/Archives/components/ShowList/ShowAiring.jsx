@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
-import ConnectedPlayButton from '../Player/ConnectedPlayButton';
-import type { ShowAiring as ShowAiringType } from './util/Types';
+import ConnectedPlayButton from 'components/Player/ConnectedPlayButton';
+import type { ShowAiring as ShowAiringType } from 'util/Types';
 import stylesheet from './ShowList.less';
 
 

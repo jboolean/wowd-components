@@ -1,10 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import type { Show } from './util/Types';
+import type { Show } from 'util/Types';
 import fuzzy from 'fuzzy';
 
-import ShowList from './ShowList';
+import ShowList from './components/ShowList';
 
 import stylesheet from './Archives.less';
 
