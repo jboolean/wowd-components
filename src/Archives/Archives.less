@@ -11,11 +11,12 @@
   input.filter {
     height: @global-grid;
     background-color: inherit;
-    border: 1px solid @font-color;
+    border: none;
+    border-bottom: 1px solid @font-color;
     outline: 0;
-    padding-left: @global-grid + 15px;
+    padding-left: @global-grid / 2;
 
-    background: url("../img/icon-searchqueries-20-dark.png") no-repeat 15px 50%;
+    background: url("../img/icon-searchqueries-20-dark.png") no-repeat right @global-grid / 2 center;
     opacity: 0.35;
 
     font-size: @font-size-small;
