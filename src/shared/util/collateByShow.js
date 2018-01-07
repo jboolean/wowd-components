@@ -26,6 +26,7 @@ export default function(apiShows : []) : Show[] {
         track
       };
     });
+    airings.sort((a, b) => b.onAirAt.unix() - a.onAirAt.unix());
     const show = {
       id: apiShow.ShowID,
       description: apiShow.Description,
