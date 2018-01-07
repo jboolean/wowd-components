@@ -9,7 +9,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 // Webpack configuration
 module.exports = merge(common, {
   output: {
-    publicPath: '/s/'
+    publicPath: '//takomaradio.org/s/'
   },
   plugins: [
     new UglifyJSPlugin({
