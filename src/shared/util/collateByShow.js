@@ -1,7 +1,7 @@
 //@flow
 
 import moment from 'moment';
-import type { Show, ShowAiring, Dj } from './Types';
+import type { Show, ShowEpisode, Dj } from './Types';
 import TrackManager from 'TrackManager';
 
 const dateTimeFormat = 'YYYY-MM-DD HH:mm';
@@ -14,7 +14,7 @@ export default function(apiShows : []) : Show[] {
       name: dj.DJName,
       imageUrl: dj.DJImageURL
     }));
-    const airings : ShowAiring[] = (apiShow.ShowArchives || []).map(archive => {
+    const episodes : ShowEpisode[] = (apiShow.ShowArchives || []).map(archive => {
       const onAirAt = moment(archive.Date + ' ' + apiShow.StartTime, dateTimeFormat);
       const offAirAt = moment(archive.Date + ' ' + apiShow.EndTime, dateTimeFormat);
       const audioUrl = archive.AudioURL;
@@ -26,13 +26,13 @@ export default function(apiShows : []) : Show[] {
         track
       };
     });
-    airings.sort((a, b) => b.onAirAt.unix() - a.onAirAt.unix());
+    episodes.sort((a, b) => b.onAirAt.unix() - a.onAirAt.unix());
     const show = {
       id: apiShow.ShowID,
       description: apiShow.Description,
       name: apiShow.ShowName,
       djs,
-      airings
+      episodes
     };
     results.push(show);
   });

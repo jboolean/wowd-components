@@ -9,7 +9,7 @@ export type Dj = {
   imageUrl: ?string
 };
 
-export type ShowAiring = {
+export type ShowEpisode = {
   onAirAt: moment,
   offAirAt: moment,
   audioUrl: string,
@@ -21,16 +21,5 @@ export type Show = {
   description: string,
   name: string,
   djs: Dj[],
-  airings: ShowAiring[]
-};
-
-export type Airing = {
-  showId: number,
-  showDescription: string,
-  showName: string,
-  onAirAt: moment,
-  offAirAt: moment,
-  showDescription: string,
-  audioUrl: string,
-  djs: Dj[]
+  episodes: ShowEpisode[]
 };

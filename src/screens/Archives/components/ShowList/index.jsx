@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import stylesheet from './ShowList.less';
-import ShowAiring from './ShowAiring';
+import ShowEpisode from './ShowEpisode';
 
 import { Link } from 'react-router-dom';
 
@@ -24,9 +24,9 @@ const ShowItem = (show : ShowType) => (
       )}
     </div>
     <div className={stylesheet.showDescription}>{show.description}</div>
-    <ol className={stylesheet.airingList}>
-      {show.airings.map(airing =>
-        <li key={airing.audioUrl}><ShowAiring airing={airing} /></li>
+    <ol className={stylesheet.episodeList}>
+      {show.episodes.map(episode =>
+        <li key={episode.audioUrl}><ShowEpisode episode={episode} /></li>
       )}
     </ol>
   </li>

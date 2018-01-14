@@ -17,7 +17,7 @@ export default class ConnectedShow extends React.Component<ContextRouter> {
       name: 'Show #' + showId,
       description: 'Fetching show data not implemented',
       djs: [],
-      airings: []
+      episodes: []
     };
     return (
       <Show show={show}/>
