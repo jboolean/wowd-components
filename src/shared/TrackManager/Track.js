@@ -5,14 +5,18 @@ const noop = () => {};
 
 type Callbacks = {
   handlePlay: () => void,
+  handleActivate: () => void,
   handlePause: () => void,
+  handleStop: () => void,
   handleSeek: (position : number) => void
 };
 
 const defaultCallbacks : Callbacks = {
   handlePlay: noop,
+  handleActivate: noop,
   handlePause: noop,
-  handleSeek: noop
+  handleSeek: noop,
+  handleStop: noop
 };
 
 type State = 'playing' | 'paused' | 'stopped' | 'loading';
@@ -84,6 +88,13 @@ export default class Track<M> extends EventEmitter {
   }
 
   /**
+   * Activate this track.
+   */
+  activate() {
+    this.callbacks.handleActivate();
+  }
+
+  /**
    * Pause this track.
    */
   pause() {
@@ -96,6 +107,10 @@ export default class Track<M> extends EventEmitter {
    */
   seek(position : number) {
     this.callbacks.handleSeek(position);
+  }
+
+  stop() {
+    this.callbacks.handleStop();
   }
 
   // Methods to be called by TrackManager to update our state

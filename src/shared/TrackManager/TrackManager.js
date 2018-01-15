@@ -53,6 +53,11 @@ export default class TrackManager<M> extends EventEmitter {
         }
 
       })
+      .on('stop', () => {
+        if (this.activeTrack) {
+          this.activeTrack.handleEnded();
+        }
+      })
       .on('ended', () => {
         if (this.activeTrack) {
           this.activeTrack.handleEnded();
@@ -85,6 +90,14 @@ export default class TrackManager<M> extends EventEmitter {
           this.player.seek(position);
         }
         track.handlePositionChanged(position);
+      },
+      handleActivate: () => {
+        this.activate(track);
+      },
+      handleStop: () => {
+        if (track.isActive) {
+          this.player.stop();
+        }
       }
     });
 

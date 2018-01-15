@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import ArchivesApp from './ArchivesApp';
 import GlobalPlayer from 'screens/GlobalPlayer';
+import LiveTrack from 'LiveTrack';
 
 const renderApp = (container, App) => {
   const render = Component => {
@@ -30,4 +31,8 @@ export function renderArchives(container) {
 
 export function renderGlobalPlayer(container) {
   renderApp(container, GlobalPlayer);
+}
+
+export function activateLiveTrack() {
+  LiveTrack.activate();
 }

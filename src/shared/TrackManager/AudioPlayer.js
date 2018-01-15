@@ -16,6 +16,7 @@ const eventMap = {
   playing: 'play',
   ended: 'ended'
 };
+// also, 'stop' is a custom event for when it is stopped.
 
 const defaultConfig = {
   url: null,
@@ -96,33 +97,33 @@ export default class AudioPlayer extends EventEmitter {
    * Load if needed, then play this player
    */
   play() {
-    if (!this.audioEl.src) {
-      throw new Error('Cannot play: Need to set a url first.');
-    }
+    this.playFrom();
+  }
 
-    if (this._needsLoad) {
-      this.once('ready', () => this.audioEl.play());
-
-      this.audioEl.load();
-      this.audioEl.play();
-      this._needsLoad = false;
-    } else if (this.audioEl.readyState >= 3) {
-      this.audioEl.play();
-    }
-
+  stop() {
+    // There isn't really a stop function.
+    this.audioEl.src = 'about:blank';
+    this._needsLoad = true;
+    this.emit('stop');
   }
 
   /**
    * Load if needed, then seek, then play
    */
-  playFrom(position) {
-    if (!this.audioEl.src) {
+  playFrom(position = null) {
+    if (!this.url) {
       throw new Error('Cannot play: Need to set a url first.');
+    }
+
+    if (!this.audioEl.src || this.audioEl.src === 'about:blank') {
+      this.audioEl.src = this.url;
     }
 
     if (this._needsLoad) {
       this.once('ready', () => {
-        this.audioEl.currentTime = position; // Firefox doesn't like to seek until its loaded.
+        if (position !== null) {
+          this.audioEl.currentTime = position; // Firefox doesn't like to seek until its loaded.
+        }
         this.audioEl.play(); // Chrome doesn't always play() until you load().
       });
 
@@ -131,7 +132,9 @@ export default class AudioPlayer extends EventEmitter {
 
       this._needsLoad = false;
     } else if (this.audioEl.readyState >= 3) {
-      this.audioEl.currentTime = position;
+      if (position !== null) {
+        this.audioEl.currentTime = position;
+      }
       this.audioEl.play();
     }
     // if here, it's not loaded, but loading again will do no good.

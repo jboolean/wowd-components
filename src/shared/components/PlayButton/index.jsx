@@ -52,7 +52,14 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
     const newListeners = {
       play: () => {
         this.setState({
-          onClick: () => track.pause(),
+          onClick: () => {
+            // If this is a live stream, stop instead of pause
+            if (track.duration === Infinity) {
+              track.stop();
+              return;
+            }
+            track.pause();
+          },
           state: track.state
         });
       },

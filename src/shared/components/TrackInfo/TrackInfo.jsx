@@ -55,9 +55,9 @@ export default function TrackInfo(trackInfo : TrackMetadata & Playhead) {
           &lsquo;<span>{trackInfo.song.name}</span>&rsquo;
           {/*<div>{trackInfo.song.album}</div>*/}
         </div> : null}
-      <div>
+      {!trackInfo.isLive ? <div>
         <Timestamp value={trackInfo.position}/> / <Timestamp value={trackInfo.duration}/>
-      </div>
+      </div> : null}
     </div>
   );
 }
