@@ -1,8 +1,11 @@
-//@flow
+// @flow
 
 import moment from 'moment';
-import type { Show, ShowEpisode, Dj } from './Types';
-import TrackManager from 'TrackManager';
+import type { Show, ShowEpisode, Dj, TrackMetadata } from './Types';
+import TrackManagerSingleton from 'TrackManager';
+import TrackManagerType from 'TrackManager/TrackManager';
+const TrackManager = (TrackManagerSingleton : TrackManagerType<TrackMetadata>);
+
 
 const dateTimeFormat = 'YYYY-MM-DD HH:mm';
 
@@ -18,7 +21,14 @@ export default function(apiShows : []) : Show[] {
       const onAirAt = moment(archive.Date + ' ' + apiShow.StartTime, dateTimeFormat);
       const offAirAt = moment(archive.Date + ' ' + apiShow.EndTime, dateTimeFormat);
       const audioUrl = archive.AudioURL;
-      const track = TrackManager.createTrack(audioUrl);
+      const metadata : TrackMetadata = {
+        showName: apiShow.ShowName,
+        djs,
+        song: null,
+        isLive: false,
+        onAirAt
+      };
+      const track = TrackManager.createTrack(audioUrl, metadata);
       return {
         onAirAt,
         offAirAt,

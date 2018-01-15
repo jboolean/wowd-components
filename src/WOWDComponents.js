@@ -1,9 +1,10 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './ArchivesApp';
+import ArchivesApp from './ArchivesApp';
+import GlobalPlayer from 'screens/GlobalPlayer';
 
-export function renderArchives(container) {
+const renderApp = (container, App) => {
   const render = Component => {
     ReactDOM.render(
       <AppContainer>
@@ -21,4 +22,12 @@ export function renderArchives(container) {
       render(App);
     });
   }
+};
+
+export function renderArchives(container) {
+  renderApp(container, ArchivesApp);
+}
+
+export function renderGlobalPlayer(container) {
+  renderApp(container, GlobalPlayer);
 }

@@ -1,5 +1,7 @@
+// @flow
 import AudioPlayer from './AudioPlayer';
 import Track from './Track';
+import EventEmitter from 'eventemitter3';
 
 /**
  * Handles the playing of multiple tracks using a single audio player.
@@ -10,10 +12,15 @@ import Track from './Track';
  * without needing to directly load and unload things into the Audio player.
  *
  * Use the `player` property to access the underlying audio player.
+ *
+ * <M> : type of metadata object, if desired.
  */
-export default class TrackManager {
-
+export default class TrackManager<M> extends EventEmitter {
+  player: AudioPlayer;
+  activeTrack: ?Track<M>;
   constructor() {
+    super();
+
     this.player = new AudioPlayer();
     this.activeTrack = null;
 
@@ -59,9 +66,9 @@ export default class TrackManager {
    * @param  {String} url - url to load
    * @return {Track}
    */
-  createTrack(url) {
+  createTrack(url : string, metadata : M) {
 
-    const track = new Track(url);
+    const track = new Track(url, metadata);
 
     track.setCallbacks({
       handlePlay: () => {
@@ -88,19 +95,22 @@ export default class TrackManager {
    * Make track active, and the current track inactive.
    * @param {Track} track
    */
-  activate(track) {
+  activate(track : Track<M>) {
     if (this.activeTrack === track) {
       return;
     }
 
-    if (this.activeTrack) {
-      this.activeTrack.pause();
+    const outgoingTrack = this.activeTrack;
+    if (outgoingTrack) {
+      outgoingTrack.pause();
       // track is paused asynchonously, so new src is set before pause event is fired.
-      this.activeTrack.handlePaused();
-      this.activeTrack.handleActiveChange(false);
+      outgoingTrack.handlePaused();
+      outgoingTrack.handleActiveChange(false);
     }
 
     this.activeTrack = track;
+
+    this.emit('trackChanged', this.activeTrack);
 
     if (track) {
       this.player.setSrc(track.url);

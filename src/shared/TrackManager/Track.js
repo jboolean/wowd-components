@@ -1,12 +1,21 @@
+// @flow
 import EventEmitter from 'eventemitter3';
 
 const noop = () => {};
 
-const defaultCallbacks = {
+type Callbacks = {
+  handlePlay: () => void,
+  handlePause: () => void,
+  handleSeek: (position : number) => void
+};
+
+const defaultCallbacks : Callbacks = {
   handlePlay: noop,
   handlePause: noop,
   handleSeek: noop
 };
+
+type State = 'playing' | 'paused' | 'stopped' | 'loading';
 
 /**
  * An abstraction for a managed piece of audio.
@@ -30,12 +39,19 @@ const defaultCallbacks = {
  * * duration
  * * isActive
  */
-export default class Track extends EventEmitter {
+export default class Track<M> extends EventEmitter {
+  metadata : M;
+  callbacks : Callbacks;
+  state: State;
+  position: number;
+  duration: number;
+
   // Create using TrackManager, please.
-  constructor(url) {
+  constructor(url : string, metadata : M) {
     super();
 
     this.url = url;
+    this.metadata = metadata;
     this.position = 0;
     this.duration = 0;
     this.isActive = false;
@@ -51,8 +67,13 @@ export default class Track extends EventEmitter {
    * @param {Function} callbacks.handlePause - the track wants to pause
    * @param {Function} callbacks.handleSeek - the track wants to move the playhead
    */
-  setCallbacks(callbacks) {
+  setCallbacks(callbacks : Callbacks) {
     this.callbacks = Object.assign({}, defaultCallbacks, callbacks);
+  }
+
+  setMetadata(metadata : M) {
+    this.metadata = metadata;
+    this.emit('metadataChanged', this.metadata, this);
   }
 
   /**
@@ -73,7 +94,7 @@ export default class Track extends EventEmitter {
    * Jump the playhead to the specified time
    * @param  {Number} position - time in seconds
    */
-  seek(position) {
+  seek(position : number) {
     this.callbacks.handleSeek(position);
   }
 
@@ -83,9 +104,9 @@ export default class Track extends EventEmitter {
    * The position of this track has changed
    * @param  {Number} newPosition - the current position
    */
-  handlePositionChanged(newPosition) {
+  handlePositionChanged(newPosition : number) {
     this.position = newPosition;
-    this.emit('positionChange', this);
+    this.emit('positionChanged', newPosition, this);
   }
 
   /**
@@ -115,9 +136,9 @@ export default class Track extends EventEmitter {
   /**
    * Notify this track that its duration has changed.
    */
-  handleDurationChanged(newDuration) {
+  handleDurationChanged(newDuration : number) {
     this.duration = newDuration;
-    this.emit('durationChange', this);
+    this.emit('durationChanged', newDuration, this);
   }
 
   /**
@@ -131,7 +152,7 @@ export default class Track extends EventEmitter {
    * Notify this track that it has become active/inactive in the manager
    * @param  {Boolean} isNowActive
    */
-  handleActiveChange(isNowActive) {
+  handleActiveChange(isNowActive : boolean) {
     this.isActive = isNowActive;
     this.emit(isNowActive ? 'active' : 'inactive', this);
   }

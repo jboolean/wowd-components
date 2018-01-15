@@ -1,7 +1,8 @@
 //@flow
 
 import moment from 'moment';
-import typeof Track from 'TrackManager/Track';
+import Track from 'TrackManager/Track';
+
 
 export type Dj = {
   id: number,
@@ -9,11 +10,24 @@ export type Dj = {
   imageUrl: ?string
 };
 
+export type TrackMetadata = {
+  showName: string,
+  djs: Dj[],
+
+  song: ?{
+    name: string,
+    artist: string,
+    album: string
+  },
+  isLive: boolean,
+  onAirAt: ?moment
+};
+
 export type ShowEpisode = {
   onAirAt: moment,
   offAirAt: moment,
   audioUrl: string,
-  track : Track
+  track : Track<TrackMetadata>
 };
 
 export type Show = {

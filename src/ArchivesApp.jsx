@@ -9,7 +9,6 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import ScrollToTop from 'components/ScrollToTop';
 
 const App = () => (
   <Router>

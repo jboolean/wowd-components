@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import ConnectedPlayButton from 'components/Player/ConnectedPlayButton';
+import PlayButton from 'components/PlayButton';
 import type { ShowEpisode as ShowEpisodeType } from 'util/Types';
 import stylesheet from './ShowList.less';
 
@@ -14,7 +14,7 @@ export default class ShowEpisode extends React.Component<Props> {
     const { episode } = this.props;
     return (
       <div>
-        <ConnectedPlayButton
+        <PlayButton
           track={this.props.episode.track}
           theme="dark"
           size="small"
