@@ -1,12 +1,12 @@
 // @flow
 import * as React from 'react';
 import PlayButton from 'components/PlayButton';
-import type { ShowEpisode as ShowEpisodeType } from 'util/Types';
+import type { EpisodeSummary } from 'util/Types';
 import stylesheet from './ShowList.less';
 
 
 type Props = {
-  episode: ShowEpisodeType
+  episode: EpisodeSummary
 };
 
 export default class ShowEpisode extends React.Component<Props> {

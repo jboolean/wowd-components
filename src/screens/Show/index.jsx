@@ -6,21 +6,35 @@ import Show from './Show';
 import type { ContextRouter } from 'react-router-dom';
 import type { Show as ShowType } from 'util/Types';
 
-export default class ConnectedShow extends React.Component<ContextRouter> {
-  render() {
+import { getShow } from 'util/ShowArchivesApi';
+
+type State = {
+  show: ?ShowType
+};
+
+export default class ConnectedShow extends React.Component<ContextRouter, State> {
+  constructor(props : void) {
+    super(props);
+    this.state = {
+      show: null,
+    };
+  }
+
+  componentDidMount() {
     const showId = parseInt(this.props.match.params.showId);
-    if (!showId) {
+    getShow(showId)
+      .then(show => {
+        this.setState({ show });
+      })
+      .catch(err => console.error(err));
+  }
+  render() {
+    if (!this.state.show) {
       return null;
     }
-    const show : ShowType = {
-      id: showId,
-      name: 'Show #' + showId,
-      description: 'Fetching show data not implemented',
-      djs: [],
-      episodes: []
-    };
+
     return (
-      <Show show={show}/>
+      <Show show={this.state.show} />
     );
   }
 }

@@ -17,7 +17,9 @@ const getNowPlayingData = () => {
 const defaultMetadata : TrackMetadata = {
   showName: 'Takoma Radio',
   isLive: true,
-  djs: []
+  djs: [],
+  onAirAt: null,
+  song: null
 };
 
 const liveTrack = TrackManager.createTrack(STREAM_URL, defaultMetadata);

@@ -1,4 +1,5 @@
-import { get } from 'axios';
+// @flow
+import axios from 'axios';
 
 import Track from 'TrackManager/Track';
 import moment from 'moment';
@@ -7,7 +8,7 @@ import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
 const TrackManager = (TrackManagerSingleton : TrackManagerType<TrackMetadata>);
 
-// prevents duplicate Tracks for being created.
+// prevents duplicate Tracks from being created.
 const trackCatalog : {[string] : Track<TrackMetadata>} = {};
 
 const getOrCreateTrack = (url : string, metadata : TrackMetadata) : Track<TrackMetadata> => {
@@ -20,14 +21,14 @@ const getOrCreateTrack = (url : string, metadata : TrackMetadata) : Track<TrackM
 const convertTime = (date : string, time : string) : moment =>
   moment(date + ' ' + time, 'YYYY-MM-DD HH:mm');
 
-const convertEpisodeSummary = (apiEpisode : {}, apiShow : {}) : EpisodeSummary => {
+const convertEpisodeSummary = (apiEpisode : *, apiShow : *) : EpisodeSummary => {
   const onAirAtStr = apiEpisode.onAirAt || apiShow.onAirAt;
   const offAirAtStr = apiEpisode.offAirAt || apiShow.offAirAt;
   const onAirAt = convertTime(apiEpisode.date, onAirAtStr);
   const offAirAt = convertTime(apiEpisode.date, offAirAtStr);
   const audioUrl = apiEpisode.audioUrl;
   const metadata : TrackMetadata = {
-    name: apiShow.name,
+    showName: apiShow.name,
     djs: apiShow.djs,
     song: null,
     isLive: false,
@@ -45,7 +46,7 @@ const convertEpisodeSummary = (apiEpisode : {}, apiShow : {}) : EpisodeSummary =
   };
 };
 
-const convertShow = (apiShow : {}) : Show => {
+const convertShow = (apiShow : *) : Show => {
   const djs = (apiShow.djs : Dj[]);
   const episodes : EpisodeSummary[] = (apiShow.episodes || [])
     .map(apiEpisode => convertEpisodeSummary(apiEpisode, apiShow));
@@ -68,7 +69,12 @@ const convertAllShows = (apiShows : []) : Show[] => {
 const ROOT_URL = 'https://live2.takomaradio.org/spinitron/audioapi2.php';
 
 export function getAllShows() {
-  return get(ROOT_URL, { params: { request: 'showsbyday' } })
+  return axios.get(ROOT_URL, { params: { request: 'showsbyday' } })
     .then(resp => convertAllShows(resp.data));
+}
+
+export function getShow(id : number) {
+  return axios.get(ROOT_URL, { params: { request: 'showinfo', id } })
+    .then(resp => convertShow(resp.data));
 }
 

@@ -71,7 +71,7 @@ export default class TrackManager<M> extends EventEmitter {
    * @param  {String} url - url to load
    * @return {Track}
    */
-  createTrack(url : string, metadata : M) {
+  createTrack(url : string, metadata : M) : Track<M> {
 
     const track = new Track(url, metadata);
 
