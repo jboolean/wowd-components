@@ -3,9 +3,17 @@
 import * as React from 'react';
 
 import type { Show } from 'util/Types';
+import { getAllShows } from 'util/ShowArchivesApi';
 import Archives from './Archives';
-import getArchiveSummaries from './util/getArchiveSummaries';
 
+let promise;
+// Fetch, transform, and cache archive summary
+const getArchiveSummaries = () : Promise<Show[]> => {
+  if (!promise) {
+    promise = getAllShows();
+  }
+  return promise;
+};
 type State = {
   shows: ?Show[]
 };

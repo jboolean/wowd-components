@@ -23,17 +23,29 @@ export type TrackMetadata = {
   onAirAt: ?moment
 };
 
-export type ShowEpisode = {
+/**
+ * This object is used in two different contexts.
+ * Depending on from whence a Show is retrieved, the id may or may be available.
+ * From the archive summary: id, name, and description are null.
+ * From the show info api: id is availabel, and name and description are nullable.
+ */
+export type EpisodeSummary = {
+  id: ?number,
+  name: ?string,
+  description: ?string,
+  
   onAirAt: moment,
   offAirAt: moment,
   audioUrl: string,
   track : Track<TrackMetadata>
 };
 
+
 export type Show = {
   id: number,
   description: string,
   name: string,
   djs: Dj[],
-  episodes: ShowEpisode[]
+  episodes: EpisodeSummary[]
 };
+
