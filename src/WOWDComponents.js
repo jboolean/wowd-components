@@ -36,3 +36,7 @@ export function renderGlobalPlayer(container) {
 export function activateLiveTrack() {
   LiveTrack.activate();
 }
+
+export function playLiveTrack() {
+  LiveTrack.play();
+}
