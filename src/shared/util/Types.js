@@ -10,15 +10,17 @@ export type Dj = {
   imageUrl: ?string
 };
 
+export type Song = {
+  name: string,
+  artist: string,
+  album: string
+};
+
 export type TrackMetadata = {
   showName: string,
   djs: Dj[],
 
-  song: ?{
-    name: string,
-    artist: string,
-    album: string
-  },
+  song: ?Song,
   isLive: boolean,
   onAirAt: ?moment
 };
@@ -37,7 +39,7 @@ export type EpisodeSummary = {
   onAirAt: moment,
   offAirAt: moment,
   audioUrl: string,
-  track : Track<TrackMetadata>
+  track : ?Track<TrackMetadata>
 };
 
 
@@ -47,5 +49,16 @@ export type Show = {
   name: string,
   djs: Dj[],
   episodes: EpisodeSummary[]
+};
+
+export type PlaylistItem = {
+    id: number,
+    airedOn: moment,
+    song: Song
+  };
+
+export type Playlist = {
+  id: number,
+  songs: PlaylistItem[]
 };
 

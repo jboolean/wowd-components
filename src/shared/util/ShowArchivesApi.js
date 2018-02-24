@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Track from 'TrackManager/Track';
 import moment from 'moment';
-import type { Show, EpisodeSummary, Dj, TrackMetadata } from './Types';
+import type { Show, EpisodeSummary, Dj, TrackMetadata, Playlist } from './Types';
 import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
 const TrackManager = (TrackManagerSingleton : TrackManagerType<TrackMetadata>);
@@ -34,7 +34,7 @@ const convertEpisodeSummary = (apiEpisode : *, apiShow : *) : EpisodeSummary => 
     isLive: false,
     onAirAt
   };
-  const track = getOrCreateTrack(audioUrl, metadata);
+  const track = audioUrl !== null ? getOrCreateTrack(audioUrl, metadata) : null;
   return {
     id: apiEpisode.id,
     name: apiEpisode.name,
@@ -66,15 +66,49 @@ const convertAllShows = (apiShows : []) : Show[] => {
   return results;
 };
 
+const convertPlaylist = (apiPlaylist : *) : Playlist => {
+  const songs = apiPlaylist.songs.map(apiSong => {
+    return {
+      airedOn: convertTime(apiSong.date, apiSong.onAirAt),
+      id: apiSong.id,
+      song: {
+        name: apiSong.song,
+        artist: apiSong.artist,
+        album: apiSong.disk
+      }
+    };
+  });
+
+  return {
+    id: apiPlaylist.id,
+    songs
+  };
+};
+
 const ROOT_URL = 'https://live2.takomaradio.org/spinitron/audioapi2.php';
 
-export function getAllShows() {
+export function getAllShows() : Promise<Show[]> {
   return axios.get(ROOT_URL, { params: { request: 'showsbyday' } })
     .then(resp => convertAllShows(resp.data));
 }
 
-export function getShow(id : number) {
+export function getShow(id : number) : Promise<Show> {
   return axios.get(ROOT_URL, { params: { request: 'showinfo', id } })
     .then(resp => convertShow(resp.data));
 }
 
+export function getEpisode(showId : number, episodeId : number) : Promise<EpisodeSummary> {
+  return getShow(showId)
+    .then(show => {
+      const foundEpisode = show.episodes.find(episode => episode.id === episodeId);
+      if (!foundEpisode) {
+        throw new Error('Episode not found in show.');
+      }
+      return foundEpisode;
+    });
+}
+
+export function getPlaylist(episodeId : number) : Promise<Playlist> {
+  return axios.get(ROOT_URL, { params: { request: 'episodeinfo', id: episodeId } })
+    .then(resp => convertPlaylist(resp.data));
+}

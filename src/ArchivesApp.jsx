@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import Archives from './screens/Archives';
 import Show from './screens/Show';
+import Episode from './screens/Episode';
 import {
   HashRouter as Router,
   Route,
@@ -15,6 +16,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Archives} />
       <Route exact path="/shows/:showId" component={Show} />
+      <Route exact path="/shows/:showId/:episodeId" component={Episode} />
       <Redirect to="/" />
     </Switch>
   </Router>
