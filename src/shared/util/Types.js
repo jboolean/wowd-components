@@ -35,7 +35,7 @@ export type EpisodeSummary = {
   id: ?number,
   name: ?string,
   description: ?string,
-  
+
   onAirAt: moment,
   offAirAt: moment,
   audioUrl: string,
@@ -48,7 +48,13 @@ export type Show = {
   description: string,
   name: string,
   djs: Dj[],
-  episodes: EpisodeSummary[]
+  episodes: EpisodeSummary[],
+  // These moments represent a time of week, not an instant in time.
+  // moment is not ideal for this.
+  airTimes: {
+    onAirAt: moment,
+    offAirAt: moment
+  }[]
 };
 
 export type PlaylistItem = {

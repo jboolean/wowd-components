@@ -21,6 +21,9 @@ const getOrCreateTrack = (url : string, metadata : TrackMetadata) : Track<TrackM
 const convertTime = (date : string, time : string) : moment =>
   moment(date + ' ' + time, 'YYYY-MM-DD HH:mm');
 
+const convertTimeOfWeek = (dayOfWeek : string, time : string) : moment =>
+  moment(dayOfWeek + ' ' + time, 'ddd HH:mm');
+
 const convertEpisodeSummary = (apiEpisode : *, apiShow : *) : EpisodeSummary => {
   const onAirAtStr = apiEpisode.onAirAt || apiShow.onAirAt;
   const offAirAtStr = apiEpisode.offAirAt || apiShow.offAirAt;
@@ -51,12 +54,19 @@ const convertShow = (apiShow : *) : Show => {
   const episodes : EpisodeSummary[] = (apiShow.episodes || [])
     .map(apiEpisode => convertEpisodeSummary(apiEpisode, apiShow));
   episodes.sort((a, b) => b.onAirAt.unix() - a.onAirAt.unix());
+  const airTimes = apiShow.daysOfWeek.map(dow => {
+    return {
+      onAirAt: convertTimeOfWeek(dow, apiShow.onAirAt),
+      offAirAt: convertTimeOfWeek(dow, apiShow.offAirAt)
+    };
+  });
   return {
     id: apiShow.id,
     description: apiShow.description,
     name: apiShow.name,
     djs,
-    episodes
+    episodes,
+    airTimes
   };
 };
 

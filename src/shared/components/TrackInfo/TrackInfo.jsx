@@ -22,6 +22,8 @@ const formatTimestamp = (seconds) =>
 
 const Timestamp = ({ value: seconds } : { value : number }) => {
   const string = formatTimestamp(seconds);
+  // Okay so, to prevent the time text from jumping around,
+  // stardard widths are defined based on the string length.
   const className = cx(stylesheet.timestamp, {
     [stylesheet.singleMinutes]: string.length === 4,
     [stylesheet.tensOfMinutes]: string.length === 5,

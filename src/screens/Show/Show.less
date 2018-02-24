@@ -1,0 +1,45 @@
+@import "~shared/variables.less";
+
+:local {
+  ol.episodes {
+    list-style: none;
+    padding: 0;
+    margin-top: @global-grid;
+
+  }
+
+  .episode {
+    margin-bottom: @global-grid / 2;
+    padding-bottom: @global-grid / 2;
+    border-bottom: 1px solid @font-color-faded;
+    & > * {
+      margin-bottom: @global-grid / 4;
+    }
+    .title {
+      font-weight: bold;
+
+      a {
+        color: @font-color-link;
+      }
+    }
+
+    .teaser {
+      font-size: @font-size-small;
+    }
+
+    .inlineDate {
+      // color: @font-color-faded;
+
+      &::after {
+        content: ' • ';
+      }
+    }
+
+    .actions > * {
+      display: inline-block;
+      font-size: @font-size-small;
+      margin-right: @global-grid / 2;
+    }
+
+  }
+}
