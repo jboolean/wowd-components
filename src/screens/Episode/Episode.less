@@ -15,8 +15,13 @@
   }
 
   a.showName {
-    color: @font-color-link;
+    color: @font-color-no-opacity;
+    opacity: @font-color-opacity;
     font-weight: bold;
+
+    &:hover {
+      opacity: @font-color-dark-opacity;
+    }
   }
 
   .playlistItem {
@@ -41,6 +46,7 @@
     }
     .preview {
       width: 100%;
+      height: 100%;
     }
 
     @media (min-width: 960px) {

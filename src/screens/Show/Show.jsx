@@ -43,7 +43,7 @@ export default class Show extends React.Component<Props> {
           {episode.track ? <div className={stylesheet.play}>
             <PlayButton
               track={episode.track}
-              theme="dark"
+              theme="primary"
               size="small"
             />
           </div> : null}
