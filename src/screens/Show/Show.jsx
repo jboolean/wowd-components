@@ -61,13 +61,15 @@ export default class Show extends React.Component<Props> {
       <div>
         <div>
           <h1>{show.name}</h1>
-          <div>{show.airTimes.map(formatAirTime).join(', ')}</div>
           <div className={stylesheet.djs}>
             {show.djs.map(dj =>
               <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>
             )}
           </div>
-          <p>{show.description}</p>
+          <div className={stylesheet.airTimes}>
+            {show.airTimes.map(formatAirTime).join(', ')}
+          </div>
+          <p className={stylesheet.showDescription}>{show.description}</p>
         </div>
         <ol className={stylesheet.episodes}>
           {show.episodes.map(episode =>

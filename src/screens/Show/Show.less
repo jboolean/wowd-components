@@ -5,7 +5,14 @@
     list-style: none;
     padding: 0;
     margin-top: @global-grid;
+  }
 
+  .airTimes {
+    font-size: @font-size-small;
+  }
+
+  .dj:not(:last-child)::after {
+    content: ' / '
   }
 
   .episode {
@@ -27,6 +34,7 @@
         text-decoration: underline;
       }
     }
+
 
     .teaser {
       font-size: @font-size-small;
