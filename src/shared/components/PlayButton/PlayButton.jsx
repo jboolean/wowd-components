@@ -14,7 +14,7 @@ export type Props = {
   onClick : () => void,
   theme : Theme,
   size : Size,
-  className : ?string
+  className? : string
 };
 
 export default function PlayButton(props : Props) {

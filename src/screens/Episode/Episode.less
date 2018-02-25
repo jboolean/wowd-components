@@ -10,6 +10,7 @@
   }
 
   .play {
+    display: block;
     margin: @global-grid / 2 0;
   }
 
@@ -19,6 +20,8 @@
   }
 
   .playlistItem {
+    position: relative;
+    // clear: both;
     .airedOn {
       font-size: @font-size-small;
       font-style: italic;
@@ -29,6 +32,32 @@
     }
     .songArtist, .songAlbum {
       font-size: @font-size-small;
+    }
+
+    .previewContainer {
+      position: relative;
+      width: 250px;
+      height: 80px;
+    }
+    .preview {
+      width: 100%;
+    }
+
+    @media (min-width: 960px) {
+      .previewContainer {
+        float: right;
+      }
+
+      .previewContainer{
+        width: 35%;        
+      }
+    }
+
+    // clearfix
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
     }
   }
 }

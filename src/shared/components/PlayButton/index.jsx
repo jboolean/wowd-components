@@ -8,7 +8,7 @@ type Props = {
   track : Track<any>,
   theme : Theme,
   size : Size,
-  className : ?string
+  className? : string
 };
 
 type ExtraState = {

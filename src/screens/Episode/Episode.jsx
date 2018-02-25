@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import PlayButton from 'components/PlayButton';
+import SongPreview from 'components/SongPreview';
 import type {
   Show as ShowType,
   EpisodeSummary,
@@ -23,6 +24,9 @@ const PlaylistItem = (item : PlaylistItemType) => {
     <div className={stylesheet.playlistItem}>
       <div className={stylesheet.airedOn}>
         <time dateTime={item.airedOn.format()}>{item.airedOn.format('h:mma')}</time>
+      </div>
+      <div className={stylesheet.previewContainer}>
+        <SongPreview song={item.song} className={stylesheet.preview} />
       </div>
       <div className={stylesheet.songName}>{item.song.name}</div>
       <div className={stylesheet.songArtist}>{item.song.artist}</div>
