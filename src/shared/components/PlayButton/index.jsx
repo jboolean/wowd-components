@@ -7,7 +7,8 @@ import type { Props as PlayButtonProps, Theme, Size } from './PlayButton';
 type Props = {
   track : Track<any>,
   theme : Theme,
-  size : Size
+  size : Size,
+  className : ?string
 };
 
 type ExtraState = {
@@ -24,7 +25,8 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
       onClick: () => track.play(),
       theme,
       size,
-      boundListeners: {}
+      boundListeners: {},
+      className: props.className
     };
 
   }

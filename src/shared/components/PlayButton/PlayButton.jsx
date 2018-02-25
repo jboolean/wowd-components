@@ -13,7 +13,8 @@ export type Props = {
   state : 'playing' | 'paused' | 'stopped' | 'loading',
   onClick : () => void,
   theme : Theme,
-  size : Size
+  size : Size,
+  className : ?string
 };
 
 export default function PlayButton(props : Props) {
@@ -21,7 +22,8 @@ export default function PlayButton(props : Props) {
     stylesheet.playerButton,
     stylesheet[props.state],
     stylesheet[props.theme],
-    stylesheet[props.size]);
+    stylesheet[props.size],
+    props.className);
 
   return (
     <button className={className} onClick={props.onClick}>Play/Pause</button>

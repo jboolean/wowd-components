@@ -44,9 +44,11 @@ export default class Episode extends React.Component<Props> {
           <h1>{hasTitle ? episode.name : date}</h1>
           <Link to={`/shows/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
           {hasTitle ? <div className={stylesheet.airDate}>{date}</div> : null}
+          {episode.track ?
+            <PlayButton className={stylesheet.play} track={episode.track} theme="dark" size="large" /> :
+            null}
           <p className={stylesheet.episodeDescription}>{episode.description}</p>
         </div>
-        {episode.track ? <PlayButton track={episode.track} theme="dark" size="large" /> : null}
         <ol className={stylesheet.playlist}>
           {playlist.songs.map(playlistItem =>
             <li key={playlistItem.id}><PlaylistItem {...playlistItem} /></li>
