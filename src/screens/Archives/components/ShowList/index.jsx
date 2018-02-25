@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import stylesheet from './ShowList.less';
 import ShowEpisode from './ShowEpisode';
+import moment from 'moment';
 
 import { Link } from 'react-router-dom';
 
@@ -12,6 +13,10 @@ import type { Show as ShowType } from 'util/Types';
 type Props = {
   shows: ShowType[]
 };
+
+const formatAirTime = (airTime : {onAirAt: moment, offAirAt: moment}) : string =>
+  (airTime.onAirAt.format('dddd[s], h:mma') + '–' + airTime.offAirAt.format('h:mma'))
+    .replace(/:00/g, '');
 
 const ShowItem = (show : ShowType) => (
   <li key={show.id} className={stylesheet.show}>
@@ -29,6 +34,9 @@ const ShowItem = (show : ShowType) => (
         <li key={episode.audioUrl}><ShowEpisode episode={episode} /></li>
       )}
     </ol>
+    <div className={stylesheet.airTimes}>
+      {show.airTimes.map(formatAirTime).join(', ')}
+    </div>
   </li>
 );
 export default function ShowList(props : Props) {
