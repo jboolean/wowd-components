@@ -11,7 +11,9 @@
   .episode {
     margin-bottom: @global-grid / 2;
     padding-bottom: @global-grid / 2;
+    padding-left: @global-grid * 1.5;
     border-bottom: 1px solid @font-color-faded;
+    position: relative;
     & > * {
       margin-bottom: @global-grid / 4;
     }
@@ -21,24 +23,37 @@
       a {
         color: @font-color-link;
       }
+      a:hover {
+        text-decoration: underline;
+      }
     }
 
     .teaser {
       font-size: @font-size-small;
     }
 
-    .inlineDate {
-      // color: @font-color-faded;
-
-      &::after {
-        content: ' • ';
-      }
+    .inlineDate::after {
+      content: ' • ';
     }
 
-    .actions > * {
-      display: inline-block;
-      font-size: @font-size-small;
-      margin-right: @global-grid / 2;
+    .play {
+      position: absolute;
+      top: 0;
+      margin-left: -@global-grid * 1.5;
+      top: -2px;
+    }
+
+    .playlistButton {
+      display: block;
+      background: url("img/playlist.svg") no-repeat left center;
+      background-size: 14px;
+      padding-left: 20px;
+      color: rgb(26, 26, 26);
+      opacity: 0.7;
+    }
+
+    .playlistButton:hover {
+      opacity: 0.9;
     }
 
   }
