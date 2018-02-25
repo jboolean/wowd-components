@@ -78,6 +78,9 @@ export default class Show extends React.Component<Props> {
             <li key={episode.id}>{this.renderEpisode(episode)}</li>
           )}
         </ol>
+        <p className={stylesheet.disclaimer}>
+          Audio is available for two weeks after the episode airs.
+        </p>
       </div>
     );
   }
