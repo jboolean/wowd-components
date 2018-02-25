@@ -16,7 +16,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Archives} />
       <Route exact path="/shows/:showId" component={Show} />
-      <Route exact path="/shows/:showId/:episodeId" component={Episode} />
+      <Route exact path="/shows/:showId/episodes/:episodeId" component={Episode} />
       <Redirect to="/" />
     </Switch>
   </Router>

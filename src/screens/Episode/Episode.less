@@ -1,0 +1,30 @@
+@import "~shared/variables.less";
+
+:local {
+  .airDate {
+    font-size: @font-size-small;
+  }
+
+  .playlist {
+    composes: list from '../../shared/list.less';
+  }
+
+  a.showName {
+    color: @font-color-link;
+    font-weight: bold;
+  }
+
+  .playlistItem {
+    .airedOn {
+      font-size: @font-size-small;
+      font-style: italic;
+      color: @font-color-faded;
+    }
+    .songTitle {
+      font-weight: bold;
+    }
+    .songArtist, .songAlbum {
+      font-size: @font-size-small;
+    }
+  }
+}

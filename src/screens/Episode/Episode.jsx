@@ -8,6 +8,10 @@ import type {
   Playlist,
   PlaylistItem as PlaylistItemType } from 'util/Types';
 
+import { Link } from 'react-router-dom';
+
+import stylesheet from './Episode.less';
+
 type Props = {
   show: ShowType,
   episode: EpisodeSummary,
@@ -16,11 +20,13 @@ type Props = {
 
 const PlaylistItem = (item : PlaylistItemType) => {
   return (
-    <div>
-      <div>{item.airedOn.format()}</div>
-      <div>{item.song.name}</div>
-      <div>{item.song.artist}</div>
-      <div>{item.song.album}</div>
+    <div className={stylesheet.playlistItem}>
+      <div className={stylesheet.airedOn}>
+        <time dateTime={item.airedOn.format()}>{item.airedOn.format('h:mma')}</time>
+      </div>
+      <div className={stylesheet.songName}>{item.song.name}</div>
+      <div className={stylesheet.songArtist}>{item.song.artist}</div>
+      <div className={stylesheet.songAlbum}>{item.song.album}</div>
     </div>
   );
 };
@@ -28,20 +34,20 @@ const PlaylistItem = (item : PlaylistItemType) => {
 export default class Episode extends React.Component<Props> {
   render() {
     const { show, episode, playlist } = this.props;
+    const date = (<time dateTime={episode.onAirAt.format()}>
+      {episode.onAirAt.format('dddd, MMMM Do')}
+    </time>);
+    const hasTitle = !!episode.name;
     return (
       <div>
         <div>
-          {episode.name ?
-            <div>
-              <h2>{episode.onAirAt.format('dddd, MMMM Do')}</h2>
-              <h1>{episode.name}</h1>
-            </div> :
-            <h1>{episode.onAirAt.format('dddd, MMMM Do')}</h1>}
-          <h2>{show.name}</h2>
-          <p>{episode.description}</p>
+          <h1>{hasTitle ? episode.name : date}</h1>
+          <Link to={`/shows/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
+          {hasTitle ? <div className={stylesheet.airDate}>{date}</div> : null}
+          <p className={stylesheet.episodeDescription}>{episode.description}</p>
         </div>
         {episode.track ? <PlayButton track={episode.track} theme="dark" size="large" /> : null}
-        <ol>
+        <ol className={stylesheet.playlist}>
           {playlist.songs.map(playlistItem =>
             <li key={playlistItem.id}><PlaylistItem {...playlistItem} /></li>
           )}

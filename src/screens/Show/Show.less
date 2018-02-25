@@ -5,11 +5,9 @@
     position: relative;
   }
 
-  ol.episodes {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-top: @global-grid;  
+  .episodes {
+    // cannot get webpack to resolve composes
+    composes: list from '../../shared/list.less';
   }
 
   .airTimes {
@@ -36,10 +34,7 @@
   }
 
   .episode {
-    margin-bottom: @global-grid / 2;
-    padding-bottom: @global-grid / 2;
     padding-left: @global-grid * 1.5;
-    border-bottom: 1px solid @font-color-faded;
     position: relative;
     & > * {
       margin-bottom: @global-grid / 4;
@@ -58,6 +53,10 @@
 
     .teaser {
       font-size: @font-size-small;
+    }
+
+    .inlineDate {
+      font-style: italic;
     }
 
     .inlineDate::after {

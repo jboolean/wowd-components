@@ -25,7 +25,7 @@ export default class Show extends React.Component<Props> {
     if (!episode.id) {
       throw new Error('id cannot be null');
     }
-    const url = `/shows/${this.props.show.id}/${episode.id}`;
+    const url = `/shows/${this.props.show.id}/episodes/${episode.id}`;
     const date = (<time dateTime={episode.onAirAt.format()}>
       {episode.onAirAt.format('dddd, MMMM Do')}
     </time>);
