@@ -6,7 +6,7 @@ import stylesheet from './PlayButton.less';
 
 import cx from 'classnames';
 
-export type Theme = 'dark' | 'light';
+export type Theme = 'dark' | 'light' | 'primary';
 export type Size = 'small' | 'large';
 
 export type Props = {

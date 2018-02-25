@@ -49,7 +49,7 @@ export default class Episode extends React.Component<Props> {
           <Link to={`/shows/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
           {hasTitle ? <div className={stylesheet.airDate}>{date}</div> : null}
           {episode.track ?
-            <PlayButton className={stylesheet.play} track={episode.track} theme="dark" size="large" /> :
+            <PlayButton className={stylesheet.play} track={episode.track} theme="primary" size="large" /> :
             null}
           <p className={stylesheet.episodeDescription}>{episode.description}</p>
         </div>
