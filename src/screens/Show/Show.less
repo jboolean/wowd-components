@@ -1,10 +1,15 @@
 @import "~shared/variables.less";
 
 :local {
+  .container {
+    position: relative;
+  }
+
   ol.episodes {
     list-style: none;
     padding: 0;
-    margin-top: @global-grid;
+    margin: 0;
+    margin-top: @global-grid;  
   }
 
   .airTimes {
@@ -13,6 +18,21 @@
 
   .dj:not(:last-child)::after {
     content: ' / '
+  }
+
+  @sidebar-size: 300px;
+
+  @media (min-width: 960px) {
+    .episodes {
+      width: calc(~"100% -" @sidebar-size + @global-grid * 2);
+    }
+
+    .showInfo {
+      width: @sidebar-size;
+      position: absolute;
+      right: 0;
+      margin: 0;
+    }
   }
 
   .episode {
