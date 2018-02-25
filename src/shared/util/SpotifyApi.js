@@ -1,10 +1,25 @@
+// @flow
 import type { Song } from 'util/Types';
 import axios from 'axios';
+import moment from 'moment';
 
-// TODO implement backend to get these tokens. This is temporary and does not work.
+
+let lastRequest : ?Promise<string>;
+let nextExpiration : ?moment;
+
 const getSpotifyToken = () : Promise<string> => {
-  return Promise.resolve('BQCBhoEuEOWy1Qkd53NtT-q_HC31WqzWqYMQQgVByLvWGO2GM_96_Z1dYZq5hzJbzhGAgoRNeGGkcEtO2XY');
+  if (!lastRequest || (nextExpiration && nextExpiration.isBefore())) {
+    nextExpiration = null;
+    lastRequest = axios.get('https://live2.takomaradio.org/spotifyToken.php')
+      .then((resp) => {
+        nextExpiration = moment().add(resp.data.expires_in, 'seconds');
+        return resp.data.access_token;
+      });
+  }
+  return lastRequest;
 };
+
+const BACKOFF_INTERVAL = 5000;
 
 /**
  * Searches Spotify for a Song and returns a spotify track uri, or null.
@@ -24,5 +39,15 @@ export function findSongUri(song : Song) : Promise<?string> {
         return null;
       }
       return tracks[0].uri;
+    })
+    .catch((error) => {
+      const resp = error.response;
+      if (resp && resp.status >= 500) {
+        console.error('Error from Spotify. Retrying…', error);
+        return new Promise((resolve, reject) => {
+          setTimeout(() => findSongUri(song).then(resolve, reject), BACKOFF_INTERVAL);
+        });
+      }
+      throw error;
     });
 }
