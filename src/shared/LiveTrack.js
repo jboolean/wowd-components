@@ -54,14 +54,13 @@ const doUpdateCycle = () => {
   }
   return getNowPlayingData()
     .then(updateNowPlaying)
-    .catch((err) => {
-      console.error('Error updating Now Playing', err);
-      setTimeout(doUpdateCycle, INTERVAL * 2);
-    }
-    )
     .then(() =>
       setTimeout(doUpdateCycle, INTERVAL)
-    );
+      ,
+    (err) => {
+      console.error('Error updating Now Playing', err);
+      setTimeout(doUpdateCycle, INTERVAL * 2);
+    });
 };
 
 doUpdateCycle();
