@@ -54,7 +54,8 @@ export type Show = {
   airTimes: {
     onAirAt: moment,
     offAirAt: moment
-  }[]
+  }[],
+  externalUrl: ?string
 };
 
 export type PlaylistItem = {

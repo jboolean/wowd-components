@@ -18,7 +18,11 @@ const formatAirTime = (airTime : {onAirAt: moment, offAirAt: moment}) : string =
   (airTime.onAirAt.format('dddd[s], h:mma') + '–' + airTime.offAirAt.format('h:mma'))
     .replace(/:00/g, '');
 
-
+const URL_SUMMARY = /^https?:\/\/(?:www.)?(.*)/;
+const summarizeUrl = (url : string) : string => {
+  const matchResult = url.match(URL_SUMMARY);
+  return matchResult ? matchResult[1] : url;
+};
 
 export default class Show extends React.Component<Props> {
   renderEpisode(episode : EpisodeSummary) {
@@ -71,6 +75,14 @@ export default class Show extends React.Component<Props> {
               {show.airTimes.map(formatAirTime).join(', ')}
             </div>
             <p className={stylesheet.showDescription}>{show.description}</p>
+            {show.externalUrl ?
+              <a
+                className={stylesheet.externalUrl}
+                target="_blank"
+                href={show.externalUrl}>
+                {summarizeUrl(show.externalUrl)}
+              </a> : null
+            }
           </div>
         </div>
         {show.episodes ?

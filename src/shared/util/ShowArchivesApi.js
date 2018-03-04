@@ -68,7 +68,8 @@ const convertShow = (apiShow : *) : Show => {
     name: apiShow.name,
     djs,
     episodes,
-    airTimes
+    airTimes,
+    externalUrl: apiShow.externalUrl
   };
 };
 
