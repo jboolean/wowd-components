@@ -89,6 +89,8 @@ const convertPlaylist = (apiPlaylist : *) : Playlist => {
     };
   });
 
+  songs.sort((a, b) => a.airedOn.unix() - b.airedOn.unix());
+
   return {
     id: apiPlaylist.id,
     songs
