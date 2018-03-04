@@ -39,7 +39,7 @@ export default class Episode extends React.Component<Props> {
   render() {
     const { show, episode, playlist } = this.props;
     const date = (<time dateTime={episode.onAirAt.format()}>
-      {episode.onAirAt.format('dddd, MMMM Do')}
+      {episode.onAirAt.format('dddd, LL')}
     </time>);
     const hasTitle = !!episode.name;
     return (
