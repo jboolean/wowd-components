@@ -27,9 +27,12 @@
 
     .showInfo {
       width: @sidebar-size;
-      position: absolute;
-      right: 0;
-      margin: 0;
+      float:right;
+    }
+
+    .showInfo::after {
+      content: '';
+      display: table;
     }
   }
 
