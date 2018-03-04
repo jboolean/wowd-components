@@ -39,13 +39,14 @@ const convertEpisodeSummary = (apiEpisode : *, apiShow : *) : EpisodeSummary => 
   };
   const track = audioUrl !== null ? getOrCreateTrack(audioUrl, metadata) : null;
   return {
-    id: apiEpisode.id,
+    id: '' + apiEpisode.id,
     name: apiEpisode.name,
     description: apiEpisode.description,
     onAirAt,
     offAirAt,
     audioUrl,
-    track
+    track,
+    hasPlaylist: !apiEpisode.suppressPlaylist
   };
 };
 
@@ -112,7 +113,7 @@ export function getShow(id : number) : Promise<Show> {
     .then(resp => convertShow(resp.data));
 }
 
-export function getEpisode(showId : number, episodeId : number) : Promise<EpisodeSummary> {
+export function getEpisode(showId : number, episodeId : string | number) : Promise<EpisodeSummary> {
   return getShow(showId)
     .then(show => {
       if (!show.episodes) {
@@ -126,7 +127,12 @@ export function getEpisode(showId : number, episodeId : number) : Promise<Episod
     });
 }
 
-export function getPlaylist(episodeId : number) : Promise<Playlist> {
+export function getPlaylist(episodeId : string | number) : Promise<Playlist | null> {
   return axios.get(ROOT_URL, { params: { request: 'episodeinfo', id: episodeId } })
-    .then(resp => convertPlaylist(resp.data));
+    .then(resp => {
+      if (resp.status === 404) {
+        return null;
+      }
+      return convertPlaylist(resp.data);
+    });
 }

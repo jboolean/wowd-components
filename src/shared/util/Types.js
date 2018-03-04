@@ -32,14 +32,15 @@ export type TrackMetadata = {
  * From the show info api: id is availabel, and name and description are nullable.
  */
 export type EpisodeSummary = {
-  id: ?number,
+  id: ?string,
   name: ?string,
   description: ?string,
 
   onAirAt: moment,
   offAirAt: moment,
   audioUrl: string,
-  track : ?Track<TrackMetadata>
+  track : ?Track<TrackMetadata>,
+  hasPlaylist: boolean
 };
 
 

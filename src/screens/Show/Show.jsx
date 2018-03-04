@@ -51,9 +51,9 @@ export default class Show extends React.Component<Props> {
               size="small"
             />
           </div> : null}
-          <Link to={url} className={stylesheet.playlistButton}>
+          {episode.hasPlaylist ? <Link to={url} className={stylesheet.playlistButton}>
             Playlist
-          </Link>
+          </Link> : null}
         </div>
       </div>
     );

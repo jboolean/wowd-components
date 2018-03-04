@@ -16,7 +16,7 @@ import stylesheet from './Episode.less';
 type Props = {
   show: ShowType,
   episode: EpisodeSummary,
-  playlist: Playlist
+  playlist: ?Playlist
 };
 
 const PlaylistItem = (item : PlaylistItemType) => {
@@ -53,11 +53,11 @@ export default class Episode extends React.Component<Props> {
             null}
           <p className={stylesheet.episodeDescription}>{episode.description}</p>
         </div>
-        <ol className={stylesheet.playlist}>
+        {playlist ? <ol className={stylesheet.playlist}>
           {playlist.songs.map(playlistItem =>
             <li key={playlistItem.id}><PlaylistItem {...playlistItem} /></li>
           )}
-        </ol>
+        </ol> : null}
       </div>
     );
   }
