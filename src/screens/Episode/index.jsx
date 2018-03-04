@@ -29,6 +29,9 @@ export default class ConnectedEpisode extends React.Component<ContextRouter, Sta
     const episodeId = parseInt(this.props.match.params.episodeId);
     Promise.all([getShow(showId), getPlaylist(episodeId)])
       .then(([show, playlist]) => {
+        if (!show.episodes) {
+          throw new Error('Show has no episodes.');
+        }
         const episode = show.episodes.find(e => e.id === episodeId);
         if (!episode) {
           throw new Error('Episode not found in show.');

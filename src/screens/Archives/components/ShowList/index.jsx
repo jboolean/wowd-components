@@ -32,7 +32,7 @@ const ShowItem = (show : ShowType) => (
     </div>
     <div className={stylesheet.showDescription}>{show.description}</div>
     <ol className={stylesheet.episodeList}>
-      {show.episodes.slice(0, MAX_EPISODES).map(episode =>
+      {(show.episodes || []).slice(0, MAX_EPISODES).map(episode =>
         <li key={episode.audioUrl}><ShowEpisode episode={episode} /></li>
       )}
     </ol>

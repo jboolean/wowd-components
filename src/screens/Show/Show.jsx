@@ -73,13 +73,16 @@ export default class Show extends React.Component<Props> {
             <p className={stylesheet.showDescription}>{show.description}</p>
           </div>
         </div>
-        <ol className={stylesheet.episodes}>
-          {show.episodes.map(episode =>
-            <li key={episode.id}>{this.renderEpisode(episode)}</li>
-          )}
-        </ol>
+        {show.episodes ?
+          <ol className={stylesheet.episodes}>
+            {show.episodes.map(episode =>
+              <li key={episode.id}>{this.renderEpisode(episode)}</li>
+            )}
+          </ol> : null}
         <p className={stylesheet.disclaimer}>
-          Audio is available for two weeks after the episode airs.
+          {show.episodes ?
+            <span>Audio is available for two weeks after the episode airs.</span> :
+            <span>Archives are not available for this show. </span> }
         </p>
       </div>
     );

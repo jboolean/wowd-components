@@ -48,7 +48,7 @@ export type Show = {
   description: string,
   name: string,
   djs: Dj[],
-  episodes: EpisodeSummary[],
+  episodes: ?(EpisodeSummary[]), // if null, this show is not archived
   // These moments represent a time of week, not an instant in time.
   // moment is not ideal for this.
   airTimes: {

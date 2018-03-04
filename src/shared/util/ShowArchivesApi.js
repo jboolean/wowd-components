@@ -51,9 +51,11 @@ const convertEpisodeSummary = (apiEpisode : *, apiShow : *) : EpisodeSummary => 
 
 const convertShow = (apiShow : *) : Show => {
   const djs = (apiShow.djs : Dj[]);
-  const episodes : EpisodeSummary[] = (apiShow.episodes || [])
-    .map(apiEpisode => convertEpisodeSummary(apiEpisode, apiShow));
-  episodes.sort((a, b) => b.onAirAt.unix() - a.onAirAt.unix());
+  const episodes : ?(EpisodeSummary[]) = apiShow.episodes ? apiShow.episodes
+    .map(apiEpisode => convertEpisodeSummary(apiEpisode, apiShow)) : null;
+  if (episodes) {
+    episodes.sort((a, b) => b.onAirAt.unix() - a.onAirAt.unix());
+  }
   const airTimes = apiShow.daysOfWeek.map(dow => {
     return {
       onAirAt: convertTimeOfWeek(dow, apiShow.onAirAt),
@@ -112,6 +114,9 @@ export function getShow(id : number) : Promise<Show> {
 export function getEpisode(showId : number, episodeId : number) : Promise<EpisodeSummary> {
   return getShow(showId)
     .then(show => {
+      if (!show.episodes) {
+        throw new Error('Show has no episodes.');
+      }
       const foundEpisode = show.episodes.find(episode => episode.id === episodeId);
       if (!foundEpisode) {
         throw new Error('Episode not found in show.');
