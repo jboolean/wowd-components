@@ -8,6 +8,21 @@ type Props = {
   episode: EpisodeSummary
 };
 
+const ordinalPattern = /(?:[0-9])(st|nd|rd|th)/;
+
+const renderDate = (date) => {
+  const string = date.format('MMMM Do');
+  const matchResult = string.match(ordinalPattern);
+  if (!matchResult) {
+    // error case
+    return <time dateTime={date.format()}>{string}</time>;
+  }
+  const ordinal = matchResult[1];
+  return (<time dateTime={date.format()}>
+    {string.replace(ordinal, '')}<sup>{ordinal}</sup>
+  </time>);
+};
+
 export default class ShowEpisode extends React.Component<Props> {
   render() {
     const { episode } = this.props;
@@ -21,7 +36,7 @@ export default class ShowEpisode extends React.Component<Props> {
           theme="dark"
           size="small"
         />
-        <span>{episode.onAirAt.format('dddd, MMMM Do')}</span>
+        <span>{renderDate(episode.onAirAt)}</span>
       </div>
     );
   }
