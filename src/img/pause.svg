@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>pause</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="22" cy="22" r="22"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="44" height="44" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="pause">
+            <use id="Oval" class="background" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+            <path class="foreground" fill="currentColor" d="M14,15.9940603 C14,14.8927712 14.8938998,14 16.0048815,14 L16.9951185,14 C18.102384,14 19,14.8945138 19,15.9940603 L19,28.0059397 C19,29.1072288 18.1061002,30 16.9951185,30 L16.0048815,30 C14.897616,30 14,29.1054862 14,28.0059397 L14,15.9940603 Z" id="Combined-Shape"></path>
+            <path class="foreground" fill="currentColor" d="M25,15.9940603 C25,14.8927712 25.8938998,14 27.0048815,14 L27.9951185,14 C29.102384,14 30,14.8945138 30,15.9940603 L30,28.0059397 C30,29.1072288 29.1061002,30 27.9951185,30 L27.0048815,30 C25.897616,30 25,29.1054862 25,28.0059397 L25,15.9940603 Z" id="Combined-Shape-Copy"></path>
+        </g>
+    </g>
+</svg>

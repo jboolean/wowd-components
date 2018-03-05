@@ -62,6 +62,11 @@ export default class TrackManager<M> extends EventEmitter {
         if (this.activeTrack) {
           this.activeTrack.handleEnded();
         }
+      })
+      .on('load', () => {
+        if (this.activeTrack) {
+          this.activeTrack.handleLoad();
+        }
       });
   }
 

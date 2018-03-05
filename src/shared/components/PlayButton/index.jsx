@@ -26,7 +26,8 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
       theme,
       size,
       boundListeners: {},
-      className: props.className
+      className: props.className,
+      pauseable: !track.metadata.isLive
     };
 
   }
@@ -45,7 +46,8 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
       this.bindEvents(nextProps.track);
       this.setState({
         state: nextProps.track.state,
-        onClick: nextProps.track.play
+        onClick: nextProps.track.play,
+        pauseable: !nextProps.track.metadata.isLive
       });
     }
   }
@@ -62,6 +64,11 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
             }
             track.pause();
           },
+          state: track.state
+        });
+      },
+      load: () => {
+        this.setState({
           state: track.state
         });
       },

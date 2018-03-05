@@ -2,57 +2,46 @@
 
 :local {
   .playerButton {
+    @size: 44px;
     font-size: 0;
     
     background-color: transparent;
-
-    border: 1px solid;
-    border-radius: 300px;
-
     cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0;
 
-    text-align: center;
+    color: @font-color-dark;
 
+    vertical-align: text-top;
 
-    &::before {
-      // play icon
-      content: '\25BA';
-      // color: @playerColor;
-      text-align: center;
+    .icon {
+      :global(.background) {
+        stroke: currentColor;
+      }
     }
 
     &.loading {
-      // border-color: darken(@playerColor, 20%);
       cursor: wait;
-    }
-
-    &.playing::before {
-      // stop icon
-      content: '\2588';
-
-      padding-right: 3px;
     }
 
     &.light {
       @lightColor: white;
-      border-color: @lightColor;
       color: @lightColor;
-
-      &.loading {
-        border-color: darken(@lightColor, 20%);
-      }
     }
 
     &.primary {
       color: white;
-      background-color: @primary-color;
-      border-color: @primary-color;
+      .icon :global(.background) {
+        fill: @primary-color;
+        stroke: none;
+      }
     }
 
     &.large {
-      width: 22px * 2;
-      min-width: 22px * 2;
-      height: 22px * 2;
+      width: @size;
+      min-width: @size;
+      height: @size;
 
       &::before {
         font-size: 20px;
@@ -67,20 +56,77 @@
     }
 
     &.small {
-      width: 22px;
-      min-width: 22px;
-      height: 22px;
+      min-width: @size / 2;
+      height: @size / 2;
 
       &::before {
         font-size: 10px;
         line-height: 21.5px;
       }
 
-      &.playing::before {
-        // font-size: 7px;
-        // line-height: 21.5px;
+      .icon {
+        height: @size / 2;
+        width: @size / 2;
       }
     }
 
-  } 
+  }
+
+  .loading .icon {
+    @duration: 1.5s;
+    @keyframes waveFade1 {
+      0% {
+        opacity: 0;
+      }
+
+      20%, 50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes waveFade2 {
+      0%, 20% {
+        opacity: 0;
+      }
+
+      40%, 70% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes waveFade3 {
+      0%, 40% {
+        opacity: 0;
+      }
+
+      60%, 90% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    // webpack has a bug with local scope mangling animation names
+    :global {
+      .wave1 {
+        animation: @duration waveFade1 ease-in normal infinite;
+      }
+      .wave2 {
+        animation: @duration waveFade2 ease-in normal infinite;
+      }
+      .wave3 {
+        animation: @duration waveFade3 ease-in normal infinite;
+      }
+    }
+  }
 }

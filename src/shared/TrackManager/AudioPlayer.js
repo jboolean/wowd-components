@@ -9,7 +9,7 @@ import needsTimeRounding from './needsTimeRounding';
 // html name => our name
 const eventMap = {
   timeupdate: 'playing',
-  loadstart: 'load',
+  waiting: 'load',
   durationchange: 'durationchange',
   canplay: 'ready',
   pause: 'pause',
@@ -38,6 +38,7 @@ export default class AudioPlayer extends EventEmitter {
     config = Object.assign({}, defaultConfig, config);
 
     this.audioEl = document.createElement('audio');
+    this.audioEl.preload = 'none';
     if (config.url) {
       this.audioEl.src = this.url = config.url;
     }

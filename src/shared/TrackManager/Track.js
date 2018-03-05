@@ -148,6 +148,11 @@ export default class Track<M> extends EventEmitter {
     this.emit('ended', this);
   }
 
+  handleLoad() {
+    this.state = 'loading';
+    this.emit('load');
+  }
+
   /**
    * Notify this track that its duration has changed.
    */
@@ -160,6 +165,7 @@ export default class Track<M> extends EventEmitter {
    * Notify this track that it can play
    */
   handleReady() {
+    this.state = 'stopped';
     this.emit('ready', this);
   }
 
