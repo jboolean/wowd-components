@@ -130,9 +130,11 @@ export function getEpisode(showId : number, episodeId : string | number) : Promi
 export function getPlaylist(episodeId : string | number) : Promise<Playlist | null> {
   return axios.get(ROOT_URL, { params: { request: 'episodeinfo', id: episodeId } })
     .then(resp => {
-      if (resp.status === 404) {
+      return convertPlaylist(resp.data);
+    }, (err) => {
+      if (err.response.status === 404) {
         return null;
       }
-      return convertPlaylist(resp.data);
+      throw err;
     });
 }

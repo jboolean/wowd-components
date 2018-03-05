@@ -45,7 +45,7 @@ export default class ConnectedEpisode extends React.Component<ContextRouter, Sta
   }
   render() {
     const { show, episode, playlist } = this.state;
-    if (!show || !episode || !playlist) {
+    if (!show || !episode) {
       return null;
     }
 
