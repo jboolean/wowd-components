@@ -76,26 +76,31 @@ export default function Schedule<T>(props : Props<T>) {
   });
 
   return (
-    <div className={cx(stylesheet.week, props.className)} style={{ height: height }}>
-      <Day
-        blocks={createHourlyBlocks(earliestTime)}
-        start={WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime)}
-        end={WeeklyDayTime.of(DayOfWeek.TUESDAY, earliestTime)}
-        renderBlock={(blockData) => formatLocalTime(blockData.alternatives.default[0].data, true)}
-        className={stylesheet.times}
-      />
+    <div className={cx(stylesheet.container, props.className)} style={{ height: height }}>
+      <div className={stylesheet.dayNames}>
+        {Object.values(DayOfWeek).map((dayOfWeek : DayOfWeek) => <div>{DayNames[dayOfWeek]}</div>)}
+      </div>
+      <div className={stylesheet.week} >
+        <Day
+          blocks={createHourlyBlocks(earliestTime)}
+          start={WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime)}
+          end={WeeklyDayTime.of(DayOfWeek.TUESDAY, earliestTime)}
+          renderBlock={(blockData) => formatLocalTime(blockData.alternatives.default[0].data, true)}
+          className={stylesheet.times}
+        />
 
-      {Object.values(DayOfWeek).map((dayOfWeek : DayOfWeek) =>
-        (
-          <Day
-            key={dayOfWeek}
-            blocks={blocksByDay[dayOfWeek]}
-            start={WeeklyDayTime.of(dayOfWeek, earliestTime)}
-            end={WeeklyDayTime.of((dayOfWeek + 1) % 7, earliestTime)}
-            renderBlock={props.renderBlock}
-            className={dayClassName}
-          />
-        ))}
+        {Object.values(DayOfWeek).map((dayOfWeek : DayOfWeek) =>
+          (
+            <Day
+              key={dayOfWeek}
+              blocks={blocksByDay[dayOfWeek]}
+              start={WeeklyDayTime.of(dayOfWeek, earliestTime)}
+              end={WeeklyDayTime.of((dayOfWeek + 1) % 7, earliestTime)}
+              renderBlock={props.renderBlock}
+              className={dayClassName}
+            />
+          ))}
+      </div>
     </div>
   );
 }
