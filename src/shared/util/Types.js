@@ -56,7 +56,8 @@ export type Show = {
     onAirAt: moment,
     offAirAt: moment
   }[],
-  externalUrl: ?string
+  externalUrl: ?string,
+  alternationId: 0 | 1 | 2
 };
 
 export type PlaylistItem = {

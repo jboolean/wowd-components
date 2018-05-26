@@ -1,0 +1,80 @@
+@import "~shared/variables.less";
+
+#page {
+  max-width: initial !important;
+}
+
+:local {
+  .block {
+    height: 100%;
+    overflow-y: hidden;
+    border-bottom: @rule;
+    border-left: @rule;
+    // border-color: @background-color;
+    font-size: @font-size-small;
+    text-overflow: ellipsis;
+    padding: @global-grid / 4;
+    text-align: center;
+    hyphens: auto;
+    line-height: 17px;
+    box-sizing: border-box;
+
+    // vertical centering
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    // color: @background-color;
+
+  }
+
+  .alternativeHeading, .timeHeading {
+    font-size: 12px;
+  }
+
+  .timeHeading {
+    // color: @font-color-faded;
+  }
+
+  .alternation {
+    margin-bottom: @global-grid / 4;
+  }
+
+  .show {
+    font-size: 16px;
+    // font-family: 'Itim', 'Comic Sans MS', sans-serif;
+    // text-transform: uppercase;
+    // color: @background-color;
+  }
+
+  // .day:nth-of-type(odd) .block {
+  //   background-color: #8F0FC5;
+  // }
+
+  // .day:nth-of-type(even) .block {
+  //   background-color: #C5B30A;
+  // }
+
+  // .day:nth-of-type(4) .block {
+  //   background-color: #960F54;
+  // }
+
+  // .day:nth-of-type(5) .block {
+  //   background-color: #612B16;
+  // }
+
+  // .day:nth-of-type(6) .block {
+  //   background-color: #15BCD2;
+  // }
+
+  // .day:nth-of-type(7) .block {
+  //   background-color: #7D700C;
+  // }
+
+  // .day:nth-of-type(8) .block {
+  //   background-color: purple;
+  // }
+  // .day .block {
+  //   background-color: black;
+  // }
+}

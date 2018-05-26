@@ -58,9 +58,14 @@ const convertShow = (apiShow : *) : Show => {
     episodes.sort((a, b) => b.onAirAt.unix() - a.onAirAt.unix());
   }
   const airTimes = apiShow.daysOfWeek.map(dow => {
+    const onAirAt = convertTimeOfWeek(dow, apiShow.onAirAt);
+    const offAirAt = convertTimeOfWeek(dow, apiShow.offAirAt);
+    if (offAirAt.isBefore(onAirAt)) {
+      offAirAt.add(1, 'day');
+    }
     return {
-      onAirAt: convertTimeOfWeek(dow, apiShow.onAirAt),
-      offAirAt: convertTimeOfWeek(dow, apiShow.offAirAt)
+      onAirAt,
+      offAirAt
     };
   });
   return {
@@ -70,7 +75,8 @@ const convertShow = (apiShow : *) : Show => {
     djs,
     episodes,
     airTimes,
-    externalUrl: apiShow.externalUrl
+    externalUrl: apiShow.externalUrl,
+    alternationId: apiShow.week || 0
   };
 };
 

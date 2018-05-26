@@ -39,7 +39,7 @@ export default class ArchivesApp extends React.Component<void, State> {
     }
 
     return (
-      <Archives shows={this.state.shows} />
+      <Archives shows={this.state.shows} display="schedule" />
     );
   }
 }

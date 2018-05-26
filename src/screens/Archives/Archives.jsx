@@ -5,6 +5,13 @@ import type { Show } from 'util/Types';
 import fuzzy from 'fuzzy';
 
 import ShowList from './components/ShowList';
+import ScheduleBlock from './components/Schedule/ScheduleBlock';
+import { dayClassName } from './components/Schedule/ScheduleBlock';
+import Schedule from 'components/Schedule';
+import WeeklyDayTime from 'util/time/WeeklyDayTime';
+import LocalTime from 'util/time/LocalTime';
+import DayOfWeek from 'util/time/DayOfWeek';
+import moment from 'moment';
 
 import stylesheet from './Archives.less';
 
@@ -25,8 +32,25 @@ const filterShows = (filter, shows) => {
   return shows;
 };
 
+const convertMomentToWeeklyDayTime = (m : moment) : WeeklyDayTime => {
+  const dayOfWeek = m.day() + DayOfWeek.SUNDAY;
+  const time = LocalTime.of(m.get('hours'), m.get('minutes'), m.get('seconds'), m.get('milliseconds'));
+  return WeeklyDayTime.of(dayOfWeek, time);
+};
+
+const showOccurranceAccessor = (show) => {
+  return show.airTimes.map(({ onAirAt, offAirAt }) => {
+    return {
+      start: convertMomentToWeeklyDayTime(onAirAt),
+      end: convertMomentToWeeklyDayTime(offAirAt),
+      alternationId: show.alternationId
+    };
+  });
+};
+
 type Props = {
-  shows: Show[]
+  shows: Show[],
+  display: 'list' | 'schedule'
 };
 
 type State = {
@@ -67,6 +91,32 @@ export default class Archives extends React.Component<Props, State> {
     this.doFilter(this.props.shows, filter);
   }
 
+  renderList() {
+    return <ShowList shows={this.state.filteredShows} />;
+  }
+
+  renderSchedule() {
+    return (
+      <Schedule
+        events={this.state.filteredShows}
+        timeAccessor={showOccurranceAccessor}
+        height={3000}
+        dayStartsAt={LocalTime.of(6)}
+        renderBlock={ScheduleBlock}
+        dayClassName={dayClassName}
+      />
+    );
+  }
+
+  renderShows() {
+    switch (this.props.display) {
+    case 'list':
+      return this.renderList();
+    case 'schedule':
+      return this.renderSchedule();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -80,7 +130,7 @@ export default class Archives extends React.Component<Props, State> {
             placeholder="Find shows"
           />
         </div>
-        <ShowList shows={this.state.filteredShows} />
+        {this.renderShows()}
       </div>
     );
   }
