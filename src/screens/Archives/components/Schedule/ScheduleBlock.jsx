@@ -18,9 +18,12 @@ const thisWeek = calculateCurrentWeek();
 
 const ALTERNATIVES_ORDER : $Values<Alternations>[] = [
   Alternations.SPECIAL,
-  Alternations.EVERY_WEEK,
-  Alternations.WEEK_1,
-  Alternations.WEEK_2];
+  Alternations.EVERY_WEEK];
+if (thisWeek === Alternations.WEEK_1) {
+  ALTERNATIVES_ORDER.push(Alternations.WEEK_1, Alternations.WEEK_2);
+} else {
+  ALTERNATIVES_ORDER.push(Alternations.WEEK_2, Alternations.WEEK_1);
+}
 
 const ALTERNATIVE_HEADING : {[$Values<Alternations>]: string} = {
   [Alternations.EVERY_WEEK]: 'Regularly Scheduled',
