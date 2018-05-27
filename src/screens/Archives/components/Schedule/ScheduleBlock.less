@@ -11,13 +11,13 @@
     overflow-y: hidden;
     border-bottom: @rule;
     border-left: @rule;
-    // border-color: @background-color;
+    border-color: @background-color;
     font-size: @font-size-small;
     text-overflow: ellipsis;
-    padding: @global-grid / 4;
+    padding: 7%;
     text-align: center;
     hyphens: auto;
-    line-height: 17px;
+    line-height: 22px;
     box-sizing: border-box;
 
     // vertical centering
@@ -27,6 +27,10 @@
 
     // color: @background-color;
 
+  }
+
+  .day {
+    border-bottom: @rule;
   }
 
   .alternativeHeading, .timeHeading {
@@ -42,42 +46,40 @@
   }
 
   .show {
-    font-size: 16px;
-    // font-family: 'Itim', 'Comic Sans MS', sans-serif;
-    // text-transform: uppercase;
-    // color: @background-color;
+    font-size: 14px;
+    letter-spacing: 1px;
   }
 
-  // .day:nth-of-type(odd) .block {
-  //   background-color: #8F0FC5;
+  .day:nth-of-type(2) .block a {
+    color: #00645a;
+  }
+
+  // .day:nth-of-type(3) .block a {
+  //   color: #C5B30A;
   // }
 
-  // .day:nth-of-type(even) .block {
-  //   background-color: #C5B30A;
+  .day:nth-of-type(4) .block a {
+    color: #c0136c;
+  }
+
+  .day:nth-of-type(2n + 1) .block a {
+    color: #612B16;
+  }
+
+  .day:nth-of-type(6) .block a {
+    color: #0e289c;
+  }
+
+  // .day:nth-of-type(7) .block a {
+  //   color: #7D700C;
   // }
 
-  // .day:nth-of-type(4) .block {
-  //   background-color: #960F54;
-  // }
-
-  // .day:nth-of-type(5) .block {
-  //   background-color: #612B16;
-  // }
-
-  // .day:nth-of-type(6) .block {
-  //   background-color: #15BCD2;
-  // }
-
-  // .day:nth-of-type(7) .block {
-  //   background-color: #7D700C;
-  // }
-
-  // .day:nth-of-type(8) .block {
-  //   background-color: purple;
-  // }
-  // .day .block {
-  //   background-color: black;
-  // }
+  .day:nth-of-type(8) .block a {
+    color: #8c11ba;
+  }
+  .day .block {
+    background-color: #ebdab6;
+  }
   // 
   .popupContainer {
     width: 300px;
