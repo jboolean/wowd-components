@@ -24,9 +24,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    // color: @background-color;
-
   }
 
   .day {
@@ -50,32 +47,31 @@
     letter-spacing: 1px;
   }
 
-  .day:nth-of-type(2) .block a {
-    color: #00645a;
+  .colorLink(@color) {
+    color: @color;
+    &:hover {
+      color: darken(@color, 20%);
+    }
   }
 
-  // .day:nth-of-type(3) .block a {
-  //   color: #C5B30A;
-  // }
-
+  .day:nth-of-type(2) .block a {
+    .colorLink(#00645a);
+  }
+  
   .day:nth-of-type(4) .block a {
-    color: #c0136c;
+    .colorLink(#c0136c);
   }
 
   .day:nth-of-type(2n + 1) .block a {
-    color: #612B16;
+    .colorLink(#612B16);
   }
 
   .day:nth-of-type(6) .block a {
-    color: #0e289c;
+    .colorLink(#0e289c);
   }
 
-  // .day:nth-of-type(7) .block a {
-  //   color: #7D700C;
-  // }
-
   .day:nth-of-type(8) .block a {
-    color: #8c11ba;
+    .colorLink(#8c11ba);
   }
   .day .block {
     background-color: #ebdab6;
