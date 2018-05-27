@@ -43,7 +43,7 @@ const createHourlyBlocks = (dayStartsAt : LocalTime) : BlockData<LocalTime>[] =>
     const data = { 'default': [{ start, end, data: start.time }] };
     blocks.push(new BlockData(start, end, data));
   }
-  for (let i = LocalTime.MAX.millis; i < dayStartsAt.millis; i += HOUR_MS) {
+  for (let i = 0; i < dayStartsAt.millis; i += HOUR_MS) {
     const curTime = new LocalTime(i);
     const start = WeeklyDayTime.of(DayOfWeek.TUESDAY, curTime);
     const end = WeeklyDayTime.of(DayOfWeek.TUESDAY, new LocalTime(i + HOUR_MS));
@@ -61,6 +61,7 @@ export default function Schedule<T>(props : Props<T>) {
   // The start of the day can be customized.
   // Events occuring before the start of the day are shown on the previous day.
   let earliestTime = LocalTime.MAX;
+  let latestTime = dayStartsAt;
   const blocksByDay = {};
   Object.values(DayOfWeek).forEach((dayOfWeek : DayOfWeek) => {
     blocksByDay[dayOfWeek] = [];
@@ -71,6 +72,9 @@ export default function Schedule<T>(props : Props<T>) {
       addWeekdays(block.start.weekday, -1) : block.start.weekday;
     if (!allocateToYesterday && block.start.time.compareTo(earliestTime) < 0) {
       earliestTime = block.start.time;
+    }
+    if (allocateToYesterday && block.end.time.compareTo(latestTime) < 0) {
+      latestTime = block.end.time;
     }
     blocksByDay[allocatedDay].push(block);
   });
@@ -84,7 +88,7 @@ export default function Schedule<T>(props : Props<T>) {
         <Day
           blocks={createHourlyBlocks(earliestTime)}
           start={WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime)}
-          end={WeeklyDayTime.of(DayOfWeek.TUESDAY, earliestTime)}
+          end={WeeklyDayTime.of(DayOfWeek.TUESDAY, latestTime)}
           renderBlock={({ block: blockData }) => formatLocalTime(blockData.alternatives.default[0].data, true)}
           className={stylesheet.times}
         />
@@ -95,7 +99,7 @@ export default function Schedule<T>(props : Props<T>) {
               key={dayOfWeek}
               blocks={blocksByDay[dayOfWeek]}
               start={WeeklyDayTime.of(dayOfWeek, earliestTime)}
-              end={WeeklyDayTime.of((dayOfWeek + 1) % 7, earliestTime)}
+              end={WeeklyDayTime.of((dayOfWeek + 1) % 7, latestTime)}
               renderBlock={props.renderBlock}
               className={dayClassName}
             />

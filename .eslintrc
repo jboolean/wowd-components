@@ -1,12 +1,13 @@
 {
-  "extends": "squarespace",
+  "extends": ["squarespace"],
   "env": {
     "browser": true,
     "mocha": true,
     "node": true
   },
   "plugins": [
-    "react"
+    "react",
+    "flowtype"
   ],
   "globals": {
     "WOWDComponents": true

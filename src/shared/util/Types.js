@@ -2,6 +2,7 @@
 
 import moment from 'moment';
 import Track from 'TrackManager/Track';
+import Alternations from './Alternations';
 
 
 export type Dj = {
@@ -57,7 +58,7 @@ export type Show = {
     offAirAt: moment
   }[],
   externalUrl: ?string,
-  alternationId: 0 | 1 | 2
+  alternationId: $Values<Alternations>
 };
 
 export type PlaylistItem = {

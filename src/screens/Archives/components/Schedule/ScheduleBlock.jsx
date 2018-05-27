@@ -7,24 +7,30 @@ import BlockData from 'components/Schedule/Block';
 import { Link } from 'react-router-dom';
 import ShowCard from '../ShowCard';
 import Trigger from 'rc-trigger';
+import Alternations from 'util/Alternations';
 
 import formatLocalTime from 'util/time/formatLocalTime';
+import calculateCurrentWeek from './calculateCurrentWeek';
 
 import stylesheet from './ScheduleBlock.less';
 
-const thisWeek = 1;
+const thisWeek = calculateCurrentWeek();
 
-const ALTERNATIVES = ['special', '0', '1', '2'];
+const ALTERNATIVES_ORDER = [
+  Alternations.SPECIAL,
+  Alternations.EVERY_WEEK,
+  Alternations.WEEK_1,
+  Alternations.WEEK];
 
 const ALTERNATIVE_HEADING = {
-  '0': 'Regularly Scheduled',
-  '1': thisWeek === 1 ? 'This Week' : 'Next Week',
-  '2': thisWeek === 2 ? 'This Week' : 'Next Week',
-  'special': 'Special Show'
+  [Alternations.EVERY_WEEK]: 'Regularly Scheduled',
+  [Alternations.WEEK_1]: thisWeek === '1' ? 'This Week' : 'Next Week',
+  [Alternations.WEEK_]: thisWeek === '2' ? 'This Week' : 'Next Week',
+  [Alternations.SPECIAL]: 'Special Show'
 };
 
 export default class ScheduleBlock extends React.Component<{block:BlockData<Show>}, {}> {
-  renderAltenativeHeader(alternativeId : string) {
+  renderAltenativeHeader(alternativeId : $Values<Alternations>) {
     const hasMultipleAlternatives = Object.keys(this.props.block.alternatives).length > 1;
     if (!hasMultipleAlternatives) {
       return null;
@@ -32,7 +38,7 @@ export default class ScheduleBlock extends React.Component<{block:BlockData<Show
     return <span className={stylesheet.alternativeHeading}>{ALTERNATIVE_HEADING[alternativeId]}</span>;
   }
 
-  renderShows(block : BlockData<Show>, alternativeId : string) {
+  renderShows(block : BlockData<Show>, alternativeId : $Values<Alternations>) {
     const events = block.alternatives[alternativeId];
     return events.map((event) =>
       (<div key={event.data.id}>
@@ -77,7 +83,7 @@ export default class ScheduleBlock extends React.Component<{block:BlockData<Show
 
     return (
       <div className={stylesheet.block}>
-        {ALTERNATIVES
+        {ALTERNATIVES_ORDER
           .filter(alternativeId => alternativeId in block.alternatives)
           .map(alternativeId =>
             (<div key={alternativeId} className={stylesheet.alternation}>

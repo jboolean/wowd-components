@@ -4,6 +4,7 @@ import axios from 'axios';
 import Track from 'TrackManager/Track';
 import moment from 'moment';
 import type { Show, EpisodeSummary, Dj, TrackMetadata, Playlist } from './Types';
+import Alternations from 'util/Alternations';
 import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
 const TrackManager = (TrackManagerSingleton : TrackManagerType<TrackMetadata>);
@@ -68,6 +69,12 @@ const convertShow = (apiShow : *) : Show => {
       offAirAt
     };
   });
+  let alternationId = Alternations.EVERY_WEEK;
+  if (apiShow.week === 1) {
+    alternationId = Alternations.WEEK_1;
+  } else if (apiShow.week === 2) {
+    alternationId = Alternations.WEEK_2;
+  }
   return {
     id: apiShow.id,
     description: apiShow.description,
@@ -76,7 +83,7 @@ const convertShow = (apiShow : *) : Show => {
     episodes,
     airTimes,
     externalUrl: apiShow.externalUrl,
-    alternationId: apiShow.week || 0
+    alternationId
   };
 };
 

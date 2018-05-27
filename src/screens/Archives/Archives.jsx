@@ -44,7 +44,7 @@ const showOccurranceAccessor : timeAccessor<Show> = (show) => {
     return {
       start: convertMomentToWeeklyDayTime(onAirAt),
       end: convertMomentToWeeklyDayTime(offAirAt),
-      alternationId: '' + show.alternationId
+      alternationId: show.alternationId
     };
   });
 };
@@ -101,7 +101,7 @@ export default class Archives extends React.Component<Props, State> {
       <Schedule
         events={this.state.filteredShows}
         timeAccessor={showOccurranceAccessor}
-        height={3000}
+        height={2500}
         dayStartsAt={LocalTime.of(6)}
         renderBlock={ScheduleBlock}
         dayClassName={dayClassName}
