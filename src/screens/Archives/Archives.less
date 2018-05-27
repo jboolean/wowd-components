@@ -35,4 +35,41 @@
   :global(.no-cssgrid) .filter {
     flex-grow: 0;
   }
+
+  .displayModeRadioGroup {
+    grid-column-start: -1;
+    grid-column-end: -2;
+
+    text-align: end;
+    input {
+      display: none;
+    }
+  
+    input:checked + label, input:hover + label {
+      border-color: @font-color-faded;
+      opacity: 1;
+    }
+    
+    label {
+      border-bottom: 1px solid @font-color;
+      border-color: transparent;
+      color: @font-color;
+      opacity: 0.35;
+
+      padding: 0 @global-grid / 2;
+      cursor: pointer;
+      display: inline-block;
+      min-width: @global-grid * 3;
+      text-align: center;
+      font-size: @font-size-small;
+      height: @global-grid;
+
+      // box-sizing: border-box;
+      // color: @font-color-link;
+
+      &:not(:first-child) {
+        margin-left: @global-grid / 2;
+      }
+    }
+  }
 }

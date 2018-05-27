@@ -49,9 +49,12 @@ const showOccurranceAccessor : timeAccessor<Show> = (show) => {
   });
 };
 
+export type displayMode = 'list' | 'schedule';
+
 type Props = {
   shows: Show[],
-  display: 'list' | 'schedule'
+  display: displayMode,
+  onChangeDisplay: (displayMode) => void
 };
 
 type State = {
@@ -66,7 +69,8 @@ export default class Archives extends React.Component<Props, State> {
       filteredShows: props.shows,
       filter: null
     };
-    (this: any).onFilterChange = this.onFilterChange.bind(this);
+    (this: any).handleFilterChange = this.handleFilterChange.bind(this);
+    (this: any).handleDisplayChange = this.handleDisplayChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -84,12 +88,16 @@ export default class Archives extends React.Component<Props, State> {
     });
   }
 
-  onFilterChange(e: { target: { value: string } }) {
+  handleFilterChange(e: { target: { value: string } }) {
     const filter = e.target.value;
     this.setState({
       filter,
     });
     this.doFilter(this.props.shows, filter);
+  }
+
+  handleDisplayChange(e: { target: {value: displayMode}}) {
+    this.props.onChangeDisplay(e.target.value);
   }
 
   renderList() {
@@ -119,6 +127,7 @@ export default class Archives extends React.Component<Props, State> {
   }
 
   render() {
+    const { display } = this.props;
     return (
       <div>
         <div className={stylesheet.controls}>
@@ -126,10 +135,29 @@ export default class Archives extends React.Component<Props, State> {
             className={stylesheet.filter}
             name="filter"
             type="search"
-            onChange={this.onFilterChange}
+            onChange={this.handleFilterChange}
             value={this.state.filter || ''}
             placeholder="Find shows"
           />
+          <div className={stylesheet.displayModeRadioGroup}>
+            <input
+              type="radio"
+              name="displayMode"
+              value="list"
+              id="displayModeList" checked={display === 'list'}
+              onChange={this.handleDisplayChange}
+            />
+            <label htmlFor="displayModeList">List</label>
+
+            <input type="radio"
+              name="displayMode"
+              value="schedule"
+              id="displayModeSchedule"
+              checked={display === 'schedule'}
+              onChange={this.handleDisplayChange}
+            />
+            <label htmlFor="displayModeSchedule">Schedule</label>
+          </div>
         </div>
         {this.renderShows()}
       </div>
