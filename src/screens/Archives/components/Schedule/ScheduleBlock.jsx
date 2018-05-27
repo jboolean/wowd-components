@@ -16,16 +16,16 @@ import stylesheet from './ScheduleBlock.less';
 
 const thisWeek = calculateCurrentWeek();
 
-const ALTERNATIVES_ORDER = [
+const ALTERNATIVES_ORDER : $Values<Alternations>[] = [
   Alternations.SPECIAL,
   Alternations.EVERY_WEEK,
   Alternations.WEEK_1,
-  Alternations.WEEK];
+  Alternations.WEEK_2];
 
-const ALTERNATIVE_HEADING = {
+const ALTERNATIVE_HEADING : {[$Values<Alternations>]: string} = {
   [Alternations.EVERY_WEEK]: 'Regularly Scheduled',
-  [Alternations.WEEK_1]: thisWeek === '1' ? 'This Week' : 'Next Week',
-  [Alternations.WEEK_]: thisWeek === '2' ? 'This Week' : 'Next Week',
+  [Alternations.WEEK_1]: thisWeek === Alternations.WEEK_1 ? 'This Week' : 'Next Week',
+  [Alternations.WEEK_2]: thisWeek === Alternations.WEEK_2 ? 'This Week' : 'Next Week',
   [Alternations.SPECIAL]: 'Special Show'
 };
 
