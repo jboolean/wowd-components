@@ -3,7 +3,7 @@ import * as React from 'react';
 import PlayButton from 'components/PlayButton';
 import type { EpisodeSummary } from 'util/Types';
 
-import stylesheet from './ShowList.less';
+import stylesheet from './ShowCard.less';
 
 type Props = {
   episode: EpisodeSummary

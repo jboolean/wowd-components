@@ -78,7 +78,7 @@ export default function Schedule<T>(props : Props<T>) {
   return (
     <div className={cx(stylesheet.container, props.className)} style={{ height: height }}>
       <div className={stylesheet.dayNames}>
-        {Object.values(DayOfWeek).map((dayOfWeek : DayOfWeek) => <div>{DayNames[dayOfWeek]}</div>)}
+        {Object.values(DayOfWeek).map((dayOfWeek : DayOfWeek) => <div key={dayOfWeek}>{DayNames[dayOfWeek]}</div>)}
       </div>
       <div className={stylesheet.week} >
         <Day

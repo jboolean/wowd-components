@@ -4,6 +4,9 @@ import * as React from 'react';
 
 import type { Show } from 'util/Types';
 import BlockData from 'components/Schedule/Block';
+import { Link } from 'react-router-dom';
+import ShowCard from '../ShowCard';
+import Trigger from 'rc-trigger';
 
 import formatLocalTime from 'util/time/formatLocalTime';
 
@@ -38,7 +41,33 @@ export default class ScheduleBlock extends React.Component<BlockData<Show>, {}> 
             {formatLocalTime(event.start.time)}
           </div> : null}
         <div className={stylesheet.show}>
-          {event.data.name}
+          <Trigger
+            action={['hover']}
+            popup={(
+              <div className={stylesheet.popupContainer}>
+                <ShowCard {...event.data} />
+              </div>
+            )}
+            popupAlign={{
+              points: ['bc', 'tc'],
+              offset: [0, -15],
+              overflow: {
+                adjustX: true,
+                adjustY: true
+              }
+            }}
+            getPopupContainer={() => document.getElementById('siteWrapper')}
+            popupTransitionName={{
+              enter: stylesheet.slideUpEnter,
+              enterActive: stylesheet.slideUpEnterActive,
+              appear: stylesheet.slideUpAppear,
+              appearActive: stylesheet.slideUpAppearActive,
+              leave: stylesheet.slideUpLeave,
+              leaveActive: stylesheet.slideUpLeaveActive
+            }}
+          >
+            <Link to={'/shows/' + event.data.id}>{event.data.name}</Link>
+          </Trigger>
         </div>
       </div>));
   }

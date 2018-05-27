@@ -1,4 +1,5 @@
 @import "~shared/variables.less";
+@import "~rc-trigger/assets/index.css";
 
 #page {
   max-width: initial !important;
@@ -77,4 +78,32 @@
   // .day .block {
   //   background-color: black;
   // }
+  // 
+  .popupContainer {
+    width: 300px;
+
+    & > * {
+      background-color: @background-color;
+    }
+  }
+
+  .slideUpEnter, .slideUpAppear {
+    opacity: 0.01;
+    transform: translateY(5px);
+  }
+
+  .slideUpEnterActive, .slideUpAppearActive {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 70ms ease-in, transform 70ms ease-in;
+  }
+
+  .slideUpLeave {
+    opacity: 1;
+  }
+
+  .slideUpLeaveActive {
+    opacity: 0.01;
+    transition: opacity 100ms ease-out, transform 100ms ease-out;
+  }
 }
