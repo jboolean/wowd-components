@@ -16,7 +16,7 @@ type Props<T> = {
   className? : string,
   height: number,
   dayStartsAt : LocalTime,
-  renderBlock : React.StatelessFunctionalComponent<BlockData<T>>,
+  renderBlock : React.ComponentType<{block:BlockData<T>}>,
   dayClassName?: string
 };
 
@@ -85,7 +85,7 @@ export default function Schedule<T>(props : Props<T>) {
           blocks={createHourlyBlocks(earliestTime)}
           start={WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime)}
           end={WeeklyDayTime.of(DayOfWeek.TUESDAY, earliestTime)}
-          renderBlock={(blockData) => formatLocalTime(blockData.alternatives.default[0].data, true)}
+          renderBlock={({ block: blockData }) => formatLocalTime(blockData.alternatives.default[0].data, true)}
           className={stylesheet.times}
         />
 

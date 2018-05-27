@@ -13,7 +13,7 @@ type Props<T> = {
   timeAccessor: timeAccessorType<T>,
   height: number,
   dayStartsAt : LocalTime,
-  renderBlock: React.StatelessFunctionalComponent<BlockData<T>>,
+  renderBlock: React.ComponentType<{block:BlockData<T>}>,
   dayClassName?: string
 };
 
@@ -24,3 +24,5 @@ export default class ConnectedSchedule<T> extends React.Component<Props<T>> {
     return <Schedule {...this.props} blocks={schedule} />;
   }
 }
+
+export type { timeAccessorType as timeAccessor };

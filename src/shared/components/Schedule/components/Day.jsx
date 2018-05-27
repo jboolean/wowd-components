@@ -9,7 +9,7 @@ type Props<T> = {
   blocks : BlockData<T>[],
   start: WeeklyDayTime,
   end: WeeklyDayTime,
-  renderBlock : React.ComponentType<BlockData<T>>,
+  renderBlock : React.ComponentType<{block:BlockData<T>}>,
   className?: string
 };
 
@@ -47,7 +47,7 @@ export default class Day<T> extends React.Component<Props<T>> {
       }}
       className={stylesheet.blockContainer}
       key={blockStartMillis}>
-      <BlockContainer {...block} />
+      <BlockContainer block={block} />
     </div>);
   }
 

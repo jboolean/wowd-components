@@ -3,7 +3,7 @@ import type LocalTime from 'util/time/LocalTime';
 
 const HOUR_MS = 1000 * 60 * 60;
 
-export default function formatLocalTime(time : LocalTime, trimMinutes = false) : string {
+export default function formatLocalTime(time : LocalTime, trimMinutes : boolean = false) : string {
   const hour = Math.floor(time.millis / HOUR_MS);
   const minute = Math.floor((time.millis - (hour * HOUR_MS)) / (1000 * 60));
   const am = hour < 12;

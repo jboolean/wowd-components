@@ -23,9 +23,9 @@ const ALTERNATIVE_HEADING = {
   'special': 'Special Show'
 };
 
-export default class ScheduleBlock extends React.Component<BlockData<Show>, {}> {
+export default class ScheduleBlock extends React.Component<{block:BlockData<Show>}, {}> {
   renderAltenativeHeader(alternativeId : string) {
-    const hasMultipleAlternatives = Object.keys(this.props.alternatives).length > 1;
+    const hasMultipleAlternatives = Object.keys(this.props.block.alternatives).length > 1;
     if (!hasMultipleAlternatives) {
       return null;
     }
@@ -73,7 +73,7 @@ export default class ScheduleBlock extends React.Component<BlockData<Show>, {}> 
   }
 
   render() {
-    const block = this.props;
+    const block = this.props.block;
 
     return (
       <div className={stylesheet.block}>

@@ -8,6 +8,7 @@ import ShowList from './components/ShowList';
 import ScheduleBlock from './components/Schedule/ScheduleBlock';
 import { dayClassName } from './components/Schedule/ScheduleBlock';
 import Schedule from 'components/Schedule';
+import type { timeAccessor } from 'components/Schedule';
 import WeeklyDayTime from 'util/time/WeeklyDayTime';
 import LocalTime from 'util/time/LocalTime';
 import DayOfWeek from 'util/time/DayOfWeek';
@@ -38,12 +39,12 @@ const convertMomentToWeeklyDayTime = (m : moment) : WeeklyDayTime => {
   return WeeklyDayTime.of(dayOfWeek, time);
 };
 
-const showOccurranceAccessor = (show) => {
+const showOccurranceAccessor : timeAccessor<Show> = (show) => {
   return show.airTimes.map(({ onAirAt, offAirAt }) => {
     return {
       start: convertMomentToWeeklyDayTime(onAirAt),
       end: convertMomentToWeeklyDayTime(offAirAt),
-      alternationId: show.alternationId
+      alternationId: '' + show.alternationId
     };
   });
 };
