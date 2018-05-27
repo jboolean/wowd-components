@@ -7,25 +7,25 @@ import type { Show, EpisodeSummary, Dj, TrackMetadata, Playlist } from './Types'
 import Alternations from 'util/Alternations';
 import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
-const TrackManager = (TrackManagerSingleton : TrackManagerType<TrackMetadata>);
+const TrackManager = (TrackManagerSingleton: TrackManagerType<TrackMetadata>);
 
 // prevents duplicate Tracks from being created.
-const trackCatalog : {[string] : Track<TrackMetadata>} = {};
+const trackCatalog : {[string]: Track<TrackMetadata>} = {};
 
-const getOrCreateTrack = (url : string, metadata : TrackMetadata) : Track<TrackMetadata> => {
+const getOrCreateTrack = (url: string, metadata: TrackMetadata): Track<TrackMetadata> => {
   if (!(url in trackCatalog)) {
     trackCatalog[url] = TrackManager.createTrack(url, metadata);
   }
   return trackCatalog[url];
 };
 
-const convertTime = (date : string, time : string) : moment =>
+const convertTime = (date: string, time: string): moment =>
   moment(date + ' ' + time, 'YYYY-MM-DD HH:mm');
 
-const convertTimeOfWeek = (dayOfWeek : string, time : string) : moment =>
+const convertTimeOfWeek = (dayOfWeek: string, time: string): moment =>
   moment(dayOfWeek + ' ' + time, 'ddd HH:mm');
 
-const convertEpisodeSummary = (apiEpisode : *, apiShow : *) : EpisodeSummary => {
+const convertEpisodeSummary = (apiEpisode: *, apiShow: *): EpisodeSummary => {
   const onAirAtStr = apiEpisode.onAirAt || apiShow.onAirAt;
   const offAirAtStr = apiEpisode.offAirAt || apiShow.offAirAt;
   const onAirAt = convertTime(apiEpisode.date, onAirAtStr);
@@ -51,8 +51,8 @@ const convertEpisodeSummary = (apiEpisode : *, apiShow : *) : EpisodeSummary => 
   };
 };
 
-const convertShow = (apiShow : *) : Show => {
-  const djs = (apiShow.djs : Dj[]);
+const convertShow = (apiShow: *): Show => {
+  const djs = (apiShow.djs: Dj[]);
   const episodes : ?(EpisodeSummary[]) = apiShow.episodes ? apiShow.episodes
     .map(apiEpisode => convertEpisodeSummary(apiEpisode, apiShow)) : null;
   if (episodes) {
@@ -87,13 +87,13 @@ const convertShow = (apiShow : *) : Show => {
   };
 };
 
-const convertAllShows = (apiShows : []) : Show[] => {
+const convertAllShows = (apiShows: []): Show[] => {
   const results = apiShows.map(convertShow);
   results.sort((a, b) => a.name.localeCompare(b.name));
   return results;
 };
 
-const convertPlaylist = (apiPlaylist : *) : Playlist => {
+const convertPlaylist = (apiPlaylist: *): Playlist => {
   const songs = apiPlaylist.songs.map(apiSong => {
     return {
       airedOn: convertTime(apiSong.date, apiSong.onAirAt),
@@ -116,17 +116,17 @@ const convertPlaylist = (apiPlaylist : *) : Playlist => {
 
 const ROOT_URL = 'https://live2.takomaradio.org/spinitron/audioapi2.php';
 
-export function getAllShows() : Promise<Show[]> {
+export function getAllShows(): Promise<Show[]> {
   return axios.get(ROOT_URL, { params: { request: 'showsbyday' } })
     .then(resp => convertAllShows(resp.data));
 }
 
-export function getShow(id : number) : Promise<Show> {
+export function getShow(id: number): Promise<Show> {
   return axios.get(ROOT_URL, { params: { request: 'showinfo', id } })
     .then(resp => convertShow(resp.data));
 }
 
-export function getEpisode(showId : number, episodeId : string | number) : Promise<EpisodeSummary> {
+export function getEpisode(showId: number, episodeId: string | number): Promise<EpisodeSummary> {
   return getShow(showId)
     .then(show => {
       if (!show.episodes) {
@@ -140,7 +140,7 @@ export function getEpisode(showId : number, episodeId : string | number) : Promi
     });
 }
 
-export function getPlaylist(episodeId : string | number) : Promise<Playlist | null> {
+export function getPlaylist(episodeId: string | number): Promise<Playlist | null> {
   return axios.get(ROOT_URL, { params: { request: 'episodeinfo', id: episodeId } })
     .then(resp => {
       return convertPlaylist(resp.data);

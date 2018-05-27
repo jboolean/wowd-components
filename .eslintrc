@@ -1,5 +1,5 @@
 {
-  "extends": ["squarespace"],
+  "extends": ["squarespace", "plugin:flowtype/recommended"],
   "env": {
     "browser": true,
     "mocha": true,

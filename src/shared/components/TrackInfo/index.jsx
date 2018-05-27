@@ -18,7 +18,7 @@ type InternalState = {
 };
 
 export default class ConnectedTrackInfo extends React.Component<Props, TrackMetadata & InternalState & Playhead> {
-  constructor(props : Props) {
+  constructor(props: Props) {
     super(props);
     const { track } = props;
 
@@ -41,7 +41,7 @@ export default class ConnectedTrackInfo extends React.Component<Props, TrackMeta
     this.unbindEvents();
   }
 
-  componentWillReceiveProps(nextProps : Props) {
+  componentWillReceiveProps(nextProps: Props) {
     if (this.props.track !== nextProps.track) {
       this.unbindEvents();
       this.bindEvents(nextProps.track);
@@ -49,7 +49,7 @@ export default class ConnectedTrackInfo extends React.Component<Props, TrackMeta
     }
   }
 
-  bindEvents(track : Track<TrackMetadata>) {
+  bindEvents(track: Track<TrackMetadata>) {
     const newListeners = {
       metadataChanged: (newMetadata) => this.setState(newMetadata),
       durationChanged: (duration) => this.setState({ duration }),

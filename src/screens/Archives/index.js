@@ -8,7 +8,7 @@ import Archives from './Archives';
 
 let promise;
 // Fetch, transform, and cache archive summary
-const getArchiveSummaries = () : Promise<Show[]> => {
+const getArchiveSummaries = (): Promise<Show[]> => {
   if (!promise) {
     promise = getAllShows();
   }
@@ -19,7 +19,7 @@ type State = {
 };
 
 export default class ArchivesApp extends React.Component<void, State> {
-  constructor(props : void) {
+  constructor(props: void) {
     super(props);
     this.state = {
       shows: null,

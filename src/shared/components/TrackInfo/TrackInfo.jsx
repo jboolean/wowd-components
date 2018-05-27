@@ -20,7 +20,7 @@ const formatTimestamp = (seconds) =>
   // $FlowFixMe
   moment.duration(seconds, 'seconds').format('h:*mm:ss');
 
-const Timestamp = ({ value: seconds } : { value : number }) => {
+const Timestamp = ({ value: seconds }: { value: number }) => {
   const string = formatTimestamp(seconds);
   // Okay so, to prevent the time text from jumping around,
   // stardard widths are defined based on the string length.
@@ -33,7 +33,7 @@ const Timestamp = ({ value: seconds } : { value : number }) => {
   return <span className={className}>{string}</span>;
 };
 
-export default function TrackInfo(trackInfo : TrackMetadata & Playhead) {
+export default function TrackInfo(trackInfo: TrackMetadata & Playhead) {
 
   return (
     <div className={stylesheet.container}>

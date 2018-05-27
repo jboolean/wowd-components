@@ -7,7 +7,7 @@ import moment from 'moment';
 let lastRequest : ?Promise<string>;
 let nextExpiration : ?moment;
 
-const getSpotifyToken = () : Promise<string> => {
+const getSpotifyToken = (): Promise<string> => {
   if (!lastRequest || (nextExpiration && nextExpiration.isBefore())) {
     nextExpiration = null;
     lastRequest = axios.get('https://live2.takomaradio.org/spotifyToken.php')
@@ -24,7 +24,7 @@ const BACKOFF_INTERVAL = 5000;
 /**
  * Searches Spotify for a Song and returns a spotify track uri, or null.
  */
-export function findSongUri(song : Song) : Promise<?string> {
+export function findSongUri(song: Song): Promise<?string> {
   return getSpotifyToken()
     .then((token) => {
       const q = `track:${song.name} artist:${song.artist}`;

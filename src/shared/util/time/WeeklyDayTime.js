@@ -10,7 +10,7 @@ import type LocalTime from './LocalTime';
 export default class WeeklyDayTime {
   weekday: DayOfWeek;
   time: LocalTime;
-  constructor(weekday : DayOfWeek, time : LocalTime) {
+  constructor(weekday: DayOfWeek, time: LocalTime) {
     if (weekday === null || weekday === undefined) {
       throw new Error('weekday is required');
     }
@@ -21,11 +21,11 @@ export default class WeeklyDayTime {
     this.time = time;
   }
 
-  static of(weekday : DayOfWeek, time : LocalTime) : WeeklyDayTime {
+  static of(weekday: DayOfWeek, time: LocalTime): WeeklyDayTime {
     return new WeeklyDayTime(weekday, time);
   }
 
-  compareTo(that : WeeklyDayTime) {
+  compareTo(that: WeeklyDayTime) {
     if (this.weekday !== that.weekday) {
       return this.weekday > that.weekday ? 1 : -1;
     }

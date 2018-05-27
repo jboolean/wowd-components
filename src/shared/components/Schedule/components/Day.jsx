@@ -6,16 +6,16 @@ import WeeklyDayTime from 'util/time/WeeklyDayTime';
 import cx from 'classnames';
 
 type Props<T> = {
-  blocks : BlockData<T>[],
+  blocks: BlockData<T>[],
   start: WeeklyDayTime,
   end: WeeklyDayTime,
-  renderBlock : React.ComponentType<{block:BlockData<T>}>,
+  renderBlock: React.ComponentType<{block: BlockData<T>}>,
   className?: string
 };
 
 import stylesheet from 'Schedule.less';
 
-const getMillisBetween = (start : WeeklyDayTime, end : WeeklyDayTime) : number => {
+const getMillisBetween = (start: WeeklyDayTime, end: WeeklyDayTime): number => {
   const startMillis = start.time.valueOf();
   let endDay = end.weekday;
   if (endDay < start.weekday) {
@@ -28,7 +28,7 @@ const getMillisBetween = (start : WeeklyDayTime, end : WeeklyDayTime) : number =
 };
 
 export default class Day<T> extends React.Component<Props<T>> {
-  renderBlock(block : BlockData<T>) {
+  renderBlock(block: BlockData<T>) {
     const { renderBlock: BlockContainer } = this.props;
     let timeInDay = getMillisBetween(this.props.start, this.props.end);
 

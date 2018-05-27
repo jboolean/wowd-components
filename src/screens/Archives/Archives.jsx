@@ -17,7 +17,7 @@ import moment from 'moment';
 import stylesheet from './Archives.less';
 
 // Separate searchable terms with 🐄 (cows), since this is unlikely to appear in the text
-const getSearchHash = (show : Show) => {
+const getSearchHash = (show: Show) => {
   const djNames = show.djs
     .map(dj => dj.name);
   return [show.name].concat(djNames).join('\u{1F404}');
@@ -33,7 +33,7 @@ const filterShows = (filter, shows) => {
   return shows;
 };
 
-const convertMomentToWeeklyDayTime = (m : moment) : WeeklyDayTime => {
+const convertMomentToWeeklyDayTime = (m: moment): WeeklyDayTime => {
   const dayOfWeek = m.day() + DayOfWeek.SUNDAY;
   const time = LocalTime.of(m.get('hours'), m.get('minutes'), m.get('seconds'), m.get('milliseconds'));
   return WeeklyDayTime.of(dayOfWeek, time);
@@ -55,25 +55,25 @@ type Props = {
 };
 
 type State = {
-  filteredShows : Show[],
+  filteredShows: Show[],
   filter: ?string
 };
 
 export default class Archives extends React.Component<Props, State> {
-  constructor(props : Props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       filteredShows: props.shows,
       filter: null
     };
-    (this:any).onFilterChange = this.onFilterChange.bind(this);
+    (this: any).onFilterChange = this.onFilterChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps : Props) {
+  componentWillReceiveProps(nextProps: Props) {
     this.doFilter(nextProps.shows, this.state.filter);
   }
 
-  doFilter(shows : ?Show[], filter : ?string) {
+  doFilter(shows: ?Show[], filter: ?string) {
     if (!filter) {
       this.setState({
         filteredShows: this.props.shows
@@ -84,7 +84,7 @@ export default class Archives extends React.Component<Props, State> {
     });
   }
 
-  onFilterChange(e : { target : { value : string } }) {
+  onFilterChange(e: { target: { value: string } }) {
     const filter = e.target.value;
     this.setState({
       filter,

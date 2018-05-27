@@ -12,11 +12,11 @@ import type { Show as ShowType } from 'util/Types';
 
 const MAX_EPISODES = 2;
 
-const formatAirTime = (airTime : {onAirAt: moment, offAirAt: moment}) : string =>
+const formatAirTime = (airTime: {onAirAt: moment, offAirAt: moment}): string =>
   (airTime.onAirAt.format('dddd[s], h:mma') + '–' + airTime.offAirAt.format('h:mma'))
     .replace(/:00/g, '');
 
-export default function ShowCard(show : ShowType) {
+export default function ShowCard(show: ShowType) {
   return (
     <div className={stylesheet.show}>
       <div className={stylesheet.showName}>

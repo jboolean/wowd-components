@@ -2,7 +2,7 @@
 import type { TrackMetadata } from 'util/Types';
 import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
-const TrackManager = (TrackManagerSingleton : TrackManagerType<TrackMetadata>);
+const TrackManager = (TrackManagerSingleton: TrackManagerType<TrackMetadata>);
 import axios from 'axios';
 import moment from 'moment';
 

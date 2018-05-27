@@ -13,7 +13,7 @@ type State = {
 };
 
 export default class ConnectedShow extends React.Component<ContextRouter, State> {
-  constructor(props : void) {
+  constructor(props: void) {
     super(props);
     this.state = {
       show: null,

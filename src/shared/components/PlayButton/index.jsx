@@ -5,10 +5,10 @@ import PlayButton from './PlayButton';
 import type { Props as PlayButtonProps, Theme, Size } from './PlayButton';
 
 type Props = {
-  track : Track<any>,
-  theme : Theme,
-  size : Size,
-  className? : string
+  track: Track<any>,
+  theme: Theme,
+  size: Size,
+  className?: string
 };
 
 type ExtraState = {
@@ -16,7 +16,7 @@ type ExtraState = {
 };
 
 export default class ConnectedPlayButton extends React.Component<Props, PlayButtonProps & ExtraState> {
-  constructor(props : Props) {
+  constructor(props: Props) {
     super(props);
     const { track, theme, size } = props;
 
@@ -40,7 +40,7 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
     this.unbindEvents();
   }
 
-  componentWillReceiveProps(nextProps : Props) {
+  componentWillReceiveProps(nextProps: Props) {
     if (this.props.track !== nextProps.track) {
       this.unbindEvents();
       this.bindEvents(nextProps.track);
@@ -52,7 +52,7 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
     }
   }
 
-  bindEvents(track : Track<any>) {
+  bindEvents(track: Track<any>) {
     const newListeners = {
       play: () => {
         this.setState({

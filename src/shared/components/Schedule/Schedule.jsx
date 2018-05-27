@@ -12,15 +12,15 @@ import DayNames from 'util/time/DayNames';
 import cx from 'classnames';
 
 type Props<T> = {
-  blocks : BlockData<T>[],
-  className? : string,
+  blocks: BlockData<T>[],
+  className?: string,
   height: number,
-  dayStartsAt : LocalTime,
-  renderBlock : React.ComponentType<{block:BlockData<T>}>,
+  dayStartsAt: LocalTime,
+  renderBlock: React.ComponentType<{block: BlockData<T>}>,
   dayClassName?: string
 };
 
-const addWeekdays = (day : DayOfWeek, daysToAdd : number) : DayOfWeek => {
+const addWeekdays = (day: DayOfWeek, daysToAdd: number): DayOfWeek => {
   day += daysToAdd;
   while (day < 1) {
     day += 7;
@@ -33,7 +33,7 @@ const addWeekdays = (day : DayOfWeek, daysToAdd : number) : DayOfWeek => {
 
 const HOUR_MS = 1000 * 60 * 60;
 
-const createHourlyBlocks = (dayStartsAt : LocalTime) : BlockData<LocalTime>[] => {
+const createHourlyBlocks = (dayStartsAt: LocalTime): BlockData<LocalTime>[] => {
   const blocks = [];
   for (let i = dayStartsAt.millis; i < LocalTime.MAX.millis; i += HOUR_MS) {
     const curTime = new LocalTime(i);
@@ -54,7 +54,7 @@ const createHourlyBlocks = (dayStartsAt : LocalTime) : BlockData<LocalTime>[] =>
 };
 
 
-export default function Schedule<T>(props : Props<T>) {
+export default function Schedule<T>(props: Props<T>) {
   const { blocks, height, dayStartsAt, dayClassName } = props;
 
   // Allocate blocks to days.
@@ -63,7 +63,7 @@ export default function Schedule<T>(props : Props<T>) {
   let earliestTime = LocalTime.MAX;
   let latestTime = dayStartsAt;
   const blocksByDay = {};
-  Object.values(DayOfWeek).forEach((dayOfWeek : DayOfWeek) => {
+  Object.values(DayOfWeek).forEach((dayOfWeek: DayOfWeek) => {
     blocksByDay[dayOfWeek] = [];
   });
   blocks.forEach(block => {
@@ -82,7 +82,7 @@ export default function Schedule<T>(props : Props<T>) {
   return (
     <div className={cx(stylesheet.container, props.className)} style={{ height: height }}>
       <div className={stylesheet.dayNames}>
-        {Object.values(DayOfWeek).map((dayOfWeek : DayOfWeek) => <div key={dayOfWeek}>{DayNames[dayOfWeek]}</div>)}
+        {Object.values(DayOfWeek).map((dayOfWeek: DayOfWeek) => <div key={dayOfWeek}>{DayNames[dayOfWeek]}</div>)}
       </div>
       <div className={stylesheet.week} >
         <Day
@@ -93,7 +93,7 @@ export default function Schedule<T>(props : Props<T>) {
           className={stylesheet.times}
         />
 
-        {Object.values(DayOfWeek).map((dayOfWeek : DayOfWeek) =>
+        {Object.values(DayOfWeek).map((dayOfWeek: DayOfWeek) =>
           (
             <Day
               key={dayOfWeek}

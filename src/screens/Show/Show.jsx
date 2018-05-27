@@ -14,18 +14,18 @@ type Props = {
 
 import stylesheet from './Show.less';
 
-const formatAirTime = (airTime : {onAirAt: moment, offAirAt: moment}) : string =>
+const formatAirTime = (airTime: {onAirAt: moment, offAirAt: moment}): string =>
   (airTime.onAirAt.format('dddd[s], h:mma') + '–' + airTime.offAirAt.format('h:mma'))
     .replace(/:00/g, '');
 
 const URL_SUMMARY = /^https?:\/\/(?:www.)?(.*)/;
-const summarizeUrl = (url : string) : string => {
+const summarizeUrl = (url: string): string => {
   const matchResult = url.match(URL_SUMMARY);
   return matchResult ? matchResult[1] : url;
 };
 
 export default class Show extends React.Component<Props> {
-  renderEpisode(episode : EpisodeSummary) {
+  renderEpisode(episode: EpisodeSummary) {
     if (!episode.id) {
       throw new Error('id cannot be null');
     }

@@ -15,7 +15,7 @@ type State = {
 };
 
 export default class ConnectedEpisode extends React.Component<ContextRouter, State> {
-  constructor(props : void) {
+  constructor(props: void) {
     super(props);
     this.state = {
       show: null,

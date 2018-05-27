@@ -19,7 +19,7 @@ type Props = {
   playlist: ?Playlist
 };
 
-const PlaylistItem = (item : PlaylistItemType) => {
+const PlaylistItem = (item: PlaylistItemType) => {
   return (
     <div className={stylesheet.playlistItem}>
       <div className={stylesheet.airedOn}>

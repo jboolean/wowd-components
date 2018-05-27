@@ -10,20 +10,20 @@ export type Event<T> = {
   data: T
 };
 
-export type Alternatives<T> = { [string] : Event<T>[] };
+export type Alternatives<T> = { [string]: Event<T>[] };
 
 export default class Block<T> {
-  +start : WeeklyDayTime;
-  +end : WeeklyDayTime;
+  +start: WeeklyDayTime;
+  +end: WeeklyDayTime;
   +alternatives: Alternatives<T>;
 
-  constructor(start : WeeklyDayTime, end : WeeklyDayTime, alternatives : Alternatives<T>) {
+  constructor(start: WeeklyDayTime, end: WeeklyDayTime, alternatives: Alternatives<T>) {
     this.start = start;
     this.end = end;
     this.alternatives = alternatives;
   }
 
-  overlaps(that : Block<*>) {
+  overlaps(that: Block<*>) {
     return (this.start.compareTo(that.start) >= 0 && this.start.compareTo(that.end) < 0) ||
       (this.end.compareTo(that.start) > 0 && this.end.compareTo(that.end) <= 0);
   }
@@ -32,7 +32,7 @@ export default class Block<T> {
    * Creates a new block that incorporates another block.
    * The time range is extended to cover both block, and event lists are merged.
    */
-  merge(that : Block<T>) : Block<T> {
+  merge(that: Block<T>): Block<T> {
     const start = this.start.compareTo(that.start) < 0 ? this.start : that.start;
     const end = this.end.compareTo(that.end) > 0 ? this.end : that.end;
 

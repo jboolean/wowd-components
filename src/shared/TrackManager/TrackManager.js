@@ -76,7 +76,7 @@ export default class TrackManager<M> extends EventEmitter {
    * @param  {String} url - url to load
    * @return {Track}
    */
-  createTrack(url : string, metadata : M) : Track<M> {
+  createTrack(url: string, metadata: M): Track<M> {
 
     const track = new Track(url, metadata);
 
@@ -113,7 +113,7 @@ export default class TrackManager<M> extends EventEmitter {
    * Make track active, and the current track inactive.
    * @param {Track} track
    */
-  activate(track : Track<M>) {
+  activate(track: Track<M>) {
     if (this.activeTrack === track) {
       return;
     }

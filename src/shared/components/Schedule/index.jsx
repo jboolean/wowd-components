@@ -12,8 +12,8 @@ type Props<T> = {
   events: T[],
   timeAccessor: timeAccessorType<T>,
   height: number,
-  dayStartsAt : LocalTime,
-  renderBlock: React.ComponentType<{block:BlockData<T>}>,
+  dayStartsAt: LocalTime,
+  renderBlock: React.ComponentType<{block: BlockData<T>}>,
   dayClassName?: string
 };
 

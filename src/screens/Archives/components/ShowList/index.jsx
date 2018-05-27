@@ -11,7 +11,7 @@ type Props = {
   shows: ShowType[]
 };
 
-export default function ShowList(props : Props) {
+export default function ShowList(props: Props) {
   return (
     <ol className={stylesheet.showList}>
       {props.shows.map((show) => <li key={show.id} ><ShowCard {...show}/></li>)}

@@ -5,17 +5,17 @@ import Block from './Block';
 
 export type WeeklySchedule<T> = Block<T>[];
 
-export type timeAccessor<T> = (event:T) => {
+export type timeAccessor<T> = (event: T) => {
   start: WeeklyDayTime,
   end: WeeklyDayTime,
   alternationId: string
 }[];
 
-function comesBeforeOrOverlaps<T>(a: Block<T>, b : Block<T>) : boolean {
+function comesBeforeOrOverlaps<T>(a: Block<T>, b: Block<T>): boolean {
   return a.start.compareTo(b.start) <= 0 || b.overlaps(a);
 }
 
-function insertBlock<T>(schedule : WeeklySchedule<T>, newBlock : Block<T>) {
+function insertBlock<T>(schedule: WeeklySchedule<T>, newBlock: Block<T>) {
   /*
   For each event, find existing blocks to merge with, replace those blocks with the merged block.
   Since all overlapping blocks must be consecutive, they can all be splice out together and replaced.
@@ -64,7 +64,7 @@ function insertBlock<T>(schedule : WeeklySchedule<T>, newBlock : Block<T>) {
  * @param {function} dataAccessor function to extract timing data from an event.
  *                                returs a list of times this event occurs.
  */
-export default function buildSchedule<T>(events : T[], dataAccessor : timeAccessor<T>) : WeeklySchedule<T> {
+export default function buildSchedule<T>(events: T[], dataAccessor: timeAccessor<T>): WeeklySchedule<T> {
   const schedule = [];
 
   for (let eventData of events) {

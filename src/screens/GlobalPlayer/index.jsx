@@ -7,10 +7,10 @@ import type { TrackMetadata } from 'util/Types';
 
 import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
-const TrackManager = (TrackManagerSingleton : TrackManagerType<TrackMetadata>);
+const TrackManager = (TrackManagerSingleton: TrackManagerType<TrackMetadata>);
 
 type State = {
-  trackChangeListener: ?((track : Track<TrackMetadata>) => void),
+  trackChangeListener: ?((track: Track<TrackMetadata>) => void),
   track: ?Track<TrackMetadata>
 };
 

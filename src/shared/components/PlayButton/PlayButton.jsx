@@ -15,15 +15,15 @@ export type Theme = 'dark' | 'light' | 'primary';
 export type Size = 'small' | 'large';
 
 export type Props = {
-  state : 'playing' | 'paused' | 'stopped' | 'loading',
-  onClick : () => void,
-  theme : Theme,
-  size : Size,
-  className? : string,
+  state: 'playing' | 'paused' | 'stopped' | 'loading',
+  onClick: () => void,
+  theme: Theme,
+  size: Size,
+  className?: string,
   pauseable: boolean
 };
 
-export default function PlayButton(props : Props) {
+export default function PlayButton(props: Props) {
   const state = props.state;
   const className = cx(
     stylesheet.playerButton,

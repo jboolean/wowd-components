@@ -10,13 +10,13 @@ type Props = {
 };
 
 type State = {
-  uri : ?string,
+  uri: ?string,
   loaded: boolean
 };
 
 
 export default class SongPreview extends React.Component<Props, State> {
-  constructor(props : Props) {
+  constructor(props: Props) {
     super(props);
     this.state = { uri: null, loaded: false };
   }
