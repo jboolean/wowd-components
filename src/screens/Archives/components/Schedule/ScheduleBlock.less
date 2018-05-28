@@ -11,9 +11,6 @@
   .block {
     height: ~"calc(100% - "@gutters~")";
     overflow-y: hidden;
-    // border-bottom: @rule;
-    // border-left: @rule;
-    // border-color: @background-color;
     font-size: @font-size-small;
     text-overflow: ellipsis;
     padding: 7%;
@@ -32,36 +29,21 @@
     font-size: 12px;
   }
 
-  .timeHeading {
-    // color: @font-color-faded;
-  }
-
   .alternation {
     margin-bottom: @global-grid / 4;
   }
 
-  .show {
-    font-size: 14px;
-    letter-spacing: 0.6px;
-    // font-weight: bold;
-  }
-
-  // .day {
-  //   background-color: @font-color-link;
-  // }
-  // 
   .day {
     margin-right: @gutters;
   }
 
   .block {
-    // background-color: @font-color-link;
-    // color: @background-color;
     border-left: @gutters solid @primary-color;
     background-color: #fff9f0;
-    a {
+    .show a {
       color: @font-color-link;
       font-weight: bold;
+      letter-spacing: 0.6px;
     }
 
     a:hover {
@@ -69,40 +51,6 @@
     }
   }
 
-  // .blockColor(@color) {
-  //   background-color: @color;
-  //   color: @background-color;
-  //   a {
-  //     color: @background-color;
-  //     &:hover {
-  //       color: lighten(@color, 70%);
-  //     }
-  //   }
-  // }
-
-  // .day:nth-of-type(2) .block {
-  //   .blockColor(#00645a);
-  // }
-  
-  // .day:nth-of-type(4) .block {
-  //   .blockColor(#c0136c);
-  // }
-
-  // .day:nth-of-type(2n + 1) .block {
-  //   .blockColor(#612B16);
-  // }
-
-  // .day:nth-of-type(6) .block {
-  //   .blockColor(#0e289c);
-  // }
-
-  // .day:nth-of-type(8) .block {
-  //   .blockColor(#8c11ba);
-  // }
-  // .day .block {
-  //   background-color: #ebdab6;
-  // }
-  // 
   .popupContainer {
     width: 300px;
 
