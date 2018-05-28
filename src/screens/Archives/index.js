@@ -36,6 +36,7 @@ export default class ArchivesApp extends React.Component<void, State> {
       })
       .catch(err => console.error(err));
   }
+
   render() {
     if (!this.state.shows) {
       return null;

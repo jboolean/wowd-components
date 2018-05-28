@@ -4,14 +4,16 @@
 // #page {
 //   max-width: initial !important;
 // }
+// 
+@gutters: 3px;
 
 :local {
   .block {
-    height: 100%;
+    height: ~"calc(100% - "@gutters~")";
     overflow-y: hidden;
-    border-bottom: @rule;
-    border-left: @rule;
-    border-color: @background-color;
+    // border-bottom: @rule;
+    // border-left: @rule;
+    // border-color: @background-color;
     font-size: @font-size-small;
     text-overflow: ellipsis;
     padding: 7%;
@@ -24,10 +26,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  .day {
-    border-bottom: @rule;
   }
 
   .alternativeHeading, .timeHeading {
@@ -48,35 +46,58 @@
     // font-weight: bold;
   }
 
-  .colorLink(@color) {
-    color: @color;
-    &:hover {
-      color: darken(@color, 20%);
+  // .day {
+  //   background-color: @font-color-link;
+  // }
+  // 
+  .day {
+    margin-right: @gutters;
+  }
+
+  .block {
+    // background-color: @font-color-link;
+    // color: @background-color;
+    border-left: @gutters solid @primary-color;
+    background-color: #fff9f0;
+    a {
+      color: @font-color-link;
+      font-weight: bold;
     }
   }
 
-  .day:nth-of-type(2) .block a {
-    .colorLink(#00645a);
-  }
+  // .blockColor(@color) {
+  //   background-color: @color;
+  //   color: @background-color;
+  //   a {
+  //     color: @background-color;
+  //     &:hover {
+  //       color: lighten(@color, 70%);
+  //     }
+  //   }
+  // }
+
+  // .day:nth-of-type(2) .block {
+  //   .blockColor(#00645a);
+  // }
   
-  .day:nth-of-type(4) .block a {
-    .colorLink(#c0136c);
-  }
+  // .day:nth-of-type(4) .block {
+  //   .blockColor(#c0136c);
+  // }
 
-  .day:nth-of-type(2n + 1) .block a {
-    .colorLink(#612B16);
-  }
+  // .day:nth-of-type(2n + 1) .block {
+  //   .blockColor(#612B16);
+  // }
 
-  .day:nth-of-type(6) .block a {
-    .colorLink(#0e289c);
-  }
+  // .day:nth-of-type(6) .block {
+  //   .blockColor(#0e289c);
+  // }
 
-  .day:nth-of-type(8) .block a {
-    .colorLink(#8c11ba);
-  }
-  .day .block {
-    background-color: #ebdab6;
-  }
+  // .day:nth-of-type(8) .block {
+  //   .blockColor(#8c11ba);
+  // }
+  // .day .block {
+  //   background-color: #ebdab6;
+  // }
   // 
   .popupContainer {
     width: 300px;

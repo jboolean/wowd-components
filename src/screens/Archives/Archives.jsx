@@ -147,7 +147,7 @@ export default class Archives extends React.Component<Props, State> {
               id="displayModeList" checked={display === 'list'}
               onChange={this.handleDisplayChange}
             />
-            <label htmlFor="displayModeList">List</label>
+            <label htmlFor="displayModeList">Show List</label>
 
             <input type="radio"
               name="displayMode"

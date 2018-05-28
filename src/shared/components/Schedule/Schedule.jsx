@@ -33,7 +33,7 @@ const addWeekdays = (day: DayOfWeek, daysToAdd: number): DayOfWeek => {
 
 const HOUR_MS = 1000 * 60 * 60;
 
-const createHourlyBlocks = (dayStartsAt: LocalTime): BlockData<LocalTime>[] => {
+const createHourlyBlocks = (dayStartsAt: LocalTime, latestTime: LocalTime): BlockData<LocalTime>[] => {
   const blocks = [];
   for (let i = dayStartsAt.millis; i < LocalTime.MAX.millis; i += HOUR_MS) {
     const curTime = new LocalTime(i);
@@ -43,7 +43,7 @@ const createHourlyBlocks = (dayStartsAt: LocalTime): BlockData<LocalTime>[] => {
     const data = { 'default': [{ start, end, data: start.time }] };
     blocks.push(new BlockData(start, end, data));
   }
-  for (let i = 0; i < dayStartsAt.millis; i += HOUR_MS) {
+  for (let i = 0; i <= latestTime.millis; i += HOUR_MS) {
     const curTime = new LocalTime(i);
     const start = WeeklyDayTime.of(DayOfWeek.TUESDAY, curTime);
     const end = WeeklyDayTime.of(DayOfWeek.TUESDAY, new LocalTime(i + HOUR_MS));
@@ -86,7 +86,7 @@ export default function Schedule<T>(props: Props<T>) {
       </div>
       <div className={stylesheet.week} >
         <Day
-          blocks={createHourlyBlocks(earliestTime)}
+          blocks={createHourlyBlocks(earliestTime, latestTime)}
           start={WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime)}
           end={WeeklyDayTime.of(DayOfWeek.TUESDAY, latestTime)}
           renderBlock={({ block: blockData }) => formatLocalTime(blockData.alternatives.default[0].data, true)}
