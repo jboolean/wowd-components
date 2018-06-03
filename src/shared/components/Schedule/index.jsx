@@ -14,7 +14,9 @@ type Props<T> = {
   height: number,
   dayStartsAt: LocalTime,
   renderBlock: React.ComponentType<{block: BlockData<T>}>,
-  dayClassName?: string
+  dayClassName?: string,
+  dayNamesClassName?: string,
+  activeDayNameClassName?: string
 };
 
 export default class ConnectedSchedule<T> extends React.Component<Props<T>> {

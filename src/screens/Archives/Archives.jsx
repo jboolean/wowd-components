@@ -6,7 +6,7 @@ import fuzzy from 'fuzzy';
 
 import ShowList from './components/ShowList';
 import ScheduleBlock from './components/Schedule/ScheduleBlock';
-import { dayClassName } from './components/Schedule/ScheduleBlock';
+import { dayClassName, dayNamesClassName, activeDayNameClassName } from './components/Schedule/ScheduleBlock';
 import Schedule from 'components/Schedule';
 import type { timeAccessor } from 'components/Schedule';
 import WeeklyDayTime from 'util/time/WeeklyDayTime';
@@ -113,6 +113,8 @@ export default class Archives extends React.Component<Props, State> {
         dayStartsAt={LocalTime.of(6)}
         renderBlock={ScheduleBlock}
         dayClassName={dayClassName}
+        dayNamesClassName={dayNamesClassName}
+        activeDayNameClassName={activeDayNameClassName}
       />
     );
   }

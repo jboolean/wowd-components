@@ -59,6 +59,20 @@
     }
   }
 
+   @media (max-width: 960px) {
+    .dayNames > * {
+      
+      background-color: @background-color;
+      @border-color: @font-color-faded;
+      box-shadow: 0px 2px 4px 0 @border-color;
+
+      &.active {
+        color: @background-color;
+        background-color: @primary-color;
+      }
+    }
+  }
+
   .slideUpEnter, .slideUpAppear {
     opacity: 0.01;
     transform: translateY(5px);

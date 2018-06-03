@@ -12,6 +12,8 @@ import DayNames from 'util/time/DayNames';
 import cx from 'classnames';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
+import scrollSnapPolyfill from 'css-scroll-snap-polyfill';
+
 
 type Props<T> = {
   blocks: BlockData<T>[],
@@ -19,7 +21,9 @@ type Props<T> = {
   height: number,
   dayStartsAt: LocalTime,
   renderBlock: React.ComponentType<{block: BlockData<T>}>,
-  dayClassName?: string
+  dayClassName?: string,
+  dayNamesClassName?: string,
+  activeDayNameClassName?: string
 };
 
 const addWeekdays = (day: DayOfWeek, daysToAdd: number): DayOfWeek => {
@@ -68,6 +72,7 @@ export default class Schedule<T> extends React.Component<Props<T>, {activeDay: D
   componentDidMount() {
     this.scrollToDay(this.state.activeDay);
     this.weekEl.addEventListener('scroll', this.updateDayListener = throttle(this.updateActiveDay.bind(this), 300));
+    scrollSnapPolyfill();
   }
 
   componentWillUnmount() {
@@ -91,7 +96,15 @@ export default class Schedule<T> extends React.Component<Props<T>, {activeDay: D
   }
 
   render() {
-    const { blocks, height, dayStartsAt, dayClassName, renderBlock } = this.props;
+    const {
+      blocks,
+      height,
+      dayStartsAt,
+      dayClassName,
+      dayNamesClassName,
+      activeDayNameClassName,
+      renderBlock
+    } = this.props;
     const { activeDay } = this.state;
     this.dayElements = {};
 
@@ -119,12 +132,14 @@ export default class Schedule<T> extends React.Component<Props<T>, {activeDay: D
 
     return (
       <div className={cx(stylesheet.container, this.props.className)} style={{ height: height }}>
-        <div className={stylesheet.dayNames}>
+        <div className={cx(stylesheet.dayNames, dayNamesClassName)}>
           {Object.values(DayOfWeek).map((dayOfWeek: DayOfWeek) =>
             (<div
               key={dayOfWeek}
               onClick={() => this.scrollToDay(dayOfWeek)}
-              className={cx({ [stylesheet.active]: dayOfWeek === activeDay })}>
+              className={cx(
+                { [activeDayNameClassName || '']: dayOfWeek === activeDay },
+              )}>
               {DayNames[dayOfWeek]}
             </div>))}
         </div>
