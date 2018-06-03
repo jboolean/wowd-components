@@ -84,7 +84,7 @@ export default function Schedule<T>(props: Props<T>) {
       <div className={stylesheet.dayNames}>
         {Object.values(DayOfWeek).map((dayOfWeek: DayOfWeek) => <div key={dayOfWeek}>{DayNames[dayOfWeek]}</div>)}
       </div>
-      <div className={stylesheet.week} >
+      <div className={stylesheet.weekTimesContainer} >
         <Day
           blocks={createHourlyBlocks(earliestTime, latestTime)}
           start={WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime)}
@@ -92,18 +92,19 @@ export default function Schedule<T>(props: Props<T>) {
           renderBlock={({ block: blockData }) => formatLocalTime(blockData.alternatives.default[0].data, true)}
           className={stylesheet.times}
         />
-
-        {Object.values(DayOfWeek).map((dayOfWeek: DayOfWeek) =>
-          (
-            <Day
-              key={dayOfWeek}
-              blocks={blocksByDay[dayOfWeek]}
-              start={WeeklyDayTime.of(dayOfWeek, earliestTime)}
-              end={WeeklyDayTime.of((dayOfWeek + 1) % 7, latestTime)}
-              renderBlock={props.renderBlock}
-              className={dayClassName}
-            />
-          ))}
+        <div className={stylesheet.week}>
+          {Object.values(DayOfWeek).map((dayOfWeek: DayOfWeek) =>
+            (
+              <Day
+                key={dayOfWeek}
+                blocks={blocksByDay[dayOfWeek]}
+                start={WeeklyDayTime.of(dayOfWeek, earliestTime)}
+                end={WeeklyDayTime.of((dayOfWeek + 1) % 7, latestTime)}
+                renderBlock={props.renderBlock}
+                className={dayClassName}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
