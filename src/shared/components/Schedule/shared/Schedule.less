@@ -49,11 +49,46 @@
     .week {
       width: 100%;
       overflow-x: scroll;
+      scroll-snap-type: mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-align: start;
+
+      /* older spec implementation */
+      scroll-snap-destination: 0% 100%;
+      scroll-snap-points-x: repeat(100%);
     }
 
     .day {
       width: 100%;
       flex-shrink: 0;
+    }
+
+    .dayNames {
+      justify-content: space-evenly;
+      margin: 0;
+      padding: 5%;
+      bottom: 0;
+      position: fixed;
+      z-index: 2;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .dayNames > * {
+      font-size: 0;
+      &::first-letter {
+        font-size: 18px;
+      }
+
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      background-color: yellow;
+      box-shadow: 0px 2px 4px 0 #eee;
+
+      &.active {
+        background-color: red;
+      }
     }
   }
 
