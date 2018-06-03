@@ -49,7 +49,7 @@ const updateNowPlaying = (data) => {
 
 const doUpdateCycle = () => {
   if (!liveTrack.isActive) {
-    liveTrack.once('active', doUpdateCycle);
+    liveTrack.once('active', () => {doUpdateCycle();});
     return;
   }
   return getNowPlayingData()

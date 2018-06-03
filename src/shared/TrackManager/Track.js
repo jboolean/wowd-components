@@ -49,6 +49,8 @@ export default class Track<M> extends EventEmitter {
   state: State;
   position: number;
   duration: number;
+  url: string;
+  isActive: boolean;
 
   // Create using TrackManager, please.
   constructor(url: string, metadata: M) {
