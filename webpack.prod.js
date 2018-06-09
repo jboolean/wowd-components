@@ -16,7 +16,8 @@ module.exports = merge(common, {
       sourceMap: true
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      '__DEV__': false
     })
   ],
 });

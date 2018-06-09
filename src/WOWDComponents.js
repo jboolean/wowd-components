@@ -18,7 +18,7 @@ const renderApp = (container, App) => {
   render(App);
 
   // Webpack Hot Module Replacement API
-  if (module.hot) {
+  if (__DEV__ && module.hot) {
     module.hot.accept(() => {
       render(App);
     });

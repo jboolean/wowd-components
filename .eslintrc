@@ -10,7 +10,8 @@
     "flowtype"
   ],
   "globals": {
-    "WOWDComponents": true
+    "WOWDComponents": true,
+    "__DEV__": true
   },
   "settings": {
     "import/resolver": {

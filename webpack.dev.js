@@ -7,12 +7,16 @@ const path = require('path');
 
 // Webpack configuration
 module.exports = merge(common, {
+  entry: ['react-hot-loader/patch'],
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(path.resolve(__dirname, 'src'), 'index.html'),
     }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      '__DEV__': true
+    })
   ]
 });
