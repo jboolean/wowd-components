@@ -59,7 +59,8 @@ type Props = {
 
 type State = {
   filteredShows: Show[],
-  filter: ?string
+  filter: ?string,
+  restoreViewAfterFilter: displayMode
 };
 
 export default class Archives extends React.Component<Props, State> {
@@ -67,14 +68,17 @@ export default class Archives extends React.Component<Props, State> {
     super(props);
     this.state = {
       filteredShows: props.shows,
-      filter: null
+      filter: null,
+      restoreViewAfterFilter: props.display
     };
     (this: any).handleFilterChange = this.handleFilterChange.bind(this);
     (this: any).handleDisplayChange = this.handleDisplayChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    this.doFilter(nextProps.shows, this.state.filter);
+    if (nextProps.shows !== this.props.shows) {
+      this.doFilter(nextProps.shows, this.state.filter);
+    }
   }
 
   doFilter(shows: ?Show[], filter: ?string) {
@@ -86,6 +90,9 @@ export default class Archives extends React.Component<Props, State> {
     this.setState({
       filteredShows: filterShows(filter, this.props.shows)
     });
+    if (this.props.display !== 'list') {
+      this.props.onChangeDisplay('list');
+    }
   }
 
   handleFilterChange(e: { target: { value: string } }) {
@@ -94,10 +101,16 @@ export default class Archives extends React.Component<Props, State> {
       filter,
     });
     this.doFilter(this.props.shows, filter);
+    if (!filter) {
+      this.props.onChangeDisplay(this.state.restoreViewAfterFilter);
+    }
   }
 
   handleDisplayChange(e: { target: {value: displayMode}}) {
     this.props.onChangeDisplay(e.target.value);
+    this.setState({
+      restoreViewAfterFilter: e.target.value
+    });
   }
 
   renderList() {
