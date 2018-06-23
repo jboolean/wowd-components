@@ -29,8 +29,15 @@
     font-size: 12px;
   }
 
+  .alternation:not(:last-child) {
+    border-bottom: @rule;
+    // border-bottom-color: @primary-color;
+  }
+
   .alternation {
     margin-bottom: @global-grid / 4;
+    padding-bottom: @global-grid / 4;
+
   }
 
   .day {
@@ -61,6 +68,10 @@
 
   .dayNames {
     // Doesn't export if not here
+  }
+
+  .dj:not(:last-child)::after {
+    content: ', '
   }
 
    @media (max-width: 960px) {

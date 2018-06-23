@@ -109,7 +109,7 @@ export default class Archives extends React.Component<Props, State> {
       <Schedule
         events={this.state.filteredShows}
         timeAccessor={showOccurranceAccessor}
-        height={2500}
+        height={3500}
         dayStartsAt={LocalTime.of(6)}
         renderBlock={ScheduleBlock}
         dayClassName={dayClassName}
