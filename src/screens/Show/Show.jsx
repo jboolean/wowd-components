@@ -66,6 +66,9 @@ export default class Show extends React.Component<Props> {
         <div>
           <h1>{show.name}</h1>
           <div className={stylesheet.showInfo}>
+            {show.imageUrl ?
+              <img className={stylesheet.image} src={show.imageUrl} /> :
+              null}
             <div className={stylesheet.djs}>
               {show.djs.map(dj =>
                 <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>

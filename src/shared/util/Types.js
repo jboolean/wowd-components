@@ -58,7 +58,8 @@ export type Show = {
     offAirAt: moment
   }[],
   externalUrl: ?string,
-  alternationId: $Values<Alternations>
+  alternationId: $Values<Alternations>,
+  imageUrl: ?string
 };
 
 export type PlaylistItem = {

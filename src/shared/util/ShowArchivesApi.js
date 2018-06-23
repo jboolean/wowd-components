@@ -75,6 +75,10 @@ const convertShow = (apiShow: *): Show => {
   } else if (apiShow.week === 2) {
     alternationId = Alternations.WEEK_2;
   }
+  let imageUrl;
+  if (apiShow.showImage) {
+    imageUrl = apiShow.showImage.imageUrl;
+  }
   return {
     id: apiShow.id,
     description: apiShow.description,
@@ -83,7 +87,8 @@ const convertShow = (apiShow: *): Show => {
     episodes,
     airTimes,
     externalUrl: apiShow.externalUrl,
-    alternationId
+    alternationId,
+    imageUrl
   };
 };
 
