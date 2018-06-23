@@ -55,7 +55,7 @@ module.exports = {
         }),
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
             loader: 'file-loader',
@@ -64,6 +64,27 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        issuer: /\.(css|less)/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name]-[hash:base64:5].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.svg$/,
+        issuer: /\.jsx$/,
+        exclude: /node_modules/,
+        loader: 'svg-react-loader',
+        query: {
+          classIdPrefix: '[name]-[hash:8]__'
+        }
       },
       {
         test: /\.modernizrrc.js$/,

@@ -4,10 +4,10 @@ import * as React from 'react';
 
 import stylesheet from './PlayButton.less';
 
-import PlayIcon from '-!babel-loader!svg-react-loader!img/play.svg';
-import StopIcon from '-!babel-loader!svg-react-loader!img/stop.svg';
-import PauseIcon from '-!babel-loader!svg-react-loader!img/pause.svg';
-import LoadingIcon from '-!babel-loader!svg-react-loader!img/loading.svg';
+import PlayIcon from 'img/play.svg';
+import StopIcon from 'img/stop.svg';
+import PauseIcon from 'img/pause.svg';
+import LoadingIcon from 'img/loading.svg';
 
 import cx from 'classnames';
 

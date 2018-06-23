@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import ArchivesApp from './ArchivesApp';
 import GlobalPlayer from 'screens/GlobalPlayer';
+import PlayButton from 'components/PlayButton';
 import LiveTrack from 'LiveTrack';
 
 const renderApp = (container, App) => {
@@ -31,6 +32,12 @@ export function renderArchives(container) {
 
 export function renderGlobalPlayer(container) {
   renderApp(container, GlobalPlayer);
+}
+
+export function renderLiveTrackPlayButton(container) {
+  ReactDOM.render(
+    <PlayButton size="small" theme="light" track={LiveTrack} />,
+    container);
 }
 
 export function activateLiveTrack() {
