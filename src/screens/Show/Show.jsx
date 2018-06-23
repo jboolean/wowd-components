@@ -5,6 +5,7 @@ import PlayButton from 'components/PlayButton';
 import type { EpisodeSummary } from 'util/Types';
 import type { Show as ShowType } from 'util/Types';
 import moment from 'moment';
+import cx from 'classnames';
 
 import { Link } from 'react-router-dom';
 
@@ -62,7 +63,7 @@ export default class Show extends React.Component<Props> {
   render() {
     const { show } = this.props;
     return (
-      <div className={stylesheet.container}>
+      <div className={cx(stylesheet.container, 'paddedPageContent')}>
         <div>
           <h1>{show.name}</h1>
           <div className={stylesheet.showInfo}>

@@ -144,7 +144,7 @@ export default class Archives extends React.Component<Props, State> {
   render() {
     const { display } = this.props;
     return (
-      <div>
+      <div className="paddedPageContent">
         <div className={stylesheet.controls}>
           <input
             className={stylesheet.filter}

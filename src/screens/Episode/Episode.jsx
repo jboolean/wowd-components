@@ -43,7 +43,7 @@ export default class Episode extends React.Component<Props> {
     </time>);
     const hasTitle = !!episode.name;
     return (
-      <div>
+      <div className="paddedPageContent">
         <div>
           <h1>{hasTitle ? episode.name : date}</h1>
           <Link to={`/shows/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
