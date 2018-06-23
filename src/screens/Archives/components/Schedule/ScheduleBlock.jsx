@@ -11,10 +11,19 @@ import Alternations from 'util/Alternations';
 
 import formatLocalTime from 'util/time/formatLocalTime';
 import calculateCurrentWeek from './calculateCurrentWeek';
+import UAParser from 'ua-parser-js';
 
 import stylesheet from './ScheduleBlock.less';
 
 const thisWeek = calculateCurrentWeek();
+const ua = new UAParser();
+const device = ua.getDevice();
+// Okay, so… iOS is dumb and fires fake mouseover events on links,
+// and if the DOM changes, then it suppresses a click.
+// Need to disable hover for these devices without disabling for all
+// mobile/touch/small devices.
+const suppressHover = device.vendor === 'Apple' &&
+  (device.type === 'mobile' || device.type === 'tablet');
 
 const ALTERNATIVES_ORDER : $Values<Alternations>[] = [
   Alternations.SPECIAL,
@@ -50,33 +59,34 @@ export default class ScheduleBlock extends React.Component<{block: BlockData<Sho
             {formatLocalTime(event.start.time)}
           </div> : null}
         <div className={stylesheet.show}>
-          <Trigger
-            action={['hover']}
-            popup={(
-              <div className={stylesheet.popupContainer}>
-                <ShowCard {...event.data} />
-              </div>
-            )}
-            popupAlign={{
-              points: ['bc', 'tc'],
-              offset: [0, -15],
-              overflow: {
-                adjustX: true,
-                adjustY: true
-              }
-            }}
-            getPopupContainer={() => document.getElementById('siteWrapper')}
-            popupTransitionName={{
-              enter: stylesheet.slideUpEnter,
-              enterActive: stylesheet.slideUpEnterActive,
-              appear: stylesheet.slideUpAppear,
-              appearActive: stylesheet.slideUpAppearActive,
-              leave: stylesheet.slideUpLeave,
-              leaveActive: stylesheet.slideUpLeaveActive
-            }}
-          >
-            <Link to={'/shows/' + event.data.id}>{event.data.name}</Link>
-          </Trigger>
+          {suppressHover ? <Link to={'/shows/' + event.data.id}>{event.data.name}</Link> :
+            <Trigger
+              action={['hover']}
+              popup={(
+                <div className={stylesheet.popupContainer}>
+                  <ShowCard {...event.data} />
+                </div>
+              )}
+              popupAlign={{
+                points: ['bc', 'tc'],
+                offset: [0, -15],
+                overflow: {
+                  adjustX: true,
+                  adjustY: true
+                }
+              }}
+              getPopupContainer={() => document.getElementById('siteWrapper')}
+              popupTransitionName={{
+                enter: stylesheet.slideUpEnter,
+                enterActive: stylesheet.slideUpEnterActive,
+                appear: stylesheet.slideUpAppear,
+                appearActive: stylesheet.slideUpAppearActive,
+                leave: stylesheet.slideUpLeave,
+                leaveActive: stylesheet.slideUpLeaveActive
+              }}
+            >
+              <Link to={'/shows/' + event.data.id}>{event.data.name}</Link>
+            </Trigger>}
           <div className={stylesheet.djs}>
             {event.data.djs.map(dj =>
               <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>
