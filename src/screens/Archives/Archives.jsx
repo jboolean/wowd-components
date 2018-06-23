@@ -13,6 +13,7 @@ import WeeklyDayTime from 'util/time/WeeklyDayTime';
 import LocalTime from 'util/time/LocalTime';
 import DayOfWeek from 'util/time/DayOfWeek';
 import moment from 'moment';
+import cx from 'classnames';
 
 import stylesheet from './Archives.less';
 
@@ -144,7 +145,7 @@ export default class Archives extends React.Component<Props, State> {
   render() {
     const { display } = this.props;
     return (
-      <div className="paddedPageContent">
+      <div className={cx({ 'paddedPageContent': display !== 'schedule' })}>
         <div className={stylesheet.controls}>
           <input
             className={stylesheet.filter}
