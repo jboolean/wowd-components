@@ -14,13 +14,15 @@ import {
 
 const App = () => (
   <Router>
-    <Switch>
-      <Route exact path="/" component={Archives} />
-      <Route exact path="/shows/:showId" component={Show} />
-      <Route exact path="/shows/:showId/episodes/:episodeId" component={Episode} />
-      <Redirect to="/" />
+    <React.Fragment>
+      <Switch>
+        <Route exact path="/" component={Archives} />
+        <Route exact path="/shows/:showId" component={Show} />
+        <Route exact path="/shows/:showId/episodes/:episodeId" component={Episode} />
+        <Redirect to="/" />
+      </Switch>
       <ScrollToTop />
-    </Switch>
+    </React.Fragment>
   </Router>
 );
 
