@@ -5,14 +5,8 @@ import type { Show } from 'util/Types';
 import fuzzy from 'fuzzy';
 
 import ShowList from './components/ShowList';
-import ScheduleBlock from './components/Schedule/ScheduleBlock';
-import { dayClassName, dayNamesClassName, activeDayNameClassName } from './components/Schedule/ScheduleBlock';
-import Schedule from 'components/Schedule';
-import type { timeAccessor } from 'components/Schedule';
-import WeeklyDayTime from 'util/time/WeeklyDayTime';
-import LocalTime from 'util/time/LocalTime';
-import DayOfWeek from 'util/time/DayOfWeek';
-import moment from 'moment';
+import ShowSchedule from 'components/ShowSchedule';
+
 import cx from 'classnames';
 
 import stylesheet from './Archives.less';
@@ -32,22 +26,6 @@ const filterShows = (filter, shows) => {
   }
 
   return shows;
-};
-
-const convertMomentToWeeklyDayTime = (m: moment): WeeklyDayTime => {
-  const dayOfWeek = m.day() + DayOfWeek.SUNDAY;
-  const time = LocalTime.of(m.get('hours'), m.get('minutes'), m.get('seconds'), m.get('milliseconds'));
-  return WeeklyDayTime.of(dayOfWeek, time);
-};
-
-const showOccurranceAccessor : timeAccessor<Show> = (show) => {
-  return show.airTimes.map(({ onAirAt, offAirAt }) => {
-    return {
-      start: convertMomentToWeeklyDayTime(onAirAt),
-      end: convertMomentToWeeklyDayTime(offAirAt),
-      alternationId: show.alternationId
-    };
-  });
 };
 
 export type displayMode = 'list' | 'schedule';
@@ -120,15 +98,8 @@ export default class Archives extends React.Component<Props, State> {
 
   renderSchedule() {
     return (
-      <Schedule
-        events={this.state.filteredShows}
-        timeAccessor={showOccurranceAccessor}
-        height={3500}
-        dayStartsAt={LocalTime.of(6)}
-        renderBlock={ScheduleBlock}
-        dayClassName={dayClassName}
-        dayNamesClassName={dayNamesClassName}
-        activeDayNameClassName={activeDayNameClassName}
+      <ShowSchedule
+        shows={this.state.filteredShows}
       />
     );
   }

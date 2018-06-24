@@ -5,6 +5,7 @@ import ArchivesApp from './ArchivesApp';
 import GlobalPlayer from 'screens/GlobalPlayer';
 import PlayButton from 'components/PlayButton';
 import LiveTrack from 'LiveTrack';
+import ShowSchedule from 'screens/ShowSchedule';
 
 const renderApp = (container, App) => {
   const render = Component => {
@@ -32,6 +33,10 @@ export function renderArchives(container) {
 
 export function renderGlobalPlayer(container) {
   renderApp(container, GlobalPlayer);
+}
+
+export function renderShowSchedule(container) {
+  renderApp(container, ShowSchedule);
 }
 
 export function renderLiveTrackPlayButton(container) {

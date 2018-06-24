@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import stylesheet from './ShowList.less';
-import ShowCard from '../ShowCard';
+import ShowCard from 'components/ShowCard';
 
 import type { Show as ShowType } from 'util/Types';
 

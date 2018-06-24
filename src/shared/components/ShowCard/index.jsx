@@ -6,7 +6,7 @@ import stylesheet from './ShowCard.less';
 import ShowEpisode from './ShowEpisode';
 import moment from 'moment';
 
-import { Link } from 'react-router-dom';
+import Link from 'components/AppLink';
 
 import type { Show as ShowType } from 'util/Types';
 

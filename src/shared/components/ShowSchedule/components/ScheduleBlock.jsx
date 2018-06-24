@@ -4,13 +4,13 @@ import * as React from 'react';
 
 import type { Show } from 'util/Types';
 import BlockData from 'components/Schedule/Block';
-import { Link } from 'react-router-dom';
-import ShowCard from '../ShowCard';
+import Link from 'components/AppLink';
+import ShowCard from 'components/ShowCard';
 import Trigger from 'rc-trigger';
 import Alternations from 'util/Alternations';
 
 import formatLocalTime from 'util/time/formatLocalTime';
-import calculateCurrentWeek from './calculateCurrentWeek';
+import calculateCurrentWeek from '../util/calculateCurrentWeek';
 import UAParser from 'ua-parser-js';
 
 import stylesheet from './ScheduleBlock.less';
