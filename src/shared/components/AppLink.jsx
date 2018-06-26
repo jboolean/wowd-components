@@ -25,7 +25,7 @@ export default class AppLink extends React.Component<Props, void> {
           replace: PropTypes.func.isRequired,
           createHref: PropTypes.func.isRequired
         }).isRequired
-      }).isRequired
+      })
     };
 
     render() {
