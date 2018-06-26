@@ -9,10 +9,24 @@ const path = require('path');
 module.exports = merge(common, {
   entry: ['react-hot-loader/patch'],
   devtool: 'inline-source-map',
+  devServer: {
+    // without this the .html extension is required
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/shows/, to: '/shows.html' },
+        { from: /^\/schedule/, to: '/schedule.html' }
+      ]
+    }
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(path.resolve(__dirname, 'src'), 'index.html'),
-    }),    
+      template: path.join(path.resolve(__dirname, 'src'), 'shows.html'),
+      filename: 'shows.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(path.resolve(__dirname, 'src'), 'schedule.html'),
+      filename: 'schedule.html'
+    }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({

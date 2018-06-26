@@ -5,10 +5,15 @@ Custom components for injecting into takomaradio.org.
 ## Development
 
 ```
-npm run watch:hot
+npm run watch
 ``` 
 
-Starts a development server at `localhost:8080` which renders the index.html page.
+Starts a development server at `localhost:8080`.
+There are two pages to mimic the two pages on the real site:
+
+* http://localhost:8080/shows
+* http://localhost:8080/schedule
+
 This page can be used to approximate the takomaradio.org Squarespace site.
 
 ## Build

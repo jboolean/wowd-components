@@ -20,7 +20,7 @@ export default function ShowCard(show: ShowType) {
   return (
     <div className={stylesheet.show}>
       <div className={stylesheet.showName}>
-        <Link to={'/shows/' + show.id}>{show.name}</Link>
+        <Link to={'/' + show.id}>{show.name}</Link>
       </div>
       <div className={stylesheet.djs}>
         {show.djs.map(dj =>

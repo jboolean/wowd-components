@@ -5,9 +5,6 @@ import type { Show } from 'util/Types';
 import fuzzy from 'fuzzy';
 
 import ShowList from './components/ShowList';
-import ShowSchedule from 'components/ShowSchedule';
-
-import cx from 'classnames';
 
 import stylesheet from './Archives.less';
 
@@ -31,15 +28,12 @@ const filterShows = (filter, shows) => {
 export type displayMode = 'list' | 'schedule';
 
 type Props = {
-  shows: Show[],
-  display: displayMode,
-  onChangeDisplay: (displayMode) => void
+  shows: Show[]
 };
 
 type State = {
   filteredShows: Show[],
   filter: ?string,
-  restoreViewAfterFilter: displayMode
 };
 
 export default class Archives extends React.Component<Props, State> {
@@ -48,10 +42,8 @@ export default class Archives extends React.Component<Props, State> {
     this.state = {
       filteredShows: props.shows,
       filter: null,
-      restoreViewAfterFilter: props.display
     };
     (this: any).handleFilterChange = this.handleFilterChange.bind(this);
-    (this: any).handleDisplayChange = this.handleDisplayChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -69,9 +61,6 @@ export default class Archives extends React.Component<Props, State> {
     this.setState({
       filteredShows: filterShows(filter, this.props.shows)
     });
-    if (this.props.display !== 'list') {
-      this.props.onChangeDisplay('list');
-    }
   }
 
   handleFilterChange(e: { target: { value: string } }) {
@@ -80,43 +69,11 @@ export default class Archives extends React.Component<Props, State> {
       filter,
     });
     this.doFilter(this.props.shows, filter);
-    if (!filter) {
-      this.props.onChangeDisplay(this.state.restoreViewAfterFilter);
-    }
-  }
-
-  handleDisplayChange(e: { target: {value: displayMode}}) {
-    this.props.onChangeDisplay(e.target.value);
-    this.setState({
-      restoreViewAfterFilter: e.target.value
-    });
-  }
-
-  renderList() {
-    return <ShowList shows={this.state.filteredShows} />;
-  }
-
-  renderSchedule() {
-    return (
-      <ShowSchedule
-        shows={this.state.filteredShows}
-      />
-    );
-  }
-
-  renderShows() {
-    switch (this.props.display) {
-    case 'list':
-      return this.renderList();
-    case 'schedule':
-      return this.renderSchedule();
-    }
   }
 
   render() {
-    const { display } = this.props;
     return (
-      <div className={cx({ 'paddedPageContent': display !== 'schedule' })}>
+      <div>
         <div className={stylesheet.controls}>
           <input
             className={stylesheet.filter}
@@ -126,27 +83,8 @@ export default class Archives extends React.Component<Props, State> {
             value={this.state.filter || ''}
             placeholder="Find shows"
           />
-          <div className={stylesheet.displayModeRadioGroup}>
-            <input
-              type="radio"
-              name="displayMode"
-              value="list"
-              id="displayModeList" checked={display === 'list'}
-              onChange={this.handleDisplayChange}
-            />
-            <label htmlFor="displayModeList">Show List</label>
-
-            <input type="radio"
-              name="displayMode"
-              value="schedule"
-              id="displayModeSchedule"
-              checked={display === 'schedule'}
-              onChange={this.handleDisplayChange}
-            />
-            <label htmlFor="displayModeSchedule">Schedule</label>
-          </div>
         </div>
-        {this.renderShows()}
+        <ShowList shows={this.state.filteredShows} />
       </div>
     );
   }

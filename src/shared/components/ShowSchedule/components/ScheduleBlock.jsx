@@ -59,7 +59,7 @@ export default class ScheduleBlock extends React.Component<{block: BlockData<Sho
             {formatLocalTime(event.start.time)}
           </div> : null}
         <div className={stylesheet.show}>
-          {suppressHover ? <Link to={'/shows/' + event.data.id}>{event.data.name}</Link> :
+          {suppressHover ? <Link to={'/' + event.data.id}>{event.data.name}</Link> :
             <Trigger
               action={['hover']}
               popup={(
@@ -85,7 +85,7 @@ export default class ScheduleBlock extends React.Component<{block: BlockData<Sho
                 leaveActive: stylesheet.slideUpLeaveActive
               }}
             >
-              <Link to={'/shows/' + event.data.id}>{event.data.name}</Link>
+              <Link to={'/' + event.data.id}>{event.data.name}</Link>
             </Trigger>}
           <div className={stylesheet.djs}>
             {event.data.djs.map(dj =>

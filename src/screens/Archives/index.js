@@ -5,7 +5,6 @@ import * as React from 'react';
 import type { Show } from 'util/Types';
 import { getAllShows } from 'util/ShowArchivesApi';
 import Archives from './Archives';
-import type { displayMode } from './Archives';
 
 let promise;
 // Fetch, transform, and cache archive summary
@@ -17,7 +16,6 @@ const getArchiveSummaries = (): Promise<Show[]> => {
 };
 type State = {
   shows: ?Show[],
-  display: displayMode
 };
 
 export default class ArchivesApp extends React.Component<void, State> {
@@ -25,7 +23,6 @@ export default class ArchivesApp extends React.Component<void, State> {
     super(props);
     this.state = {
       shows: null,
-      display: 'schedule'
     };
   }
 
@@ -45,8 +42,6 @@ export default class ArchivesApp extends React.Component<void, State> {
     return (
       <Archives
         shows={this.state.shows}
-        display={this.state.display}
-        onChangeDisplay={(display: displayMode) => this.setState({ display })}
       />
 
     );

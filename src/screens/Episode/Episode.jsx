@@ -46,7 +46,7 @@ export default class Episode extends React.Component<Props> {
       <div className="paddedPageContent">
         <div>
           <h1>{hasTitle ? episode.name : date}</h1>
-          <Link to={`/shows/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
+          <Link to={`/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
           {hasTitle ? <div className={stylesheet.airDate}>{date}</div> : null}
           {episode.track ?
             <PlayButton className={stylesheet.play} track={episode.track} theme="primary" size="large" /> :
