@@ -52,3 +52,11 @@ export function activateLiveTrack() {
 export function playLiveTrack() {
   LiveTrack.play();
 }
+
+export function toggleLiveTrack() {
+  if (LiveTrack.state === 'playing') {
+    LiveTrack.stop();
+  } else {
+    LiveTrack.play();
+  }
+}
