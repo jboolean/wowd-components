@@ -1,0 +1,104 @@
+@import "~wowd/shared/variables.less";
+
+:local {
+  .container {
+    position: relative;
+  }
+
+  .episodes {
+    // cannot get webpack to resolve composes
+    composes: list from '../../shared/list.less';
+  }
+
+  .airTimes {
+    font-size: @font-size-small;
+  }
+
+  .dj:not(:last-child)::after {
+    content: ' / '
+  }
+
+  .image {
+    width: 100%;
+    margin-bottom: @global-grid / 2;
+  }
+
+  @sidebar-size: 300px;
+
+  a.externalUrl {
+    .link();
+  }
+
+  @media (min-width: 960px) {
+    .episodes {
+      width: calc(~"100% -" @sidebar-size + @global-grid * 2);
+    }
+
+    .showInfo {
+      width: @sidebar-size;
+      float:right;
+    }
+
+    .showInfo::after {
+      content: '';
+      display: table;
+    }
+  }
+
+  .episode {
+    padding-left: @global-grid * 1.5;
+    position: relative;
+    & > * {
+      margin-bottom: @global-grid / 4;
+    }
+    .title {
+      font-weight: bold;
+
+      a {
+        color: @font-color-link;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+
+    .teaser {
+      font-size: @font-size-small;
+    }
+
+    .inlineDate {
+      font-style: italic;
+    }
+
+    .inlineDate::after {
+      content: ' • ';
+    }
+
+    .play {
+      position: absolute;
+      top: 0;
+      margin-left: -@global-grid * 1.5;
+      top: -2px;
+    }
+
+    .playlistButton {
+      display: block;
+      background: url("img/playlist.svg") no-repeat left center;
+      background-size: 14px;
+      padding-left: 20px;
+      color: @font-color-no-opacity;
+      opacity: @font-color-opacity;
+    }
+
+    .playlistButton:hover {
+      opacity: @font-color-dark-opacity;
+    }
+
+  }
+
+  .disclaimer {
+    font-style: italic;
+    font-size: @font-size-small;
+  }
+}

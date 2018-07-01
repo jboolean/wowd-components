@@ -1,0 +1,132 @@
+@import "~wowd/shared/variables.less";
+
+:local {
+  .playerButton {
+    @size: 44px;
+    font-size: 0;
+    
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0;
+
+    color: @font-color-dark;
+
+    vertical-align: text-top;
+
+    .icon {
+      :global(.background) {
+        stroke: currentColor;
+      }
+    }
+
+    &.loading {
+      cursor: wait;
+    }
+
+    &.light {
+      @lightColor: white;
+      color: @lightColor;
+    }
+
+    &.primary {
+      color: white;
+      .icon :global(.background) {
+        fill: @primary-color;
+        stroke: none;
+      }
+    }
+
+    &.large {
+      width: @size;
+      min-width: @size;
+      height: @size;
+
+      &::before {
+        font-size: 20px;
+        line-height: 43px;
+        padding-left: 4px;
+      }
+
+      &.playing::before {
+        font-size: 15px;
+        line-height: 41px;
+      }
+    }
+
+    &.small {
+      min-width: @size / 2;
+      height: @size / 2;
+
+      &::before {
+        font-size: 10px;
+        line-height: 21.5px;
+      }
+
+      .icon {
+        height: @size / 2;
+        width: @size / 2;
+      }
+    }
+
+  }
+
+  .loading .icon {
+    @duration: 1.5s;
+    @keyframes waveFade1 {
+      0% {
+        opacity: 0;
+      }
+
+      20%, 50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes waveFade2 {
+      0%, 20% {
+        opacity: 0;
+      }
+
+      40%, 70% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes waveFade3 {
+      0%, 40% {
+        opacity: 0;
+      }
+
+      60%, 90% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    // webpack has a bug with local scope mangling animation names
+    :global {
+      .wave1 {
+        animation: @duration waveFade1 ease-in normal infinite;
+      }
+      .wave2 {
+        animation: @duration waveFade2 ease-in normal infinite;
+      }
+      .wave3 {
+        animation: @duration waveFade3 ease-in normal infinite;
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
 import BlockData from '../Block';
-import LocalTime from 'util/time/LocalTime';
-import WeeklyDayTime from 'util/time/WeeklyDayTime';
+import LocalTime from 'utils/time/LocalTime';
+import WeeklyDayTime from 'utils/time/WeeklyDayTime';
 import cx from 'classnames';
 
 type Props<T> = {

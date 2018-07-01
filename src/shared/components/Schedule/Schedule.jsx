@@ -3,12 +3,12 @@ import * as React from 'react';
 
 import BlockData from './Block';
 import Day from './components/Day';
-import DayOfWeek from 'util/time/DayOfWeek';
+import DayOfWeek from 'utils/time/DayOfWeek';
 import stylesheet from './shared/Schedule.less';
-import LocalTime from 'util/time/LocalTime';
-import WeeklyDayTime from 'util/time/WeeklyDayTime';
-import formatLocalTime from 'util/time/formatLocalTime';
-import DayNames from 'util/time/DayNames';
+import LocalTime from 'utils/time/LocalTime';
+import WeeklyDayTime from 'utils/time/WeeklyDayTime';
+import formatLocalTime from 'utils/time/formatLocalTime';
+import DayNames from 'utils/time/DayNames';
 import cx from 'classnames';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';

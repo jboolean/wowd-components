@@ -4,7 +4,7 @@ import * as React from 'react';
 import buildSchedule from './buildSchedule';
 import Schedule from './Schedule';
 import BlockData from './Block';
-import LocalTime from 'util/time/LocalTime';
+import LocalTime from 'utils/time/LocalTime';
 
 import type { timeAccessor as timeAccessorType } from './buildSchedule';
 

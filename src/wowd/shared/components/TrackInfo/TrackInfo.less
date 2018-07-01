@@ -1,0 +1,42 @@
+@import "~wowd/shared/variables.less";
+
+:local {
+  .container {
+    font-size: @font-size-small;
+    line-height: 21px;
+  }
+  .heading {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .show {
+    font-weight: bold;
+  }
+
+  .djs {
+    display: inline;
+  }
+
+  .dj:not(:last-child)::after {
+    content: ', '
+  }
+
+  .timestamp {
+    display: inline-block;
+
+    // reduce jumping around by fixing width,
+    // but not more than necessary.
+    &.singleMinutes {
+      min-width: 2.1em;
+    }
+
+    &.tensOfMinutes {
+      min-width: 2.7em;
+    }
+
+    &.hours {
+      min-width: 3.6em
+    }
+  }
+}

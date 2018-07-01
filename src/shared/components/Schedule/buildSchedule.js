@@ -1,6 +1,6 @@
 // @flow
 
-import type WeeklyDayTime from 'util/time/WeeklyDayTime';
+import type WeeklyDayTime from 'utils/time/WeeklyDayTime';
 import Block from './Block';
 
 export type WeeklySchedule<T> = Block<T>[];

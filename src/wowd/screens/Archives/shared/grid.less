@@ -1,0 +1,40 @@
+@import "~wowd/shared/variables.less";
+
+@column-width: @global-grid * 9;
+:local {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(@column-width, 1fr));
+    grid-gap: @global-grid;
+  }
+
+  // flexbox alternative. 
+  // Does not stretch to fill space as nicely.
+  :global(.no-cssgrid) {
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin: 0 @global-grid / 2 @global-grid @global-grid / 2;
+    }
+
+    .grid > * {
+      flex: 1 1 231px;
+      margin: 0 @global-grid / 2 @global-grid @global-grid / 2;
+      width: @column-width;
+    }
+
+    @media (max-width: 904px) {
+      .grid > * {
+        flex-basis: 452px;
+      }
+    }
+
+    @media (max-width: 590px) {
+      .grid > * {
+        flex-basis: 590px;
+      }
+    }
+
+  }
+}

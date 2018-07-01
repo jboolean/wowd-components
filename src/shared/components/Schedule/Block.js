@@ -1,5 +1,5 @@
 // @flow
-import WeeklyDayTime from 'util/time/WeeklyDayTime';
+import WeeklyDayTime from 'utils/time/WeeklyDayTime';
 
 // Alternatives are groups of events keyed by a string,
 // e.g. 'even' for events that occur on even weeks.
