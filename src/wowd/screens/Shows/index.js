@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import type { Show } from 'utils/Types';
 import { getAllShows } from 'utils/ShowArchivesApi';
-import Archives from './Archives';
+import Shows from './Shows';
 
 let promise;
 // Fetch, transform, and cache archive summary
@@ -18,7 +18,7 @@ type State = {
   shows: ?Show[],
 };
 
-export default class ArchivesApp extends React.Component<void, State> {
+export default class ShowsApp extends React.Component<void, State> {
   constructor(props: void) {
     super(props);
     this.state = {
@@ -40,7 +40,7 @@ export default class ArchivesApp extends React.Component<void, State> {
     }
 
     return (
-      <Archives
+      <Shows
         shows={this.state.shows}
       />
 

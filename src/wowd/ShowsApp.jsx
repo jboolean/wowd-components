@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
 
-import Archives from './screens/Archives';
-import Show from './screens/Show';
-import Episode from './screens/Episode';
+import Shows from './screens/Shows';
+import Show from './screens/Shows/screens/Show';
+import Episode from './screens/Shows/screens/Episode';
 import ScrollToTop from 'components/ScrollToTop';
 import {
   HashRouter as Router,
@@ -16,7 +16,7 @@ const App = () => (
   <Router>
     <React.Fragment>
       <Switch>
-        <Route exact path="/" component={Archives} />
+        <Route exact path="/" component={Shows} />
         <Route exact path="/:showId" component={Show} />
         <Route exact path="/:showId/episodes/:episodeId" component={Episode} />
         <Redirect to="/" />

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import ArchivesApp from './ArchivesApp';
+import ShowsApp from './ShowsApp';
 import GlobalPlayer from './screens/GlobalPlayer';
 import PlayButton from 'components/PlayButton';
 import LiveTrack from 'LiveTrack';
@@ -28,7 +28,7 @@ const renderApp = (container, App) => {
 };
 
 export function renderArchives(container) {
-  renderApp(container, ArchivesApp);
+  renderApp(container, ShowsApp);
 }
 
 export function renderGlobalPlayer(container) {

@@ -6,7 +6,7 @@ import fuzzy from 'fuzzy';
 
 import ShowList from './components/ShowList';
 
-import stylesheet from './Archives.less';
+import stylesheet from './Shows.less';
 
 // Separate searchable terms with 🐄 (cows), since this is unlikely to appear in the text
 const getSearchHash = (show: Show) => {
@@ -36,7 +36,7 @@ type State = {
   filter: ?string,
 };
 
-export default class Archives extends React.Component<Props, State> {
+export default class Shows extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
