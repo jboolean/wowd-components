@@ -9,7 +9,7 @@ import type {
   Playlist,
   PlaylistItem as PlaylistItemType } from 'utils/Types';
 
-import { Link } from 'react-router-dom';
+import Link from 'components/AppLink';
 
 import stylesheet from './Episode.less';
 
@@ -46,7 +46,7 @@ export default class Episode extends React.Component<Props> {
       <div className="paddedPageContent">
         <div>
           <h1>{hasTitle ? episode.name : date}</h1>
-          <Link to={`/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
+          <Link to={`/shows/${show.id}`} className={stylesheet.showName}>{show.name}</Link>
           {hasTitle ? <div className={stylesheet.airDate}>{date}</div> : null}
           {episode.track ?
             <PlayButton className={stylesheet.play} track={episode.track} theme="primary" size="large" /> :

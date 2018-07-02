@@ -1,13 +1,10 @@
 // @flow
 import * as React from 'react';
 
-import PlayButton from 'components/PlayButton';
-import type { EpisodeSummary } from 'utils/Types';
+import EpisodeListItem from 'components/EpisodeListItem';
 import type { Show as ShowType } from 'utils/Types';
 import moment from 'moment';
 import cx from 'classnames';
-
-import { Link } from 'react-router-dom';
 
 type Props = {
   show: ShowType
@@ -26,40 +23,6 @@ const summarizeUrl = (url: string): string => {
 };
 
 export default class Show extends React.Component<Props> {
-  renderEpisode(episode: EpisodeSummary) {
-    if (!episode.id) {
-      throw new Error('id cannot be null');
-    }
-    const url = `/${this.props.show.id}/episodes/${episode.id}`;
-    const date = (<time dateTime={episode.onAirAt.format()}>
-      {episode.onAirAt.format('LL')}
-    </time>);
-    const hasTitle = !!episode.name;
-    return (
-      <div className={stylesheet.episode}>
-        <div className={stylesheet.title}>
-          <Link to={url}>{hasTitle ? episode.name : date}</Link>
-        </div>
-        <div className={stylesheet.teaser}>
-          {hasTitle ? <span className={stylesheet.inlineDate}>{date}</span> : null}
-          <span className={stylesheet.description}>{episode.description}</span>
-        </div>
-        <div className={stylesheet.actions}>
-          {episode.track ? <div className={stylesheet.play}>
-            <PlayButton
-              track={episode.track}
-              theme="primary"
-              size="small"
-            />
-          </div> : null}
-          {episode.hasPlaylist ? <Link to={url} className={stylesheet.playlistButton}>
-            Playlist
-          </Link> : null}
-        </div>
-      </div>
-    );
-  }
-
   render() {
     const { show } = this.props;
     return (
@@ -92,7 +55,9 @@ export default class Show extends React.Component<Props> {
         {show.episodes ?
           <ol className={stylesheet.episodes}>
             {show.episodes.map(episode =>
-              <li key={episode.id}>{this.renderEpisode(episode)}</li>
+              (<li key={episode.id}>
+                <EpisodeListItem showId={show.id} showName={show.name} episode={episode} />
+              </li>)
             )}
           </ol> : null}
         <p className={stylesheet.disclaimer}>

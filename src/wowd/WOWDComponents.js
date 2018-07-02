@@ -2,6 +2,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import ShowsApp from './ShowsApp';
+import DjsApp from './DjsApp';
 import GlobalPlayer from './screens/GlobalPlayer';
 import PlayButton from 'components/PlayButton';
 import LiveTrack from 'LiveTrack';
@@ -27,8 +28,13 @@ const renderApp = (container, App) => {
   }
 };
 
-export function renderArchives(container) {
+export function renderShows(container) {
   renderApp(container, ShowsApp);
+}
+
+// Deprecated name
+export function renderArchives(container) {
+  renderShows(container);
 }
 
 export function renderGlobalPlayer(container) {
@@ -38,6 +44,11 @@ export function renderGlobalPlayer(container) {
 export function renderShowSchedule(container) {
   renderApp(container, ShowSchedule);
 }
+
+export function renderDjs(container) {
+  renderApp(container, DjsApp);
+}
+
 
 export function renderLiveTrackPlayButton(container) {
   ReactDOM.render(

@@ -1,27 +1,21 @@
 // @flow
 import * as React from 'react';
 
-import Shows from './screens/Shows';
-import Show from './screens/Shows/screens/Show';
-import Episode from './screens/Shows/screens/Episode';
+import Dj from './screens/Dj';
 import ScrollToTop from 'components/ScrollToTop';
 import {
   HashRouter as Router,
   Route,
   Switch,
-  Redirect
 } from 'react-router-dom';
 import AppContext from 'components/AppContext';
 
 const App = () => (
-  <AppContext.Provider value="/shows">
+  <AppContext.Provider value="/djs">
     <Router>
       <React.Fragment>
         <Switch>
-          <Route exact path="/" component={Shows} />
-          <Route exact path="/:showId" component={Show} />
-          <Route exact path="/:showId/episodes/:episodeId" component={Episode} />
-          <Redirect to="/" />
+          <Route exact path="/:djId" component={Dj} />
         </Switch>
         <ScrollToTop />
       </React.Fragment>

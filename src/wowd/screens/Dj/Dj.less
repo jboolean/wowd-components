@@ -3,19 +3,15 @@
 :local {
   .container {
     position: relative;
+
+    a {
+      .link();
+    }
   }
 
   .episodes {
     // cannot get webpack to resolve composes
-    composes: list from '../../../../shared/list.less';
-  }
-
-  .airTimes {
-    font-size: @font-size-small;
-  }
-
-  .dj:not(:last-child)::after {
-    content: ' / '
+    composes: list from '../../shared/list.less';
   }
 
   .image {
@@ -25,28 +21,19 @@
 
   @sidebar-size: 300px;
 
-  a.externalUrl {
-    .link();
-  }
-
   @media (min-width: 960px) {
     .episodes {
       width: calc(~"100% -" @sidebar-size + @global-grid * 2);
     }
 
-    .showInfo {
+    .djInfo {
       width: @sidebar-size;
       float:right;
     }
 
-    .showInfo::after {
+    .djInfo::after {
       content: '';
       display: table;
     }
-  }
-
-  .disclaimer {
-    font-style: italic;
-    font-size: @font-size-small;
   }
 }

@@ -14,7 +14,8 @@ module.exports = merge(common, {
     historyApiFallback: {
       rewrites: [
         { from: /^\/shows/, to: '/shows.html' },
-        { from: /^\/schedule/, to: '/schedule.html' }
+        { from: /^\/schedule/, to: '/schedule.html' },
+        { from: /^\/djs/, to: '/djs.html' }
       ]
     }
   },
@@ -26,6 +27,10 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       template: path.join(path.resolve(__dirname, 'src'), 'schedule.html'),
       filename: 'schedule.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(path.resolve(__dirname, 'src'), 'djs.html'),
+      filename: 'djs.html'
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

@@ -1,0 +1,54 @@
+@import "~wowd/shared/variables.less";
+
+:local {
+  .episode {
+    padding-left: @global-grid * 1.5;
+    position: relative;
+    & > * {
+      margin-bottom: @global-grid / 4;
+    }
+    .title {
+      font-weight: bold;
+
+      a {
+        color: @font-color-link;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .teaser {
+      font-size: @font-size-small;
+    }
+
+    .inlineDate {
+      font-style: italic;
+    }
+
+    .inlineDate::after {
+      content: ' • ';
+    }
+
+    .play {
+      position: absolute;
+      top: 0;
+      margin-left: -@global-grid * 1.5;
+      top: -2px;
+    }
+
+    .playlistButton {
+      display: block;
+      background: url("img/playlist.svg") no-repeat left center;
+      background-size: 14px;
+      padding-left: 20px;
+      color: @font-color-no-opacity;
+      opacity: @font-color-opacity;
+    }
+
+    .playlistButton:hover {
+      opacity: @font-color-dark-opacity;
+    }
+  }
+
+}

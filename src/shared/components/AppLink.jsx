@@ -4,17 +4,18 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import { Link as RouterLink } from 'react-router-dom';
+import AppContext from 'components/AppContext';
 
 type Props = {
+  // full absolute path including base app path.
+  // Do not include hashes, they will be inserted automatically.
   to: string,
   [any]: any
 };
 
-const APP_ROOT = '/shows';
-
 /**
- * If this is used in a router, it's the same as the Router <Link>,
- * but if used outside a router, it's a normal link unto the routed app.
+ * This contains multiple routers because it is spread across separate Squarespace pages.
+ * This renders either, a router <Link> if it links to the same app, or a regular <a> otherwise.
  */
 export default class AppLink extends React.Component<Props, void> {
 
@@ -29,9 +30,18 @@ export default class AppLink extends React.Component<Props, void> {
     };
 
     render() {
-      if (this.context.router) {
-        return <RouterLink {...this.props} />;
-      }
-      return <a {...this.props} href={`${APP_ROOT}/#${this.props.to}`} />;
+      return (
+        <AppContext.Consumer>{currentAppRoot => {
+          if (this.context.router && this.props.to.startsWith(currentAppRoot)) {
+            const appScopedUrl = this.props.to.substr(currentAppRoot.length);
+            return <RouterLink {...this.props} to={appScopedUrl} />;
+          }
+          // to is provided without a hash, insert a hash
+          const endOfAppPath = this.props.to.indexOf('/', '1');
+          const withHash = this.props.to.substring(0, endOfAppPath) + '#' + this.props.to.substring(endOfAppPath);
+          return <a {...this.props} href={withHash} />;
+        }}
+        </AppContext.Consumer>
+      );
     }
 }
