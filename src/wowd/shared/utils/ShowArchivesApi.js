@@ -119,6 +119,33 @@ const convertPlaylist = (apiPlaylist: *): Playlist => {
   };
 };
 
+const convertDj = (apiDj: *): Dj => {
+  return {
+    id: apiDj.info.id,
+    name: apiDj.info.name || 'DJ #' + apiDj.info.id,
+    imageUrl: null, //todo
+    website: apiDj.info.web,
+    description: apiDj.info.description,
+    email: apiDj.info.email,
+    episodes: (apiDj.episodes || []).map((apiDjEpisode) => {
+      return {
+        showId: apiDjEpisode.showId,
+        showName: apiDjEpisode.showName,
+        episode: {
+          id: apiDjEpisode.id,
+          onAirAt: convertTime(apiDjEpisode.date, '12:00'),
+          offAirAt: convertTime(apiDjEpisode.date, '12:00'),
+          audioUrl: null,
+          track: null,
+          name: null,
+          description: null,
+          hasPlaylist: false
+        }
+      };
+    })
+  };
+};
+
 const ROOT_URL = 'https://live2.takomaradio.org/spinitron/audioapi2.php';
 
 export function getAllShows(): Promise<Show[]> {
@@ -158,36 +185,13 @@ export function getPlaylist(episodeId: string | number): Promise<Playlist | null
 }
 
 export function getDj(djId: string | number): Promise<Dj | null> {
-  return Promise.resolve({
-    id: 1,
-    imageUrl: null,
-    name: 'John Smith',
-    website: 'http://www.example.com',
-    description: `
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Pellentesque quis eros cursus, ornare sem in, consequat nunc. 
-      In odio velit, elementum vitae accumsan eget, sodales sit amet nunc. 
-      Quisque erat justo, sollicitudin sed velit ac, ultricies viverra leo. 
-      Quisque quis tortor metus. Nullam hendrerit, lacus placerat elementum lacinia,
-       metus enim lacinia eros, vel malesuada ante nibh nec magna. Donec ante risus, 
-       porttitor nec iaculis suscipit, efficitur vitae felis. 
-       Aenean ut eros nec magna bibendum tincidunt. 
-       Aenean eleifend ante vel condimentum suscipit. 
-       In quis ipsum eget est ornare placerat.
-        Morbi massa mi, mollis sit amet risus eget, porttitor rhoncus nisi.
-    `,
-    email: 'mail@example.com',
-    episodes: [{
-      showId: 1,
-      showName: 'Lorem Ipsum Hour',
-      episode: {
-        id: 1,
-        name: 'Episode title here',
-        onAirAt: moment('6-29-2018 15:00'),
-        offAirAt: moment('6-29-2018 16:30'),
-        audioUrl: 'https://live2.takomaradio.org/audio/sr_archive_zrStZTwZxX_16571_2018_06_24_08_00_00.m4a',
-        description: 'Lorum ipsum for an hour'
+  return axios.get(ROOT_URL, { params: { request: 'djinfo', id: djId } })
+    .then(resp => {
+      return convertDj(resp.data);
+    }, (err) => {
+      if (err.response.status === 404) {
+        return null;
       }
-    }]
-  });
+      throw err;
+    });
 }

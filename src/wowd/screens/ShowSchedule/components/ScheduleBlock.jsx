@@ -89,7 +89,7 @@ export default class ScheduleBlock extends React.Component<{block: BlockData<Sho
             </Trigger>}
           <div className={stylesheet.djs}>
             {event.data.djs.map(dj =>
-              <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>
+              <Link key={dj.id} className={stylesheet.dj} to={`/djs/${dj.id}`}>{dj.name}</Link>
             )}
           </div>
         </div>

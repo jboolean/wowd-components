@@ -38,7 +38,7 @@ export type EpisodeSummary = {
 
   onAirAt: moment,
   offAirAt: moment,
-  audioUrl: string,
+  audioUrl: ?string,
   track: ?Track<TrackMetadata>,
   hasPlaylist: boolean
 };

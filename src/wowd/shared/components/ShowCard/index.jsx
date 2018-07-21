@@ -24,7 +24,7 @@ export default function ShowCard(show: ShowType) {
       </div>
       <div className={stylesheet.djs}>
         {show.djs.map(dj =>
-          <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>
+          <Link key={dj.id} className={stylesheet.dj} to={`/djs/${dj.id}`}>{dj.name}</Link>
         )}
       </div>
       <div className={stylesheet.showDescription}>{show.description}</div>

@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import EpisodeListItem from 'components/EpisodeListItem';
+import Link from 'components/AppLink';
 import type { Show as ShowType } from 'utils/Types';
 import moment from 'moment';
 import cx from 'classnames';
@@ -35,7 +36,7 @@ export default class Show extends React.Component<Props> {
               null}
             <div className={stylesheet.djs}>
               {show.djs.map(dj =>
-                <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>
+                <Link key={dj.id} className={stylesheet.dj} to={`/djs/${dj.id}`}>{dj.name}</Link>
               )}
             </div>
             <div className={stylesheet.airTimes}>

@@ -45,14 +45,17 @@ export default class Dj extends React.Component<Props> {
               null}
           </div>
         </div>
-        <h2>Recent shows</h2>
-        <ol className={stylesheet.episodes}>
-          {dj.episodes.map(({ showId, showName, episode }) =>
-            (<li key={episode.id}>
-              <EpisodeListItem showId={showId} showName={showName} episode={episode} />
-            </li>)
-          )}
-        </ol>
+        {dj.episodes.length ? <React.Fragment>
+          <h2>Recent shows</h2>
+          <ol className={stylesheet.episodes}>
+            {dj.episodes.map(({ showId, showName, episode }) =>
+              (<li key={episode.id}>
+                <EpisodeListItem showId={showId} showName={showName} episode={episode} />
+              </li>)
+            )}
+          </ol>
+        </React.Fragment> :
+          <p>No recent shows</p>}
       </div>
     );
   }

@@ -15,7 +15,11 @@
   }
 
   .dj:not(:last-child)::after {
-    content: ' / '
+    content: ' / ';
+    color: @font-color-faded;
+    &:hover {
+      text-decoration: none !important;
+    }
   }
 
   .image {
@@ -25,7 +29,7 @@
 
   @sidebar-size: 300px;
 
-  a.externalUrl {
+  .showInfo a {
     .link();
   }
 
