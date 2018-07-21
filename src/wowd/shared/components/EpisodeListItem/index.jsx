@@ -9,7 +9,7 @@ import Link from 'components/AppLink';
 type Props = {
   episode: EpisodeSummary,
   showId: number,
-  showName: string
+  showName?: string
 };
 
 import stylesheet from './EpisodeListItem.less';
@@ -30,6 +30,9 @@ export default class EpisodeListItem extends React.Component<Props> {
         <div className={stylesheet.title}>
           <Link to={url}>{hasTitle ? episode.name : date}</Link>
         </div>
+        {this.props.showName ? <div className={stylesheet.show}>
+          <Link to={`/shows/${this.props.showId}`}>{this.props.showName}</Link>
+        </div> : null}
         <div className={stylesheet.teaser}>
           {hasTitle ? <span className={stylesheet.inlineDate}>{date}</span> : null}
           <span className={stylesheet.description}>{episode.description}</span>

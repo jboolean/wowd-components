@@ -37,7 +37,7 @@ export default class AppLink extends React.Component<Props, void> {
             return <RouterLink {...this.props} to={appScopedUrl} />;
           }
           // to is provided without a hash, insert a hash
-          const endOfAppPath = this.props.to.indexOf('/', '1');
+          const endOfAppPath = this.props.to.indexOf('/', 1);
           const withHash = this.props.to.substring(0, endOfAppPath) + '#' + this.props.to.substring(endOfAppPath);
           return <a {...this.props} href={withHash} />;
         }}
