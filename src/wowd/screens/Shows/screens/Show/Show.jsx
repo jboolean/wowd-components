@@ -57,7 +57,7 @@ export default class Show extends React.Component<Props> {
           <ol className={stylesheet.episodes}>
             {show.episodes.map(episode =>
               (<li key={episode.id}>
-                <EpisodeListItem showId={show.id} showName={show.name} episode={episode} />
+                <EpisodeListItem showId={show.id} episode={episode} />
               </li>)
             )}
           </ol> : null}

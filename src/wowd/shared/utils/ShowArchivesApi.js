@@ -123,22 +123,33 @@ const convertDj = (apiDj: *): Dj => {
   return {
     id: apiDj.info.id,
     name: apiDj.info.name || 'DJ #' + apiDj.info.id,
-    imageUrl: null, //todo
+    imageUrl: apiDj.info.imageUrl,
     website: apiDj.info.web,
     description: apiDj.info.description,
     email: apiDj.info.email,
     episodes: (apiDj.episodes || []).map((apiDjEpisode) => {
+      const audioUrl = apiDjEpisode.audioUrl;
+      const onAirAt = convertTime(apiDjEpisode.date, apiDjEpisode.onAirAt || '12:00');
+      const offAirAt = convertTime(apiDjEpisode.date, apiDjEpisode.offAirAt || '12:00');
+      const metadata : TrackMetadata = {
+        showName: apiDjEpisode.showName,
+        djs: [apiDj],
+        song: null,
+        isLive: false,
+        onAirAt
+      };
+      const track = audioUrl !== null ? getOrCreateTrack(audioUrl, metadata) : null;
       return {
         showId: apiDjEpisode.showId,
         showName: apiDjEpisode.showName,
         episode: {
           id: apiDjEpisode.id,
-          onAirAt: convertTime(apiDjEpisode.date, '12:00'),
-          offAirAt: convertTime(apiDjEpisode.date, '12:00'),
-          audioUrl: null,
-          track: null,
-          name: null,
-          description: null,
+          onAirAt,
+          offAirAt,
+          audioUrl: apiDjEpisode.audioUrl,
+          track,
+          name: apiDjEpisode.name,
+          description: apiDjEpisode.description,
           hasPlaylist: false
         }
       };
