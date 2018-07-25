@@ -88,7 +88,7 @@ All other data is loaded directly by a higher order component which stores it in
 
 ### LESS
 
-LESS CSS ([lesscss.org](http://lesscss.org)) is used for styles with Webpack's [CSS Modules](https://github.com/webpack-contrib/css-loader#modules). The tl;dr of this is: 1) All less files can be imported into javascript as objects and 2) All the class names within a `:local` block in the less file, which should be the entire less file, get replace with a random string. The exported javascript object is a map from the original class name to the randomized class name. 
+LESS CSS ([lesscss.org](http://lesscss.org)) is used for styles with Webpack's [CSS Modules](https://github.com/webpack-contrib/css-loader#modules). The tl;dr of this is: 1) All less files can be imported into javascript as objects and 2) All the class names within a `:local` block in the less file, which should be the entire less file, gets replace with a random string. The exported javascript object is a map from the original class name to the randomized class name. 
 
 MyGreatComponent.less
 ```css
@@ -103,7 +103,48 @@ MyGreatComponent.jsx
 ```javascript
 import stylesheet from './MyGreatComponent.less'; // { 'myGreatClass' : 'MyGreatComponent-myGreatClass-x1f2'}
 
-export <div className={stylesheet.myGreatComponent} />;
+export <div className={stylesheet.myGreatClass} />;
 ```
 
 This keeps styles local to a component, prevents them from being used elsewhere unintentionally, and allows for using common classnames like `.body` or `.title` without fear of duplication.
+
+## Code style
+This project follows Squarespace's JavaScript Styles. Rather than write a Style Guide, I refer to the [Squarespace .eslintrc](https://github.com/Squarespace/eslint-config-squarespace/blob/master/vanilla/.eslintrc), which has been imported into this project. 
+
+```
+npm run lint
+```
+
+will find style errors, and 
+
+
+```
+npm run lint-fix
+```
+
+will fix many of them.
+
+lint errors will be automatically fixed when saving changes while running `npm run watch` as well.
+
+## Types
+This project uses [Flow](https://flow.org) to add static type checking to Javascript.
+
+**All** files should begin with the comment `//@flow ` to enable type checking unless there is a compelling reason to turn off type checking.
+
+Run
+
+```
+npm run flow
+```
+
+to check for type errors. It is recommended to install Flow integration into your editor.
+
+### Updating Flow's libdefs
+When dependencies are updated, type definities for third-party libraries must also be updated.
+
+```
+npm run install-libdefs
+```
+
+Sometimes the new libdefs are not backwards compatible, so Flow itself may also need to be upgraded at this time.
+
