@@ -75,7 +75,10 @@ export default class ScheduleBlock extends React.Component<{block: BlockData<Sho
                   adjustY: true
                 }
               }}
-              getPopupContainer={() => document.getElementById('siteWrapper')}
+              getPopupContainer={() =>
+                document.getElementById('siteWrapper') ||
+                document.querySelector('.Site') ||
+                document.body}
               popupTransitionName={{
                 enter: stylesheet.slideUpEnter,
                 enterActive: stylesheet.slideUpEnterActive,
