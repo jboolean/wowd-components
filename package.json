@@ -2,17 +2,20 @@
   "name": "wowd-components",
   "version": "0.0.1",
   "description": "Audio components for takomaradio.org",
-  "main": "dist/index.js",
+  "main": "dist/app.bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack  --config webpack.prod.js",
     "watch": "webpack-dev-server --config webpack.dev.js",
     "watch:hot": "webpack-dev-server --config webpack.dev.js --hotOnly",
     "lint": "eslint --ext .js --ext jsx src",
+    "lint-strict": "eslint --ext .js --ext jsx --max-warnings 0 src",
     "lint-fix": "eslint --ext .js --ext jsx --fix src",
     "flow": "flow",
     "profile": "webpack --profile --json --config webpack.prod.js > dist/stats.json && webpack-bundle-analyzer dist/stats.json",
-    "install-libdefs": "flow-typed install --ignoreDeps dev --overwrite"
+    "install-libdefs": "flow-typed install --ignoreDeps dev --overwrite",
+    "publish-please": "publish-please",
+    "prepublishOnly": "publish-please guard"
   },
   "keywords": [
     "wowd-lp",
@@ -68,6 +71,7 @@
     "modernizr": "^3.6.0",
     "modernizr-loader": "^1.0.1",
     "postcss-loader": "^2.1.5",
+    "publish-please": "^3.2.0",
     "svg-react-loader": "^0.4.5",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "^3.12.0",
