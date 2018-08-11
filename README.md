@@ -51,6 +51,13 @@ For example, this code block renders the Shows page
 </script>
 ```
 
+## Release
+
+To release a new version run [`npm version`](https://docs.npmjs.com/cli/version) to bump the version number and create a commit. 
+Push this commit.
+Then run `npm run publish-please` to build and publish a version to npm.
+To include the changes into the takomaradio.org website, follow the instructions in the template's README.
+
 ## Directory structure
 
 The files and directories in `src` are strictly organized into four standard directories. The contents of each directory are limited.
