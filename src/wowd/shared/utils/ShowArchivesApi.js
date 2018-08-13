@@ -79,6 +79,7 @@ const convertShow = (apiShow: *): Show => {
   if (apiShow.showImage) {
     imageUrl = apiShow.showImage.imageUrl;
   }
+
   return {
     id: apiShow.id,
     description: apiShow.description,
@@ -93,7 +94,20 @@ const convertShow = (apiShow: *): Show => {
 };
 
 const convertAllShows = (apiShows: []): Show[] => {
-  const results = apiShows.map(convertShow);
+  const showsById: { [number]: Show } = {};
+  // Convert each show,
+  // if it is a duplicate, merge the air times.
+  for (let apiShow of apiShows) {
+    const show = convertShow(apiShow);
+    if (show.id in showsById) {
+      const conflictingShow = showsById[show.id];
+      Array.prototype.push.apply(conflictingShow.airTimes, show.airTimes);
+    } else {
+      showsById[show.id] = show;
+    }
+  }
+  //$FlowFixMe flow simply does not support types with Object.values for reasons :-(
+  const results: Show[] = Object.values(showsById);
   results.sort((a, b) => a.name.localeCompare(b.name));
   return results;
 };
