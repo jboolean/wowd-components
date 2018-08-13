@@ -36,7 +36,9 @@ export default class Show extends React.Component<Props> {
               null}
             <div className={stylesheet.djs}>
               {show.djs.map(dj =>
-                <Link key={dj.id} className={stylesheet.dj} to={`/djs/${dj.id}`}>{dj.name}</Link>
+                dj.id ?
+                  <Link key={dj.id} className={stylesheet.dj} to={`/djs/${dj.id}`}>{dj.name}</Link> :
+                  <span className={stylesheet.dj}>{dj.name}</span>
               )}
             </div>
             <div className={stylesheet.airTimes}>

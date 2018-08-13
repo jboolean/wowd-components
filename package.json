@@ -16,7 +16,7 @@
     "install-libdefs": "flow-typed install --ignoreDeps dev --overwrite",
     "publish-please": "publish-please",
     "prepublishOnly": "publish-please guard",
-    "preversion": "npm run lint-strict"
+    "preversion": "npm run lint-strict && npm run flow"
   },
   "keywords": [
     "wowd-lp",

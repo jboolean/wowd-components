@@ -5,7 +5,7 @@ import Track from 'TrackManager/Track';
 import Alternations from './Alternations';
 
 export type DjSummary = {
-  id: number,
+  id: ?number,
   name: string,
   imageUrl: ?string
 };
@@ -73,7 +73,7 @@ export type Playlist = {
 };
 
 export type Dj = {
-  id: number,
+  id: ?number,
   name: string,
   imageUrl: ?string,
   email: ?string,
