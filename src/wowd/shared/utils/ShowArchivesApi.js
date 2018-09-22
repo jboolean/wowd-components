@@ -97,7 +97,7 @@ const convertAllShows = (apiShows: []): Show[] => {
   const showsById: { [number]: Show } = {};
   // Convert each show,
   // if it is a duplicate, merge the air times.
-  for (let apiShow of apiShows) {
+  for (const apiShow of apiShows) {
     const show = convertShow(apiShow);
     if (show.id in showsById) {
       const conflictingShow = showsById[show.id];

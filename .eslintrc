@@ -19,5 +19,9 @@
         "config": "webpack.prod.js"
       }
     }
+  },
+  "rules": {
+    "no-var": "error",
+    "prefer-const": "warn"
   }
 }

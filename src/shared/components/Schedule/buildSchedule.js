@@ -67,15 +67,15 @@ function insertBlock<T>(schedule: WeeklySchedule<T>, newBlock: Block<T>) {
 export default function buildSchedule<T>(events: T[], dataAccessor: timeAccessor<T>): WeeklySchedule<T> {
   const schedule = [];
 
-  for (let eventData of events) {
-    for (let occurrance of dataAccessor(eventData)) {
+  for (const eventData of events) {
+    for (const occurrance of dataAccessor(eventData)) {
       const event = {
         start: occurrance.start,
         end: occurrance.end,
         data: eventData
       };
       // Create a block just for this new event
-      let newBlock : Block<T> = new Block(
+      const newBlock : Block<T> = new Block(
         occurrance.start,
         occurrance.end,
         { [occurrance.alternationId]: [event] }

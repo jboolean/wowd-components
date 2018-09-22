@@ -80,7 +80,7 @@ export default class Schedule<T> extends React.Component<Props<T>, {activeDay: D
   }
 
   updateActiveDay() {
-    for (let day of Object.values(DayOfWeek)) {
+    for (const day of Object.values(DayOfWeek)) {
       const dayNode = ((ReactDOM.findDOMNode(this.dayElements[day]): any): HTMLElement);
       const dayWidth = dayNode.getBoundingClientRect().width;
       if (dayNode && (dayNode.offsetLeft - this.weekEl.offsetLeft + dayWidth / 2) >= this.weekEl.scrollLeft) {

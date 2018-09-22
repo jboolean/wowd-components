@@ -30,7 +30,7 @@ const getMillisBetween = (start: WeeklyDayTime, end: WeeklyDayTime): number => {
 export default class Day<T> extends React.Component<Props<T>> {
   renderBlock(block: BlockData<T>) {
     const { renderBlock: BlockContainer } = this.props;
-    let timeInDay = getMillisBetween(this.props.start, this.props.end);
+    const timeInDay = getMillisBetween(this.props.start, this.props.end);
 
     const blockStartMillis = getMillisBetween(this.props.start, block.start);
     const blockEndMillis = getMillisBetween(this.props.start, block.end);
