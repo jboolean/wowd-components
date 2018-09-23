@@ -9,7 +9,11 @@ momentDurationFormatSetup(moment);
 
 import stylesheet from './TrackInfo.less';
 
-import type { TrackMetadata } from 'utils/Types';
+import type {
+  TrackMetadata,
+  LiveTrackMetadata,
+  ArchiveTrackMetadata,
+  SponsorTrackMetadata } from 'utils/Types';
 
 export type Playhead = {
   duration: number,
@@ -33,33 +37,107 @@ const Timestamp = ({ value: seconds }: { value: number }) => {
   return <span className={className}>{string}</span>;
 };
 
-export default function TrackInfo(trackInfo: TrackMetadata & Playhead) {
+function PosititonIndicator(props: {playhead: Playhead}) {
+  const { playhead } = props;
+  return (
+    <div>
+      <Timestamp value={playhead.position}/> / <Timestamp value={playhead.duration}/>
+    </div>
+  );
+}
+
+function LiveTrackInfo(props: { metadata: LiveTrackMetadata }) {
+  const { metadata } = props;
 
   return (
     <div className={stylesheet.container}>
-      {trackInfo.isLive ?
-        <div className={stylesheet.heading}>On Air</div> :
-        trackInfo.onAirAt ? <div>{trackInfo.onAirAt.format('dddd, MMMM Do, YYYY')}</div> : null
-      }
+
+      <div className={stylesheet.heading}>On Air</div>
+
       <div className={stylesheet.show}>
-        <span>{trackInfo.showName}</span>
-        {trackInfo.djs.length ? <span className={stylesheet.djs}>
+        <span>{metadata.showName}</span>
+        {metadata.djs.length ? <span className={stylesheet.djs}>
         &nbsp;(
-          {trackInfo.djs.map((dj) => (
+          {metadata.djs.map((dj) => (
+            <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>
+          ))}
+        )
+        </span> : null}
+        {metadata.song ?
+          <div>
+            <span>{metadata.song.artist}</span>,
+          &lsquo;<span>{metadata.song.name}</span>&rsquo;
+            {/*<div>{metadata.song.album}</div>*/}
+          </div> : null}
+      </div>
+    </div>
+  );
+}
+
+function ArchiveTrackInfo(props: { metadata: ArchiveTrackMetadata, playhead: Playhead }) {
+  const { metadata, playhead } = props;
+
+  return (
+    <div className={stylesheet.container}>
+      {metadata.onAirAt ? <div>{metadata.onAirAt.format('dddd, MMMM Do, YYYY')}</div> : null}
+      <div className={stylesheet.show}>
+        <span>{metadata.showName}</span>
+        {metadata.djs.length ? <span className={stylesheet.djs}>
+        &nbsp;(
+          {metadata.djs.map((dj) => (
             <span key={dj.id} className={stylesheet.dj}>{dj.name}</span>
           ))}
         )
         </span> : null}
       </div>
-      {trackInfo.song ?
-        <div>
-          <span>{trackInfo.song.artist}</span>,
-          &lsquo;<span>{trackInfo.song.name}</span>&rsquo;
-          {/*<div>{trackInfo.song.album}</div>*/}
-        </div> : null}
-      {!trackInfo.isLive ? <div>
-        <Timestamp value={trackInfo.position}/> / <Timestamp value={trackInfo.duration}/>
-      </div> : null}
+      <PosititonIndicator playhead={playhead} />
     </div>
   );
+}
+
+function SponsorTrackInfo(props: { metadata: SponsorTrackMetadata, playhead: Playhead }) {
+  const { metadata, playhead } = props;
+
+  return (
+    <div className={stylesheet.container}>
+      <div className={stylesheet.show}>
+        {metadata.showSponsorImg ?
+          <a href={metadata.showSponsorUrl} target="_blank">
+            <img src={metadata.showSponsorImg} />
+          </a> : null}
+        <span>{metadata.showSponsorText}</span>
+        <span><a href={metadata.showSponsorUrl} target="_blank">{metadata.showSponsorName}</a></span>
+      </div>
+      <PosititonIndicator playhead={playhead} />
+    </div>
+  );
+}
+
+
+function StationIdTrackInfo(props: { playhead: Playhead }) {
+  const { playhead } = props;
+
+  return (
+    <div className={stylesheet.container}>
+      <div className={stylesheet.show}>
+        <span>Takoma Radio • WOWD-LP • 94.3 FM</span>
+      </div>
+      <PosititonIndicator playhead={playhead} />
+    </div>
+  );
+}
+
+
+export default function TrackInfo(props: { metadata: TrackMetadata, playhead: Playhead }) {
+  const { metadata, playhead } = props;
+  if (metadata.isLive) {
+    return <LiveTrackInfo metadata={metadata} />;
+  } else if (metadata.isArchive) {
+    return <ArchiveTrackInfo metadata={metadata} playhead={playhead} />;
+  } else if (metadata.isSponsor) {
+    return <SponsorTrackInfo metadata={metadata} playhead={playhead} />;
+  } else if (metadata.isStationId) {
+    return <StationIdTrackInfo playhead={playhead} />;
+  }
+  throw new Error('Unknown track metadat type');
 }

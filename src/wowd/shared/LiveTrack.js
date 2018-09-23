@@ -1,10 +1,9 @@
 // @flow
-import type { TrackMetadata } from 'utils/Types';
+import type { TrackMetadata, LiveTrackMetadata } from 'utils/Types';
 import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
 const TrackManager = (TrackManagerSingleton: TrackManagerType<TrackMetadata>);
 import axios from 'axios';
-import moment from 'moment';
 
 const INTERVAL = 5000;
 const STREAM_URL = 'http://live2.takomaradio.org/stream';
@@ -15,11 +14,10 @@ const getNowPlayingData = () => {
     .then((resp) => resp.data);
 };
 
-const defaultMetadata : TrackMetadata = {
+const defaultMetadata : LiveTrackMetadata = {
   showName: 'Takoma Radio',
   isLive: true,
   djs: [],
-  onAirAt: null,
   song: null
 };
 
@@ -43,7 +41,6 @@ const updateNowPlaying = (data) => {
     }],
     song,
     isLive: true,
-    onAirAt: moment()
   });
 };
 

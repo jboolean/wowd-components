@@ -13,23 +13,25 @@ type Props = {
   track: Track<TrackMetadata>
 };
 
-type InternalState = {
+type State = {
+  playhead: Playhead,
+  metadata: TrackMetadata,
   boundListeners: {}
 };
 
-export default class ConnectedTrackInfo extends React.Component<Props, TrackMetadata & InternalState & Playhead> {
+export default class ConnectedTrackInfo extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const { track } = props;
 
-    this.state = Object.assign(
-      {},
-      {
+    this.state = {
+      playhead: {
         position: track.position,
         duration: track.duration,
-        boundListeners: {}
       },
-      track.metadata);
+      boundListeners: {},
+      metadata: track.metadata
+    };
 
   }
 
@@ -45,15 +47,19 @@ export default class ConnectedTrackInfo extends React.Component<Props, TrackMeta
     if (this.props.track !== nextProps.track) {
       this.unbindEvents();
       this.bindEvents(nextProps.track);
-      this.setState(nextProps.track.metadata);
+      this.setState({ metadata: nextProps.track.metadata });
     }
   }
 
   bindEvents(track: Track<TrackMetadata>) {
     const newListeners = {
       metadataChanged: (newMetadata) => this.setState(newMetadata),
-      durationChanged: (duration) => this.setState({ duration }),
-      positionChanged: (position) => this.setState({ position })
+      durationChanged: (duration) => this.setState({ playhead: {
+        position: this.state.playhead.position,
+        duration } }),
+      positionChanged: (position) => this.setState({ playhead: {
+        position: position,
+        duration: this.state.playhead.duration } }),
     };
 
     for (const name in newListeners) {

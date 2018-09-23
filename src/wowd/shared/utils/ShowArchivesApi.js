@@ -3,21 +3,23 @@ import axios from 'axios';
 
 import Track from 'TrackManager/Track';
 import moment from 'moment';
-import type { Show, EpisodeSummary, DjSummary, Dj, TrackMetadata, Playlist } from './Types';
+import type { Show, EpisodeSummary, DjSummary, Dj, ArchiveTrackMetadata, TrackMetadata, Playlist } from './Types';
 import Alternations from 'utils/Alternations';
 import TrackManagerSingleton from 'TrackManager';
 import TrackManagerType from 'TrackManager/TrackManager';
 const TrackManager = (TrackManagerSingleton: TrackManagerType<TrackMetadata>);
+import every from 'lodash/every';
 
 // prevents duplicate Tracks from being created.
 const trackCatalog : {[string]: Track<TrackMetadata>} = {};
 
-const getOrCreateTrack = (url: string, metadata: TrackMetadata): Track<TrackMetadata> => {
-  if (!(url in trackCatalog)) {
-    trackCatalog[url] = TrackManager.createTrack(url, metadata);
-  }
-  return trackCatalog[url];
-};
+const getOrCreateTrack =
+  (url: string, metadata: TrackMetadata, preroll?: ?Track<TrackMetadata>): Track<TrackMetadata> => {
+    if (!(url in trackCatalog)) {
+      trackCatalog[url] = TrackManager.createTrack(url, metadata, preroll);
+    }
+    return trackCatalog[url];
+  };
 
 const convertTime = (date: string, time: string): moment =>
   moment(date + ' ' + time, 'YYYY-MM-DD HH:mm');
@@ -25,20 +27,40 @@ const convertTime = (date: string, time: string): moment =>
 const convertTimeOfWeek = (dayOfWeek: string, time: string): moment =>
   moment(dayOfWeek + ' ' + time, 'ddd HH:mm');
 
+const convertPrerollMetadata = (apiSponsorInfo: *): TrackMetadata => {
+  if (every(apiSponsorInfo, (field) => field === null)) {
+    return {
+      isStationId: true
+    };
+  }
+  return {
+    isSponsor: true,
+    showSponsorName: apiSponsorInfo.showSponsorName,
+    showSponsorImg: apiSponsorInfo.showSponsorImg,
+    showSponsorText: apiSponsorInfo.showSponsorText,
+    showSponsorUrl: apiSponsorInfo.showSponsorUrl
+  };
+
+};
+
 const convertEpisodeSummary = (apiEpisode: *, apiShow: *): EpisodeSummary => {
   const onAirAtStr = apiEpisode.onAirAt || apiShow.onAirAt;
   const offAirAtStr = apiEpisode.offAirAt || apiShow.offAirAt;
   const onAirAt = convertTime(apiEpisode.date, onAirAtStr);
   const offAirAt = convertTime(apiEpisode.date, offAirAtStr);
   const audioUrl = apiEpisode.audioUrl;
-  const metadata : TrackMetadata = {
+  const metadata : ArchiveTrackMetadata = {
+    isArchive: true,
+
     showName: apiShow.name,
     djs: apiShow.djs,
-    song: null,
-    isLive: false,
     onAirAt
   };
-  const track = audioUrl !== null ? getOrCreateTrack(audioUrl, metadata) : null;
+  let preroll = null;
+  if (apiEpisode.sponsorPrerollAudioUrl) {
+    preroll = getOrCreateTrack(apiEpisode.sponsorPrerollAudioUrl, convertPrerollMetadata(apiShow.sponsorInfo));
+  }
+  const track = audioUrl !== null ? getOrCreateTrack(audioUrl, metadata, preroll) : null;
   return {
     id: '' + apiEpisode.id,
     name: apiEpisode.name,
@@ -145,11 +167,10 @@ const convertDj = (apiDj: *): Dj => {
       const audioUrl = apiDjEpisode.audioUrl;
       const onAirAt = convertTime(apiDjEpisode.date, apiDjEpisode.onAirAt || '12:00');
       const offAirAt = convertTime(apiDjEpisode.date, apiDjEpisode.offAirAt || '12:00');
-      const metadata : TrackMetadata = {
+      const metadata : ArchiveTrackMetadata = {
+        isArchive: true,
         showName: apiDjEpisode.showName,
         djs: [apiDj],
-        song: null,
-        isLive: false,
         onAirAt
       };
       const track = audioUrl !== null ? getOrCreateTrack(audioUrl, metadata) : null;

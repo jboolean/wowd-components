@@ -19,7 +19,7 @@ const defaultCallbacks : Callbacks = {
   handleStop: noop
 };
 
-type State = 'playing' | 'paused' | 'stopped' | 'loading';
+type State = 'playing' | 'paused' | 'stopped' | 'loading' | 'prerollPlaying' ;
 
 /**
  * An abstraction for a managed piece of audio.
@@ -51,9 +51,11 @@ export default class Track<M> extends EventEmitter {
   duration: number;
   url: string;
   isActive: boolean;
+  preroll: ?Track<M>;
+  _prerollEndedListener: () => void;
 
   // Create using TrackManager, please.
-  constructor(url: string, metadata: M) {
+  constructor(url: string, metadata: M, preroll?: ?Track<M>) {
     super();
 
     this.url = url;
@@ -63,6 +65,7 @@ export default class Track<M> extends EventEmitter {
     this.isActive = false;
     this.state = 'stopped';
     this.callbacks = Object.assign({}, defaultCallbacks);
+    this.preroll = preroll;
   }
 
   /**
@@ -86,7 +89,18 @@ export default class Track<M> extends EventEmitter {
    * Play this track.
    */
   play() {
-    this.callbacks.handlePlay();
+    if (this.state === 'prerollPlaying' && this.preroll) {
+      this.preroll.play();
+    } else if (this.preroll && this.state === 'stopped') {
+      const preroll = this.preroll;
+      this.state = 'prerollPlaying';
+      preroll.on('play', () => {this.emit('prerollPlay', this);});
+      this._prerollEndedListener = () => {this.callbacks.handlePlay();};
+      preroll.on('ended', this._prerollEndedListener);
+      if (this.preroll) {this.preroll.play();}
+    } else {
+      this.callbacks.handlePlay();
+    }
   }
 
   /**
@@ -100,6 +114,9 @@ export default class Track<M> extends EventEmitter {
    * Pause this track.
    */
   pause() {
+    if (this.preroll && this.preroll.state !== 'stopped') {
+      this.preroll.pause();
+    }
     this.callbacks.handlePause();
   }
 
@@ -112,6 +129,12 @@ export default class Track<M> extends EventEmitter {
   }
 
   stop() {
+    if (this.preroll && this.preroll.state !== 'stopped') {
+      const preroll = this.preroll;
+      preroll.removeListener('ended', this._prerollEndedListener);
+      preroll.stop();
+      this.handleEnded();
+    }
     this.callbacks.handleStop();
   }
 

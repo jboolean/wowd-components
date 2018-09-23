@@ -83,6 +83,12 @@ export default class ConnectedPlayButton extends React.Component<Props, PlayButt
           onClick: () => track.play(),
           state: track.state
         });
+      },
+      prerollPlay: () => {
+        this.setState({
+          onClick: () => track.stop(),
+          state: 'loading'
+        });
       }
     };
 

@@ -76,9 +76,9 @@ export default class TrackManager<M> extends EventEmitter {
    * @param  {String} url - url to load
    * @return {Track}
    */
-  createTrack(url: string, metadata: M): Track<M> {
+  createTrack(url: string, metadata: M, preroll?: ?Track<M>): Track<M> {
 
-    const track = new Track(url, metadata);
+    const track = new Track(url, metadata, preroll);
 
     track.setCallbacks({
       handlePlay: () => {

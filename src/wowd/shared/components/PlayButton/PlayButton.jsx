@@ -15,7 +15,7 @@ export type Theme = 'dark' | 'light' | 'primary';
 export type Size = 'small' | 'large';
 
 export type Props = {
-  state: 'playing' | 'paused' | 'stopped' | 'loading',
+  state: 'playing' | 'paused' | 'stopped' | 'loading' | 'prerollPlaying',
   onClick: () => void,
   theme: Theme,
   size: Size,
@@ -33,6 +33,7 @@ export default function PlayButton(props: Props) {
     props.className);
   let Icon;
   switch (state) {
+  case 'prerollPlaying':
   case 'playing':
     Icon = props.pauseable ? PauseIcon : StopIcon;
     break;

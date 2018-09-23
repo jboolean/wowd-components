@@ -16,14 +16,39 @@ export type Song = {
   album: string
 };
 
-export type TrackMetadata = {
+export type ArchiveTrackMetadata = {|
+  isArchive: true,
+
+  showName: string,
+  djs: DjSummary[],
+
+  onAirAt: moment
+|};
+
+export type LiveTrackMetadata = {|
+  isLive: true,
+
   showName: string,
   djs: DjSummary[],
 
   song: ?Song,
-  isLive: boolean,
-  onAirAt: ?moment
-};
+|};
+
+
+export type SponsorTrackMetadata = {|
+  isSponsor: true,
+
+  showSponsorName: string,
+  showSponsorImg: ?string,
+  showSponsorText: string,
+  showSponsorUrl: string
+|};
+
+export type StationIdTrackMetadata = {|
+  isStationId: true,
+|};
+
+export type TrackMetadata = ArchiveTrackMetadata | LiveTrackMetadata | SponsorTrackMetadata | StationIdTrackMetadata;
 
 /**
  * This object is used in two different contexts.
