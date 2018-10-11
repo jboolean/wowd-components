@@ -53,7 +53,7 @@ export default class ConnectedTrackInfo extends React.Component<Props, State> {
 
   bindEvents(track: Track<TrackMetadata>) {
     const newListeners = {
-      metadataChanged: (newMetadata) => this.setState(newMetadata),
+      metadataChanged: (newMetadata) => this.setState({ metadata: newMetadata }),
       durationChanged: (duration) => this.setState({ playhead: {
         position: this.state.playhead.position,
         duration } }),
