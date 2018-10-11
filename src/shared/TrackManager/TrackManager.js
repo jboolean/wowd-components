@@ -73,7 +73,9 @@ export default class TrackManager<M> extends EventEmitter {
   /**
    * Factory method to create a Track object.
    * A Track object is a representation of a single piece of audio.
-   * @param  {String} url - url to load
+   * @param {String} url - url to load
+   * @param {M} metadata - arbitrary data object to attach to this tract
+   * @param {Track} [preroll] another track that will automatically play before this one
    * @return {Track}
    */
   createTrack(url: string, metadata: M, preroll?: ?Track<M>): Track<M> {
