@@ -1,6 +1,6 @@
 {
   "name": "wowd-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Audio components for takomaradio.org",
   "main": "dist/app.bundle.js",
   "scripts": {
