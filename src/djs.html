@@ -12,14 +12,22 @@
     </style>
   </head>
   <body>
-    <div id="siteWrapper" class="clearfix">
-      <div id="secondHeader">
-        <div id="globalPlayer"></div>
+    <div class="Site loaded">
+      <div class="Site-inner">
+        <header id="playBar">
+          <div id="globalPlayer"></div>
+        </header>
+        <div class="Content-outer">
+          <section class="Intro">
+            <div class="Intro-content empty"></div>
+          </section>
+          <main class="Main">
+            <section class="Main-content">
+              <div id="app"></div>
+            </section>
+          </main>
+        </div>
       </div>
-      <main id="page" role="main">
-        <!-- <a onclick="WOWDComponents.playLiveTrack()">Listen Live</a> -->
-        <div id="app"></div>
-      </main>
     </div>
   </body>
   <script>
