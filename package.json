@@ -89,7 +89,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "src/**/*.{js,jsx}": [
       "eslint --fix --max-warnings 0",
       "flow focus-check",
       "git add"

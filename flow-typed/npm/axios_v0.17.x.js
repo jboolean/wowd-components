@@ -1,5 +1,5 @@
-// flow-typed signature: 4552413ec2a67e1215d1e7d98fb37fc7
-// flow-typed version: 8b766558cb/axios_v0.17.x/flow_>=v0.25.x
+// flow-typed signature: 88640131ab7754fbdc4263b75cb0fbac
+// flow-typed version: e67d002d9c/axios_v0.17.x/flow_>=v0.25.x <=v0.74.x
 
 declare module "axios" {
   declare interface ProxyConfig {
@@ -39,7 +39,8 @@ declare module "axios" {
     maxRedirects?: number;
     params?: Object;
     paramsSerializer?: (params: Object) => string;
-    progress?: (progressEvent: Event) => void | mixed;
+    onUploadProgress?: (progressEvent: ProgressEvent) => void;
+    onDownloadProgress?: (progressEvent: ProgressEvent) => void;
     proxy?: ProxyConfig | false;
     responseType?:
       | "arraybuffer"
