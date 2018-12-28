@@ -4,19 +4,20 @@ import * as React from 'react';
 
 import TrackInfo from './TrackInfo';
 import type { Playhead } from './TrackInfo';
-
 import type { TrackMetadata } from 'utils/Types';
 
 import Track from 'TrackManager/Track';
+import { getFurthestPosition } from 'LastPositionRepository';
 
 type Props = {
   track: Track<TrackMetadata>
 };
 
 type State = {
-  playhead: Playhead,
+  boundListeners: {},
   metadata: TrackMetadata,
-  boundListeners: {}
+  playhead: Playhead,
+  resumePosition: number,
 };
 
 export default class ConnectedTrackInfo extends React.Component<Props, State> {
@@ -30,7 +31,8 @@ export default class ConnectedTrackInfo extends React.Component<Props, State> {
         duration: track.duration,
       },
       boundListeners: {},
-      metadata: track.metadata
+      metadata: track.metadata,
+      resumePosition: getFurthestPosition(track) || 0
     };
 
   }
@@ -47,7 +49,10 @@ export default class ConnectedTrackInfo extends React.Component<Props, State> {
     if (this.props.track !== nextProps.track) {
       this.unbindEvents();
       this.bindEvents(nextProps.track);
-      this.setState({ metadata: nextProps.track.metadata });
+      this.setState({
+        metadata: nextProps.track.metadata,
+        resumePosition: getFurthestPosition(nextProps.track) || 0
+      });
     }
   }
 
@@ -80,6 +85,7 @@ export default class ConnectedTrackInfo extends React.Component<Props, State> {
   }
 
   render() {
-    return <TrackInfo {...this.state} />;
+    const skipToResumePosition = () => this.props.track.seek(this.state.resumePosition);
+    return <TrackInfo {...this.state} skipToResumePosition={skipToResumePosition} />;
   }
 }

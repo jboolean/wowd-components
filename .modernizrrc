@@ -4,6 +4,7 @@
     "setClasses"
   ],
   "feature-detects": [
-    "test/css/cssgrid"
+    "test/css/cssgrid",
+    "storage/localstorage"
   ]
 }

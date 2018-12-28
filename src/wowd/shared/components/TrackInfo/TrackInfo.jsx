@@ -37,11 +37,16 @@ const Timestamp = ({ value: seconds }: { value: number }) => {
   return <span className={className}>{string}</span>;
 };
 
-function PosititonIndicator(props: {playhead: Playhead}) {
-  const { playhead } = props;
+function PosititonIndicator(props: { playhead: Playhead, resumePosition?: number, skipToResumePosition?: () => void}) {
+  const { playhead, resumePosition, skipToResumePosition } = props;
   return (
     <div>
-      <Timestamp value={playhead.position}/> / <Timestamp value={playhead.duration}/>
+      <Timestamp value={playhead.position} /> / <Timestamp value={playhead.duration} />&nbsp;
+      {resumePosition && skipToResumePosition && resumePosition > playhead.position ? (
+        <a onClick={skipToResumePosition} className={stylesheet.resume}>
+          <span className={stylesheet.ffIcon}>▸▸︎</span> Resume from <Timestamp value={resumePosition} / >
+        </a>
+      ) : null}
     </div>
   );
 }
@@ -74,9 +79,9 @@ function LiveTrackInfo(props: { metadata: LiveTrackMetadata }) {
   );
 }
 
-function ArchiveTrackInfo(props: { metadata: ArchiveTrackMetadata, playhead: Playhead }) {
-  const { metadata, playhead } = props;
-
+function ArchiveTrackInfo(props: {
+   metadata: ArchiveTrackMetadata, playhead: Playhead, resumePosition: number, skipToResumePosition: () => void }) {
+  const { metadata, playhead, resumePosition, skipToResumePosition } = props;
   return (
     <div className={stylesheet.container}>
       {metadata.onAirAt ? <div>{metadata.onAirAt.format('dddd, MMMM Do, YYYY')}</div> : null}
@@ -90,7 +95,11 @@ function ArchiveTrackInfo(props: { metadata: ArchiveTrackMetadata, playhead: Pla
         )
         </span> : null}
       </div>
-      <PosititonIndicator playhead={playhead} />
+      <PosititonIndicator
+        playhead={playhead}
+        resumePosition={resumePosition}
+        skipToResumePosition={skipToResumePosition}
+      />
     </div>
   );
 }
@@ -128,16 +137,23 @@ function StationIdTrackInfo(props: { playhead: Playhead }) {
 }
 
 
-export default function TrackInfo(props: { metadata: TrackMetadata, playhead: Playhead }) {
-  const { metadata, playhead } = props;
+export default function TrackInfo(props: {
+  metadata: TrackMetadata, playhead: Playhead, resumePosition?: number, skipToResumePosition: () => void
+}) {
+  const { metadata, playhead, resumePosition, skipToResumePosition } = props;
   if (metadata.isLive) {
     return <LiveTrackInfo metadata={metadata} />;
   } else if (metadata.isArchive) {
-    return <ArchiveTrackInfo metadata={metadata} playhead={playhead} />;
+    return (<ArchiveTrackInfo
+      metadata={metadata}
+      playhead={playhead}
+      resumePosition={resumePosition || 0}
+      skipToResumePosition={skipToResumePosition}
+    />);
   } else if (metadata.isSponsor) {
     return <SponsorTrackInfo metadata={metadata} playhead={playhead} />;
   } else if (metadata.isStationId) {
     return <StationIdTrackInfo playhead={playhead} />;
   }
-  throw new Error('Unknown track metadat type');
+  throw new Error('Unknown track metadata type');
 }

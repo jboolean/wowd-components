@@ -39,4 +39,19 @@
       min-width: 3.6em
     }
   }
+
+  .resume {
+    display: block;
+    cursor: pointer;
+    .ffIcon {
+      letter-spacing: -3px;
+      padding-right: 3px;
+    }
+    &:hover, &:hover > *:not(.ffIcon) {
+      text-decoration: underline;
+      &.ffIcon {
+        text-decoration: none;
+      }
+    }
+  }
 }
