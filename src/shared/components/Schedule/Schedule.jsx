@@ -109,14 +109,25 @@ export default class Schedule<T> extends React.Component<Props<T>, {activeDay: D
       WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime),
       WeeklyDayTime.of(DayOfWeek.TUESDAY, latestTime));
     const nowTime = now.time;
+    const isTomorrow = nowTime.compareTo(earliestTime) < 0;
+
+    if (nowTime.compareTo(earliestTime) < 0 && nowTime.compareTo(latestTime) > 0) {
+      // out of bounds
+      return null;
+    }
+
     const timeFromStartToNow = getMillisBetween(
       WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime),
       WeeklyDayTime.of(
-        nowTime.compareTo(earliestTime) > 0 ? DayOfWeek.MONDAY : DayOfWeek.TUESDAY,
+        isTomorrow ? DayOfWeek.TUESDAY : DayOfWeek.MONDAY,
         nowTime)
     );
     const top = (timeFromStartToNow / timeInDay * 100) + '%';
-    const left = ((now.weekday - DayOfWeek.SUNDAY) * (1 / 7) * 100 ) + '%';
+    let dayToShowOn = isTomorrow ? now.weekday - 1 : now.weekday;
+    if (dayToShowOn < DayOfWeek.SUNDAY) {
+      dayToShowOn += 7;
+    }
+    const left = ((dayToShowOn - DayOfWeek.SUNDAY) * (1 / 7) * 100 ) + '%';
     return (
       <div style={{ top }} className={stylesheet.now} >
         <div className={cx(stylesheet.nowBarLine, this.props.nowBarLineClassName)} />
