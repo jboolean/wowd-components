@@ -4,7 +4,7 @@ Custom components for injecting into takomaradio.org.
 
 ## Pre-requisites
 
-This project was developed with NPM 5 and Node 8.
+This project was developed with NPM 6 and Node 8.
 Ensure these are installed with `node --version` and `npm --version`.
 
 ## Development
