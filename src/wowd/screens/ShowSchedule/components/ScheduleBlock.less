@@ -1,5 +1,7 @@
 @import "~wowd/shared/variables.less";
 @import "~rc-trigger/assets/index.css";
+@import "~wowd/shared/utils/calcAlphaBg.less";
+
 
 // #page {
 //   max-width: initial !important;
@@ -45,8 +47,9 @@
 
   .block {
     border-left: @gutters solid @primary-color;
-    // background-color: #fff9f0;
-    background-color: hsla(42, 100%, 92%, 1);
+    @effective-block-background-color: hsla(42, 100%, 92%, 1);
+    @opacity: 0.7;
+    .calcAlphaBg(@effective-block-background-color, @opacity, @background-color);
     .show a {
       .link();
       letter-spacing: 0.6px;
@@ -74,6 +77,29 @@
     content: ', '
   }
 
+  @now-bar-color: saturate(@primary-color, 40%);
+
+  .nowBarLine {
+    background-color: @now-bar-color;
+  }
+
+  .dotSize(@size) {
+    top: -@size/2;
+    width: @size;
+    height: @size;
+    margin-left: -@size / 3;
+    border-radius: @size;
+
+  }
+
+  .nowBarDot {
+    z-index: 1;
+    .dotSize(10.5px);
+    background-color: @now-bar-color;
+    border: 1px solid @background-color;
+    box-sizing: border-box;
+  }
+
    @media (max-width: 960px) {
     .dayNames > * {
       
@@ -85,6 +111,11 @@
         color: @background-color;
         background-color: @primary-color;
       }
+    }
+
+    .nowBarDot {
+      .dotSize(12px);
+      margin-left: 0;
     }
   }
 

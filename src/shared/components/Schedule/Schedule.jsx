@@ -13,6 +13,7 @@ import cx from 'classnames';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import scrollSnapPolyfill from 'css-scroll-snap-polyfill';
+import getMillisBetween from 'utils/getMillisBetween';
 
 
 type Props<T> = {
@@ -23,7 +24,10 @@ type Props<T> = {
   renderBlock: React.ComponentType<{block: BlockData<T>}>,
   dayClassName?: string,
   dayNamesClassName?: string,
-  activeDayNameClassName?: string
+  activeDayNameClassName?: string,
+  nowBarLineClassName?: string,
+  nowBarDotClassName?: string,
+  now?: WeeklyDayTime
 };
 
 const addWeekdays = (day: DayOfWeek, daysToAdd: number): DayOfWeek => {
@@ -92,7 +96,33 @@ export default class Schedule<T> extends React.Component<Props<T>, {activeDay: D
 
   scrollToDay(day: $Values<DayOfWeek>) {
     const dayNode = ((ReactDOM.findDOMNode(this.dayElements[day]): any): HTMLElement);
-    this.weekEl.scrollLeft = dayNode.offsetLeft - this.weekEl.offsetLeft;
+    this.weekEl.scrollLeft = dayNode.offsetLeft;
+  }
+
+  renderNowBar(earliestTime: LocalTime, latestTime: LocalTime) {
+    const { now } = this.props;
+    if (!now) {
+      return null;
+    }
+    // The day of week is arbitrary and needed for this utility
+    const timeInDay = getMillisBetween(
+      WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime),
+      WeeklyDayTime.of(DayOfWeek.TUESDAY, latestTime));
+    const nowTime = now.time;
+    const timeFromStartToNow = getMillisBetween(
+      WeeklyDayTime.of(DayOfWeek.MONDAY, earliestTime),
+      WeeklyDayTime.of(
+        nowTime.compareTo(earliestTime) > 0 ? DayOfWeek.MONDAY : DayOfWeek.TUESDAY,
+        nowTime)
+    );
+    const top = (timeFromStartToNow / timeInDay * 100) + '%';
+    const left = ((now.weekday - DayOfWeek.SUNDAY) * (1 / 7) * 100 ) + '%';
+    return (
+      <div style={{ top }} className={stylesheet.now} >
+        <div className={cx(stylesheet.nowBarLine, this.props.nowBarLineClassName)} />
+        <div style={{ left }} className={cx(stylesheet.nowBarDot, this.props.nowBarDotClassName)} />
+      </div>
+    );
   }
 
   render() {
@@ -152,6 +182,7 @@ export default class Schedule<T> extends React.Component<Props<T>, {activeDay: D
             className={stylesheet.times}
           />
           <div className={stylesheet.week} ref={(el) => {if (el) {this.weekEl = el;}}}>
+            {this.renderNowBar(earliestTime, latestTime)}
             {Object.values(DayOfWeek).map((dayOfWeek: DayOfWeek) =>
               (
                 <Day

@@ -1,7 +1,7 @@
 // @flow
 
 import type DayOfWeek from './DayOfWeek';
-import type LocalTime from './LocalTime';
+import LocalTime from './LocalTime';
 
 /**
  * A representation of a day of the week and a time of day.
@@ -23,6 +23,17 @@ export default class WeeklyDayTime {
 
   static of(weekday: DayOfWeek, time: LocalTime): WeeklyDayTime {
     return new WeeklyDayTime(weekday, time);
+  }
+
+  static now() {
+    const nowDate = new Date();
+    return WeeklyDayTime.of(
+      nowDate.getDay() + 1,
+      LocalTime.of(
+        nowDate.getHours(),
+        nowDate.getMinutes(),
+        nowDate.getSeconds(),
+        nowDate.getMilliseconds()));
   }
 
   compareTo(that: WeeklyDayTime) {

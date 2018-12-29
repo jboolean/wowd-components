@@ -122,3 +122,5 @@ export default class ScheduleBlock extends React.Component<{block: BlockData<Sho
 export const dayClassName = stylesheet.day;
 export const dayNamesClassName = stylesheet.dayNames;
 export const activeDayNameClassName = stylesheet.active;
+export const nowBarLineClassName = stylesheet.nowBarLine;
+export const nowBarDotClassName = stylesheet.nowBarDot;

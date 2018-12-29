@@ -35,6 +35,7 @@
 
   .week {
     display: flex;
+    position: relative;
     flex-direction: row;
   }
 
@@ -43,6 +44,26 @@
     width: 100% / 7;
     
     overflow: hidden;
+  }
+
+  .now {
+    position: absolute;
+    width: 100%;
+  }
+
+  .nowBarLine {
+    height: 1px;
+    width: calc(~"100% -" 3px);
+    background-color: red;
+  }
+
+  .nowBarDot {
+    @size: 10px;
+    position: absolute;
+    top: -@size/2;
+    width: @size;
+    height: @size;
+    background-color: red;
   }
 
   @media (max-width: 960px) {
@@ -87,6 +108,10 @@
       border-radius: 100%;
       line-height: @size;
     }
+
+    .now {
+      width: calc(~"700% +" 7 * 3px)
+    }
   }
 
   .blockContainer {
@@ -102,4 +127,5 @@
     line-height: 0;
     overflow: visible;
   }
+
 }

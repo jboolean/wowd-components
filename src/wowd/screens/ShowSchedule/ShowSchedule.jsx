@@ -1,9 +1,17 @@
 // @flow
 import * as React from 'react';
 
-import ScheduleBlock from './components/ScheduleBlock';
-import { dayClassName, dayNamesClassName, activeDayNameClassName } from './components/ScheduleBlock';
+// import must come early to give default styles low precedence
 import Schedule from 'components/Schedule';
+
+import ScheduleBlock from './components/ScheduleBlock';
+import {
+  dayClassName,
+  dayNamesClassName,
+  activeDayNameClassName,
+  nowBarLineClassName,
+  nowBarDotClassName
+} from './components/ScheduleBlock';
 import type { timeAccessor } from 'components/Schedule';
 import type { Show } from 'utils/Types';
 
@@ -43,6 +51,8 @@ export default function ShowSchedule(props: Props) {
       dayClassName={dayClassName}
       dayNamesClassName={dayNamesClassName}
       activeDayNameClassName={activeDayNameClassName}
+      nowBarLineClassName={nowBarLineClassName}
+      nowBarDotClassName={nowBarDotClassName}
     />
   );
 }
