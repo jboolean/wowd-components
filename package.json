@@ -66,7 +66,8 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "flow-bin": "^0.73.0",
-    "flow-typed": "^2.4.0",
+    "flow-typed": "^2.5.1",
+    "history": "git://github.com/amuzalevskiy/history.git",
     "html-webpack-plugin": "^2.30.1",
     "husky": "^1.0.0-rc.15",
     "less": "^2.7.3",
@@ -81,8 +82,7 @@
     "webpack": "^3.12.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-server": "^2.11.2",
-    "webpack-merge": "^4.1.3",
-    "history": "git://github.com/amuzalevskiy/history.git"
+    "webpack-merge": "^4.1.3"
   },
   "husky": {
     "hooks": {
